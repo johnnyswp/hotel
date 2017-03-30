@@ -1,0 +1,48 @@
+{
+	"require": {
+		"laravel/framework": "4.2.*",
+		"cartalyst/sentry": "2.1.*",
+		"laracasts/validation": "~1.0",		 
+		"roumen/sitemap": "2.4.15",
+		"dingo/api": "0.8.3",
+		"barryvdh/laravel-cors": "0.2.x",
+		"paypal/rest-api-sdk-php": "*",
+		"mews/captcha": "dev-master-l4",
+		"guzzlehttp/guzzle": "~4.0"
+	},
+	"require-dev": {
+		"way/generators": "2.*"
+	},
+	"autoload": {
+		"classmap": [
+			"app/commands",
+			"app/controllers",
+			"app/models",
+			"app/database/migrations",
+			"app/database/seeds",
+			"app/tests/TestCase.php"
+		],
+		"files": ["app/basicAuth/helpers.php","app/Helpers.php"],
+		"psr-4": {
+			"basicAuth\\": "app/basicAuth"
+		}
+	},
+	"scripts": {
+		"post-install-cmd": [
+			"php artisan clear-compiled",
+			"php artisan optimize"
+		],
+		"post-update-cmd": [
+			"php artisan clear-compiled",
+			"php artisan optimize"
+		],
+		"post-create-project-cmd": [
+			"php artisan key:generate"
+		]
+	},
+	"config": {
+		"preferred-install": "dist"
+	},
+	"minimum-stability": "stable"
+
+}

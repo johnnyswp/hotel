@@ -1,0 +1,61 @@
+body{
+	background: #7cb342;
+}
+#welcome .box{
+	    float: left;
+    width: 100%;
+    color: white;padding-top: 10px;
+}
+.aviable{
+  display: block;
+  width: 100%;
+  height: 100%;
+    background-color: rgba(128,128,128,0.70);
+    position: absolute;
+    z-index: 777;
+        text-align: center;
+    padding: 29px 16px;
+    font-size: 1rem;
+}
+#welcome .divider{
+	display: block;
+    height: 2px;
+    width: 100%;
+    float: inherit;
+    clear: none;
+    margin: 10px 0;
+    border-bottom-style: outset;
+    border-color: rgb(124, 179, 66);
+}
+h4.truncate.white-text.flow-text {
+    margin-top: 0px;
+    margin-bottom: 5px;
+}
+/* INPUTS */
+	/* label color */
+   .input-field label {
+     color: #000;
+   }
+   /* label focus color */
+   .input-field input[type=text]:focus + label {
+     color: #000;
+   }
+   /* label underline focus color */
+   .input-field input[type=text]:focus {
+     border-bottom: 1px solid #000;
+     box-shadow: 0 1px 0 0 #000;
+   }
+   /* valid color */
+   .input-field input[type=text].valid {
+     border-bottom: 1px solid #000;
+     box-shadow: 0 1px 0 0 #000;
+   }
+   /* invalid color */
+   .input-field input[type=text].invalid {
+     border-bottom: 1px solid #000;
+     box-shadow: 0 1px 0 0 #000;
+   }
+   /* icon prefix focus color */
+   .input-field .prefix.active {
+     color: #000;
+   }

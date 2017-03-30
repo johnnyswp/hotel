@@ -1,0 +1,253 @@
+/*Generales */
+body {
+    background: #bdbdbd !important;
+}
+
+.teal {
+    background-color: #B97A57 !important;
+}
+.teal-text{
+  color: #B97A57 !important;
+}
+.btn, .btn-large{
+    background-color:#770000 !important;
+
+}
+
+.card-panel.teal.box{
+	padding: 0px !important;
+	margin: 0;
+}
+.white-text{
+    color:#780001 !important;
+}
+#welcome{
+	padding: 0px !important;
+}
+
+#welcome .divider{
+	border-color: rgba(255, 255, 255, 0);
+}
+
+span.card-title.truncate{
+	background-color:#770000 !important;
+}
+/* CartShop STYLES */
+ul#listCarts {
+	margin-bottom: 0;
+}
+ul#listCarts li {
+        padding: 0;
+}
+ul#listCarts a#close_item{
+	position: relative;
+    right: 0;
+    width: 35px;
+    height: 35px;
+    float: left;
+     top: 21px;
+
+
+}
+
+#entregaProgramada{
+	display: none;
+}
+
+.clockpicker-popover{
+	position: absolute !important;
+	 z-index: 9999;
+}
+
+.btn-floating.btn-large i{
+	line-height:0;
+	    top: 17px;
+    position: absolute;
+    left: 6px;
+}
+.number-text{
+	display: block;
+    width: 50px;
+    height: 83px;
+    font-size: 2rem;
+    text-align: center;
+    content: "0";
+    position: relative;
+    background: #770000;
+    float: right;
+    color: white !important;
+    padding-top: 18px;
+}
+span.title{
+	    position: relative;
+    float: left;
+        top: 20px;
+    left: 10px;
+}
+span.price{
+	position: absolute;
+    top: 40px;
+    left: 100px;
+}
+a.add2{
+	    top: 48px !important;
+    right: 25px !important;
+}
+a.remove2{
+	 top: 48px !important;
+    right: 1px !important;
+}
+.collection .collection-item.avatar .circle {
+    position: relative;
+    width: 55px;
+    height: 55px;
+    overflow: hidden;
+    left: 6px;
+    display: inline-block;
+    vertical-align: middle;
+    float: left;
+    top: 12px;
+    border-radius: 0px !important;
+
+}
+
+.collection .collection-item.avatar .secondary-content {
+    z-index: 9;
+}
+
+/* modal Cart*/
+.modal.bottom-sheet{
+	    top: auto;
+    margin: 0;
+    width: 100%;
+    max-height: 100%;
+    border-radius: 0;
+    will-change: bottom, opacity;
+    height: 100%;
+}
+.aviable {
+    display: block;
+    width: 100%;
+    height: 101%;
+    background-color: rgba(221, 221, 221, 0.89);
+    position: absolute;
+    z-index: 777;
+    text-align: center;
+    padding: 47px 16px;
+    font-size: 1rem;
+    color: #4caf50;
+}
+.item{
+		position:relative;	
+	}
+	.item .card-image {
+		position: relative;
+	}
+	.item span.card-title {
+		font-size: 1rem;
+		display: block;
+		color: white;
+		position: relative;
+		background: rgba(38, 166, 154, 0.82);
+		width: 100%;
+		padding: 0 5px;
+		top: 20px;
+		z-index: 2;
+	}
+
+	.item .card-image img {
+		width: 100%;
+		height: 125px;
+		display: block;
+	}
+	.item .card-action{
+	position: absolute;
+    display: block;
+    bottom: -127px;
+    width: 60%;
+    right: 0;
+	}
+	.item .card-action a{
+		color:white;
+	}
+
+	.item .card-action .add{
+		display: block;
+		position: absolute;
+		bottom: -7px;
+		right: 0;
+	}
+	.item .card-action .less0{
+		display: block;
+		position: absolute;
+		bottom: -7px;
+		right: 0;
+	}
+	.divider.c{
+		border-color: rgba(221, 221, 221, 0) !important;
+	}
+
+.datetimepicker{
+	color: red;
+}
+#item_menu{
+padding: 0;
+	margin:0;
+}	
+
+
+
+
+
+
+#item_menu .item {
+	padding: 0;
+	margin:0;
+}	
+#item_menu .item .card-image img
+{
+	    width: 100%;
+    height: 100%;
+    display: block;
+}
+#item_menu .item span.card-title{
+	font-size: 2rem;
+	display: block;
+    color: white;
+    position: absolute;
+    background: rgba(38, 166, 154, 0.82);
+    width: 100%;
+    padding: 0 5px;
+    top: 0;
+    z-index: 2;
+}
+#item_menu .item .card-action a{
+	font-size: 3rem;
+}
+#item_menu .item .card-action .number-text0{
+	right: 52px;
+    position: absolute;
+    width: 50px;
+    text-align: center;
+    font-size: 3rem;
+
+}
+#item_menu .item .card-action a.less_{
+	    right: 100px;
+	        top: 3px;
+}
+#item_menu .item .card-action a.add{
+	bottom: -12px;
+}
+#item_menu .item span.card-title.truncate b
+{
+	    display: block;
+    width: 100%;
+    text-align: center;
+}
+
+.item_description{
+    height: auto;
+    padding: 0;
+}
+

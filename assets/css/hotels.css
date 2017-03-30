@@ -1,0 +1,32 @@
+::-moz-selection {
+  background-color: #0aa699;
+  color: white;
+}
+
+::selection {
+  background-color: #0aa699;
+  color: white;
+}
+
+html {
+  min-width: 320px;
+  overflow-x: hidden;
+  overflow-y: hidden;
+}
+
+body {
+  background: #1C1D1F;
+  color: #6f7b8a;
+  font-family: "Ubuntu";
+  font-weight: 300;
+  min-width: 320px;
+  -webkit-font-smoothing: antialiased;
+}
+
+
+body.leftMenu .mm-menu:not(.mm-right){
+  top:51px;
+}
+#main{
+  padding-top: 0px;
+}

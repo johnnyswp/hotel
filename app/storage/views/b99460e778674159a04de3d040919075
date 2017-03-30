@@ -1,0 +1,34 @@
+
+
+<?php $__env->startSection('title', 'Home '); ?>
+
+<?php $__env->startSection('content'); ?>
+	<div class="jumbotron" style="position: relative; z-index: 99999999999999999999999;">
+    <br>
+		 <br><h2><?php echo trans('main.Gracias por su Registro'); ?> <span></span> ...</h2><br>
+        <p id="mgs">
+        	<?php if(isset($flash_message)): ?>
+                <label class="label label-success"></label>
+                <p id="mgs"><?php echo $flash_message; ?>.</p> 
+                <br>
+            <?php endif; ?>
+            <?php if($errors->has()): ?>
+			<div class="alert-box alert">
+				<!--recorremos los errores en un loop y los mostramos-->
+				<?php foreach($errors->all('<p style="  background-color: rgb(216, 47, 47); color: white;">:message</p>') as $message): ?>
+				<?php echo $message; ?>
+
+				<?php endforeach; ?>
+			</div>
+			<?php endif; ?>
+		</p> 
+        <br>
+		<?php if(!Sentry::check()): ?>
+		<p>
+			<a href="<?php echo url('/'); ?>" class="btn btn-success btn-lg" role="button" style="background-color: #750e2a;
+    color: white;" ><?php echo trans('main.login'); ?></a> 
+		</p>
+		<?php endif; ?>
+	</div>
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('master', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

@@ -1,0 +1,538 @@
+.page-container.page-navigation-toggled .page-content{
+  margin-left: 0px;
+}
+
+.page-container .page-content .content-frame .content-frame-body
+{
+  margin-left: 0px;
+}
+
+.task-text.ui-sortable-handle p{
+  margin: 0;
+  float: left;
+}
+
+.ml-10{
+	margin-left: 10px !important;
+}
+.mt-10{
+	margin-top: 10px !important;
+}
+.mb-3{
+    margin-bottom: 3px !important;
+}
+.both{
+	clear: both;
+	float: left;
+}
+/* task */
+.task-placeholder { 
+	height: 60px !important; 
+	line-height: 10px !important; 
+	background-color: rgba(255, 1, 1, 0.5) !important;
+	border:5px dotted black !important;
+}
+
+.tasks{
+	min-height: 120px;
+	background-color: rgba(51, 51, 51, 0.11);;
+}
+
+.tasks .task-item{
+	position: relative;
+}
+
+.tasks .task-item .task-text{
+	margin-bottom: 0;
+}
+
+.task-scheduled{
+	 border-left-color: #89ad4d !important;
+}
+
+.task-complete{
+	 border-left-color: red !important;
+   background: white !important;
+}
+
+.task-preparing{
+  border-left-color: #a43f3e !important;
+}
+
+.task-progreess{
+	border-left-color: red !important;	
+}
+
+.tasks .task-item .circle{
+	border-radius: 50%;
+	width: 30px;
+	height: 30px;
+	display: block;
+	background-color: #F0F0F0;
+	position: absolute;
+	right: 10px;
+    top: 10px;
+}
+.bag-item{
+	width: 17px;
+    height: 17px;
+    background: #fea223;
+    display: inline-block;
+    border-radius: 50%;
+    color: white;
+}
+.bag-item b{
+	    margin-left: 5px;
+}
+.btn-right{
+    position: absolute;
+    top: 22%;
+    left: 30%;
+    font-size: 15px;
+}
+
+/* Acordion */
+.panel-group .panel{
+	margin-bottom: 0;
+    border-radius: inherit;
+    border: none;
+}
+.panel-group .panel .input-group{
+	width: 115px;
+	    display: inline-table;
+}
+.panel .panel-heading {
+    padding: 0px;
+        background: #428BCA;
+    border-radius: inherit;
+}
+
+.panel .panel-heading .panel-title{
+	width: 100%;
+	display: block;
+	    color: white;
+}
+
+
+.panel-title ul.panel-controls{
+	position: absolute;
+    z-index: 999;
+    top: 2px;
+    right: 3px;
+}
+
+.panel-title ul.panel-controls > li > a{
+	color: #33414E;
+    border: 2px solid #33414E;
+    font-weight: 700;
+    width: 1.7em;
+    height: 1.7em;
+	text-decoration: none;
+}
+
+.panel-title ul.panel-controls > li > a > span{
+    margin-top: 3px;
+    display: block;
+}
+
+.panel-title > a {
+    text-decoration: none;
+    font-size: .8em;
+    width: 100%;
+	display: block;
+}
+
+.panel-group.accordion{
+	margin-bottom: 0px;
+	display: none;
+	background: rgb(51, 65, 78);
+    color: white;
+}
+
+.panel-group.accordion .btn-block{
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding: 5px 0px;
+    margin-top: 10px;
+}
+.panel-group.accordion .col-md-4{
+	padding: 0;
+	margin: 0;
+}
+.list-group-item p span.cant {
+    display: block;
+    float: left;
+    margin-top: 5px;
+    margin-right: 20px;
+}
+.list-group .list-group-item:last-child{
+	    padding: 0;
+    line-height: 30px;
+}
+.list-group-contacts .list-group-item img{
+	width: 100px;
+    height: 75px;
+}
+.state{
+	padding:0 19px !important;
+}
+
+.hr{
+	margin-top: 0;
+    border-color: #33414E;
+    border-width: 2px;
+    margin-bottom: 5px;
+}
+
+/*
+00 - modal
+------------------------------------------------------------*/
+body.modal-open, .modal-open .navbar-fixed-top, .modal-open .navbar-fixed-bottom {
+  margin-right: 0;
+   background-color: #ffffff;
+}
+
+.modal {
+  background-color: #ffffff;
+  background-clip: padding-box;
+  border-radius: 0;
+  bottom: auto;
+  -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  left: 10%;
+  padding: 0;
+  right: auto;
+  width: 80%;
+  top: 30px !important;
+  position: absolute;
+  z-index: 9999999999999;
+ }
+
+.modal.container {
+  max-width: none;
+}
+
+.modal-open {
+  overflow: hidden;
+}
+.modal-open.page-overflow .page-container {
+  overflow-y: scroll;
+}
+.modal-open.page-overflow .page-container .navbar-fixed-top, .modal-open.page-overflow .page-container .navbar-fixed-bottom {
+  overflow-y: scroll;
+}
+.modal-open.page-overflow .modal-scrollable {
+  overflow-y: scroll;
+}
+
+.modal-scrollable {
+  bottom: 0;
+  left: 0;
+  overflow: auto;
+  position: fixed;
+  right: 0;
+  top: 0;
+}
+
+.modal {
+  outline: none;
+  overflow: visible;
+  position: absolute;
+  top: 50%;
+}
+
+/* Effect : scale up */
+.md-scale {
+  opacity: .6;
+  -moz-transform: scale(0.7);
+  -ms-transform: scale(0.7);
+  -webkit-transform: scale(0.7);
+  transform: scale(0.7);
+  -moz-transition: opacity 0.25s linear, -moz-transform 0.25s;
+  -webkit-transition: opacity 0.25s linear, -webkit-transform 0.25s;
+  transition: opacity 0.25s linear, transform 0.25s;
+}
+.md-scale.in {
+  opacity: 1;
+  -moz-transform: scale(1);
+  -ms-transform: scale(1);
+  -webkit-transform: scale(1);
+  transform: scale(1);
+}
+
+/* Effect : Slide from the right */
+.md-slideRight {
+  opacity: 0;
+  -moz-transform: translateX(20%);
+  -ms-transform: translateX(20%);
+  -webkit-transform: translateX(20%);
+  transform: translateX(20%);
+  -moz-transition: opacity 0.25s linear, -moz-transform 0.25s cubic-bezier(0.25, 0.5, 0.5, 0.9);
+  -webkit-transition: opacity 0.25s linear, -webkit-transform 0.25s cubic-bezier(0.25, 0.5, 0.5, 0.9);
+  transition: opacity 0.25s linear, transform 0.25s cubic-bezier(0.25, 0.5, 0.5, 0.9);
+}
+.md-slideRight.in {
+  opacity: 1;
+  -moz-transform: translateX(0);
+  -ms-transform: translateX(0);
+  -webkit-transform: translateX(0);
+  transform: translateX(0);
+}
+
+/* Effect : Slide from the bottom */
+.md-slideUp {
+  opacity: 0;
+  -moz-transform: translateY(20%);
+  -ms-transform: translateY(20%);
+  -webkit-transform: translateY(20%);
+  transform: translateY(20%);
+  -moz-transition: opacity 0.25s linear, -moz-transform 0.25s cubic-bezier(0.25, 0.5, 0.5, 0.9);
+  -webkit-transition: opacity 0.25s linear, -webkit-transform 0.25s cubic-bezier(0.25, 0.5, 0.5, 0.9);
+  transition: opacity 0.25s linear, transform 0.25s cubic-bezier(0.25, 0.5, 0.5, 0.9);
+}
+.md-slideUp.in {
+  opacity: 1;
+  -moz-transform: translateY(0);
+  -ms-transform: translateY(0);
+  -webkit-transform: translateY(0);
+  transform: translateY(0);
+}
+
+/* Effect : Slide from the top */
+.md-slideDown {
+  opacity: 0;
+  -moz-transform: translateY(-40%);
+  -ms-transform: translateY(-40%);
+  -webkit-transform: translateY(-40%);
+  transform: translateY(-40%);
+  -moz-transition: opacity 0.25s linear, -moz-transform 0.25s cubic-bezier(0.25, 0.5, 0.5, 0.9);
+  -webkit-transition: opacity 0.25s linear, -webkit-transform 0.25s cubic-bezier(0.25, 0.5, 0.5, 0.9);
+  transition: opacity 0.25s linear, transform 0.25s cubic-bezier(0.25, 0.5, 0.5, 0.9);
+}
+.md-slideDown.in {
+  opacity: 1;
+  -moz-transform: translateY(0);
+  -ms-transform: translateY(0);
+  -webkit-transform: translateY(0);
+  transform: translateY(0);
+}
+
+/* Effect:  slide and stick to top */
+.modal.md-stickTop {
+  top: 0;
+}
+
+.md-stickTop {
+  opacity: 0;
+  -moz-transform: translateY(-100%);
+  -ms-transform: translateY(-100%);
+  -webkit-transform: translateY(-100%);
+  transform: translateY(-100%);
+  -moz-transition: opacity 0.25s linear, -moz-transform 0.25s;
+  -webkit-transition: opacity 0.25s linear, -webkit-transform 0.25s;
+  transition: opacity 0.25s linear, transform 0.25s;
+}
+.md-stickTop.in {
+  border-radius: 0 0 3px 3px;
+  margin-top: 0 !important;
+  opacity: 1;
+  -moz-transform: translateY(0%);
+  -ms-transform: translateY(0%);
+  -webkit-transform: translateY(0%);
+  transform: translateY(0%);
+}
+
+/* Effect : 3D flip horizontal */
+.modal.md-flipHor {
+  -webkit-perspective: 1300px;
+  -moz-perspective: 1300px;
+  perspective: 1300px;
+}
+
+.md-flipHor {
+  opacity: 0;
+  -moz-transform: rotateY(-70deg);
+  -ms-transform: rotateY(-70deg);
+  -webkit-transform: rotateY(-70deg);
+  transform: rotateY(-70deg);
+  -moz-transition: opacity 0.25s linear, -moz-transform 0.25s;
+  -webkit-transition: opacity 0.25s linear, -webkit-transform 0.25s;
+  transition: opacity 0.25s linear, transform 0.25s;
+  -webkit-transform-style: preserve-3d;
+  -moz-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+}
+.md-flipHor.in {
+  opacity: 1;
+  -moz-transform: rotateY(0deg);
+  -ms-transform: rotateY(0deg);
+  -webkit-transform: rotateY(0deg);
+  transform: rotateY(0deg);
+}
+
+/* Effect : 3D flip vertical */
+.modal.md-flipVer {
+  -webkit-perspective: 1300px;
+  -moz-perspective: 1300px;
+  perspective: 1300px;
+}
+
+.md-flipVer {
+  opacity: 0;
+  -moz-transform: rotateX(-70deg);
+  -ms-transform: rotateX(-70deg);
+  -webkit-transform: rotateX(-70deg);
+  transform: rotateX(-70deg);
+  -moz-transition: opacity 0.25s linear, -moz-transform 0.25s;
+  -webkit-transition: opacity 0.25s linear, -webkit-transform 0.25s;
+  transition: opacity 0.25s linear, transform 0.25s;
+  -webkit-transform-style: preserve-3d;
+  -moz-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+}
+.md-flipVer.in {
+  opacity: 1;
+  -moz-transform: rotateX(0deg);
+  -ms-transform: rotateX(0deg);
+  -webkit-transform: rotateX(0deg);
+  transform: rotateX(0deg);
+}
+
+.modal-header {
+  border-bottom: 1px solid;
+  border-color: #e5e5e5;
+}
+
+.modal-header[class^="bd-"], .modal-header[class*="bd-"] {
+  border-width: 5px !important;
+}
+
+.modal-body {
+  max-height: none;
+  overflow: visible;
+}
+
+.modal-footer {
+  margin: 0;
+}
+.modal-footer .btn {
+  margin-bottom: 0;
+}
+
+.modal.modal-absolute {
+  position: absolute;
+  z-index: 950;
+}
+.modal .loading-mask {
+  background: #fff;
+  border-radius: 6px;
+  bottom: 0;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.modal-backdrop {
+  background: #111;
+  filter: alpha(opacity=9335);
+  opacity: 0.33;
+  position: fixed;
+
+}
+.modal-backdrop.modal-absolute {
+  z-index: 33;
+  position: fixed;
+}
+.modal-backdrop.fade.in {
+	position: fixed;
+  background: #111;
+  filter: alpha(opacity=25);
+  opacity: 0.25;
+    -moz-transition: opacity 0.25s linear, -moz-transform 0.25s;
+  -webkit-transition: opacity 0.25s linear, -webkit-transform 0.25s;
+ z-index: 33;
+}
+
+.modal-backdrop.fade.out {
+  background: #111;
+  filter: alpha(opacity=0);
+  opacity: 0;
+    -moz-transition: opacity 0.25s linear, -moz-transform 0.25s;
+  -webkit-transition: opacity 0.25s linear, -webkit-transform 0.25s;
+   z-index: 33;
+}
+
+.modal.container {
+  margin-left: -470px;
+  width: 940px;
+}
+
+/* Modal Overflow */
+.modal-overflow.modal {
+  top: 1%;
+}
+.modal-overflow.modal.fade {
+  top: -100%;
+}
+.modal-overflow.modal.fade.in {
+  top: 1%;
+}
+.modal-overflow .modal-body {
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/*
+00 - Modal crop
+----------------------*/
+.modal-crop {
+  padding: 0;
+}
+.modal-crop .row {
+  margin: 0;
+}
+.modal-crop .col-md-8, .modal-crop .col-md-4 {
+  padding: 0;
+}
+.modal-crop .modal-crop-body {
+  padding: 15px;
+  position: relative;
+}
+.modal-crop .modal-crop-body textarea {
+  height: 75px;
+  max-height: 75px;
+}
+.modal-crop .modal-crop-body .close {
+  position: absolute;
+  right: 15px;
+  top: 10px;
+}
+
+
+::-webkit-scrollbar{
+  width: 0px;
+  background-color: rgba(39, 110, 178, 0);
+}
+::-webkit-scrollbar-button{
+  width:8px;
+  height: 5px;
+}
+::-webkit-scrollbar-track{
+  background:rgb(230, 229, 229);
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb{
+  background-color: #0D5584;
+  border-radius: 10px;
+  -webkit-border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover{
+        background-color: rgba(13, 85, 132, 0.75);
+}
+/* Pseudo-clase */
+::-webkit-scrollbar-thumb:window-inactive {
+  background: rgba(77,161,112,.6);
+}

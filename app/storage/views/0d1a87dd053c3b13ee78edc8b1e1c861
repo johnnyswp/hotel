@@ -1,0 +1,105 @@
+
+<?php $__env->startSection('title', 'Admin Dashboard'); ?>
+<?php $__env->startSection('content'); ?>
+<div id="content">
+            <div class="row">
+                        
+                <div class="col-lg-12">
+                    <section class="panel corner-flip">
+                            <header class="panel-heading sm" data-color="theme-inverse">
+                                <div class="pull-letf"><h2><strong>Editar configuracion</strong>.</h2></div>
+                            </header>
+                            <?php if(Session::has('flash_message')): ?>
+                              <div class="form-group">
+                                  <p><?php echo Session::get('flash_message'); ?></p>
+                              </div>
+                            <?php endif; ?>
+                            <div class="panel-body">
+                            <?php echo Form::model($option, ['method' => 'POST', 'url' => 'admin/configuration/'.$option->id.'/update']); ?>
+
+                            <div class="form-group">
+                                <label class="control-label">Nombre</label>
+                                <div>
+                                    <div class="row">
+                                        <div class=" col-lg-12">
+                                            <?php echo Form::text("name", NULL, ['class' => 'form-control','disabled'=>"true"]); ?>
+
+                                            <?php echo errors_for('name', $errors); ?>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div><!-- //form-group-->
+                            <?php if($option->code=="pay_ava_opt"): ?>
+                            <div class="form-group">
+                                <label class="control-label">Valor</label>
+                                <div>
+                                    <div class="row">
+                                        <div class=" col-lg-12">
+                                        <select parsley-required="true"  name="value" id="value" class="selectpicker form-control" data-size="10" data-live-search="true">
+                                        <option value="sandbox">sandbox</option>
+                                        <option value="live">live</option>                                                                
+                                        </select>
+                                        <?php echo errors_for('value', $errors); ?>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div><!-- //form-group-->
+                            <?php elseif($option->code=="policy" or $option->code=="term"): ?>
+                            <div class="panel-tools fully color" align="right" data-toolscolor="#CCC">
+                                <ul class="tooltip-area">
+                                    <li><a href="javascript:void(0)" class="btn btn-collapse" title="Collapse"><i class="fa fa-sort-amount-asc"></i></a></li>
+                                    <li><a href="javascript:void(0)" class="btn btn-reload"  title="Reload"><i class="fa fa-retweet"></i></a></li>
+                                    <li><a href="javascript:void(0)" class="btn btn-close" title="Close"><i class="fa fa-times"></i></a></li>
+                                </ul>
+                            </div>
+                            <div class="panel-body">
+                                <div class="form-group">
+                                    <label class="control-label"> Valor</label>
+                                    <div>
+                                        <textarea cols="80" id="editorCk" name="value" rows="10"><?php echo $option->value; ?></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <?php else: ?>
+                            <div class="form-group">
+                                <label class="control-label">Valor</label>
+                                <div>
+                                    <div class="row">
+                                        <div class=" col-lg-12">
+                                            <?php echo Form::text("value", NULL, ['class' => ' form-control']); ?>
+
+                                            <?php echo errors_for('value', $errors); ?>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div><!-- //form-group-->
+                            <?php endif; ?>
+                            <div class="form-group col-md-12">
+                                <div class="col-md-12">
+                                      <button type="submit"  class="btn btn-theme previous pull-left"> Guardar</button>
+                                </div>
+                            </div>
+                            <footer class="row">
+                                <div class="col-sm-12">
+                                    <section class="wizard">
+                                    </section>
+                                </div>
+                            </footer>
+                            <?php echo Form::close(); ?>
+
+                            </div>         
+                            <!-- //content > row > col-lg-8 -->
+                      </section>
+                      <!-- //tabbable -->
+                  </div>
+                  <!-- //main-->
+              </div>
+              <!-- //main-->
+          </div>
+          <!-- //main-->
+
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('admin.master', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

@@ -1,0 +1,110 @@
+
+
+<?php $__env->startSection('title', 'Hotel Dashboard'); ?>
+
+<?php $__env->startSection('content'); ?>
+<?php
+use Carbon\Carbon;
+$plan = Plan::find($payment->plan_id);
+$create =  Carbon::parse($payment->updated_at);
+$caducidad = $create->addDays($payment->time);
+$date = new DateTime($caducidad);
+$user    = Sentry::getUser();
+?>
+<div id="content">
+		  	<div class="row">
+		  				
+		  		<div class="col-lg-12">
+		  			<section class="panel corner-flip">
+                          <header class="panel-heading sm" data-color="theme-inverse">
+                            <div class="col-lg-5 col-md-12 col-sm-12">
+                                <div class="pull-letf"><h3><strong><?php echo trans('main.payments'); ?></strong>.</h3></div>
+                            </div>
+                            <div class="col-lg-7 col-md-12 col-sm-12">
+                                <div class="col-lg-3 col-md-6 col-sm-6" style="padding-left: 0; padding-right: 0;"><strong>|<?php echo trans('main.plan'); ?>:</strong><br> | <?php echo $plan->name; ?></div>
+                                <div class="col-lg-3 col-md-6 col-sm-6" style="padding-left: 0; padding-right: 0;"><strong>|<?php echo trans('main.rooms'); ?>/<?php echo trans('main.items'); ?>:</strong><br> |<?php echo $plan->rooms; ?> / <?php echo $plan->items; ?></div>
+                                <div class="col-lg-3 col-md-6 col-sm-6" style="padding-left: 0; padding-right: 0;"><strong>|<?php echo trans('main.expiration'); ?>:</strong><br> |<?php echo $date->format('d-m-Y'); ?></div>
+                                <div class="col-lg-3 col-md-6 col-sm-6" style="padding-left: 0; padding-right: 0; z-index: 999; position: relative;"><strong>|<?php echo trans('main.renew now'); ?>:  </strong><br> | <?php if(Payment::VeryPaymentMessage()==false): ?> <?php echo Form::open(array('method'=>'post', 'style'=>'float: right;', 'action' => 'PaymentsController@postPayment')); ?> <?php echo Form::hidden("plan_id", $plan->id); ?> <button type="submit" class="label label-success" style="height: 21px; margin-left: 3px;"><?php echo trans('main.renew now'); ?> € <?php echo $plan->price; ?></button> <?php echo Form::close(); ?>  <a href="<?php echo url('hotel/payment/plans'); ?>" class="label label-success"><?php echo trans('main.view plans'); ?></a> <?php else: ?> <a href="<?php echo url('hotel/payment/change'); ?>" class="label label-success" ><?php echo trans('main.change plan'); ?></a> <?php endif; ?></div>
+                                
+                            </div>
+                            <?php if(Session::has('error')): ?>
+                                <label class="label label-danger"><?php echo Session::get('error'); ?></label>
+                            <?php endif; ?>
+
+                            <?php if(Session::has('success')): ?>
+                                <label class="label label-success"><?php echo Session::get('success'); ?></label>
+                            <?php endif; ?>
+                          </header>
+		  				  <div class="panel-body">
+							<table class="table table-striped" id="table-example2">
+								<thead>
+									<tr>
+										<th class="text-center"><?php echo trans('main.plan name'); ?></th>
+										<th class="text-center"><?php echo trans('main.date of expiry'); ?></th>
+										<th class="text-center"><?php echo trans('main.rooms'); ?></th>
+										<th class="text-center"><?php echo trans('main.items'); ?></th>
+										<th class="text-center"><?php echo trans('main.pago'); ?></th>
+									</tr>
+								</thead>
+								<tbody align="center">	
+								<?php 
+                                    $payms = Userpayment::where('user_id', $user->id)->orderby('id','desc')->paginate(10);
+                                    
+								?>																		
+									<?php foreach($payms as $d): ?>
+									<?php 
+									$p = Plan::where('id', $d->plan_id)->first(); 
+                                    $c =  Carbon::parse($d->updated_at);
+                                    $ca = $c->addDays($d->time);
+                                    $dt = new DateTime($ca);
+									?>
+									<tr class="odd gradeX">																		
+										<td><?php echo $p->name; ?></td>
+										<td><?php echo $dt->format('d-m-Y'); ?></td>
+										<td><?php echo $p->rooms; ?> <?php echo trans('main.rooms'); ?></td>
+										<td><?php echo $p->items; ?> <?php echo trans('main.items'); ?></td>
+										<td>€ <?php echo round($d->price, 2); ?></td>
+									</tr>
+									<?php endforeach; ?>																			
+								</tbody>
+							</table>
+							<?php echo $payms->links(); ?>
+
+					</div>
+				</section>
+			</div>
+		</div>
+			<!-- //content > row-->
+	</div>
+	<!-- //content-->
+<?php $__env->stopSection(); ?>
+<?php $__env->startSection('js-script'); ?>
+	function fnShowHide( iCol , table){
+	    var oTable = $(table).dataTable(); 
+	    var bVis = oTable.fnSettings().aoColumns[iCol].bVisible;
+	    oTable.fnSetColumnVis( iCol, bVis ? false : true );
+	}
+
+	$(function() {
+		//////////     DATA TABLE  COLUMN TOGGLE    //////////
+		$('[data-table="table-toggle-column"]').each(function(i) {
+				var data=$(this).data(), 
+				table=$(this).data("table-target"), 
+				dropdown=$(this).parent().find(".dropdown-menu"),
+				col=new Array;
+				$(table).find("thead th").each(function(i) {
+				 		$("<li><a  class='toggle-column' href='javascript:void(0)' onclick=fnShowHide("+i+",'"+table+"') ><i class='fa fa-check'></i> "+$(this).text()+"</a></li>").appendTo(dropdown);
+				});
+		});
+
+		//////////     COLUMN  TOGGLE     //////////
+		 $("a.toggle-column").on('click',function(){
+				$(this).toggleClass( "toggle-column-hide" );  				
+				$(this).find('.fa').toggleClass( "fa-times" );  			
+		});
+
+
+		 
+	});
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('hotel.master', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

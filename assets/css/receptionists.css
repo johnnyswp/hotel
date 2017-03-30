@@ -1,0 +1,50 @@
+::-moz-selection {
+  background-color: #0aa699;
+  color: white;
+}
+
+::selection {
+  background-color: #0aa699;
+  color: white;
+}
+
+html {
+  min-width: 320px;
+  overflow-x: hidden;
+  overflow-y: hidden;
+}
+
+body {
+  color: #6f7b8a;
+  font-family: "Ubuntu";
+  font-weight: 300;
+  min-width: 320px;
+  -webkit-font-smoothing: antialiased;
+}
+
+
+body.leftMenu .mm-menu:not(.mm-right){
+  top:51px;
+}
+
+ 
+#check_in .panel{
+  padding: 25px 10px;
+}
+
+#check_in .panel-body{ 
+  padding: 23px 0;
+}
+
+#check_in .col-md-6{ 
+padding:0;
+}
+
+#check_in form{ 
+  padding: 10px;
+}
+
+#check_in .nxa{
+  text-align: right !important;
+}
+ 
