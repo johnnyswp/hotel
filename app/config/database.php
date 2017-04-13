@@ -54,10 +54,10 @@ return array(
 
 		'mysql' => array(
 			'driver'    => 'mysql',
-			'host'      => '149.62.170.176',
-			'database'  => 'ezroom2',
-			'username'  => 'ezr2',
-			'password'  => '3Dd4#in4',
+			'host'      => 'localhost',
+			'database'  => 'aesyroom',
+			'username'  => 'admin',
+			'password'  => 'admin',
 			'charset'   => 'utf8',
 			'collation' => 'utf8_unicode_ci',
 			'prefix'    => '',

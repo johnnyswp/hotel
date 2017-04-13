@@ -16,7 +16,7 @@ return array(
 	*/
 
 	//'driver' => 'mandrill',
-	'driver' => 'mail',
+	'driver' => 'smtp',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -30,7 +30,7 @@ return array(
 	*/
 
 	#'host' => 'smtp.mandrillapp.com',
-	'host' => 'mail.ezresto.com',
+	'host' => 'smtp.gmail.com',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -43,7 +43,7 @@ return array(
 	|
 	*/
 
-	'port' => 2525,
+	'port' => 587,
 
 	/*
 	|--------------------------------------------------------------------------
@@ -83,7 +83,7 @@ return array(
 	*/
 
 	#'username' => OptionAdmin::where('name', 'email_username')->first()->value,
-	'username' => 'no-reply@ezresto.com',
+	'username' => 'johnnyomb1989@gmail.com',
 
 	
 	/*
@@ -97,7 +97,7 @@ return array(
 	|
 	*/
 	#'password' => OptionAdmin::where('name', 'email_password')->first()->value,
-	'password' => 'a8dK9~c7',
+	'password' => 'jmartinez893',
 
 	/*
 	|--------------------------------------------------------------------------

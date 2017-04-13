@@ -243,6 +243,21 @@ class HotelController extends \BaseController {
         ));
     }
 
+    public function anyServicePosition()   
+    {
+        $array = Input::get('listItem');
+        foreach ($array as $position => $item)
+        {
+            $service = Service::find($item);
+            $service->Serviceorder = $position;
+            $service->save();  
+        }
+
+        return Response::json(array(
+              'success'  => true
+        ));
+    }
+
     public function anyItemPosition()   
     {
         $array = Input::get('listItem');
@@ -515,6 +530,37 @@ class HotelController extends \BaseController {
             }
 
             if($category->save()){
+               return Response::json(array('success' => true, 'message'=>$message)); 
+            }else{
+              return Response::json(array(
+                    'success'  => false
+              ));
+            } 
+        }
+    }
+
+    public function anyServiceState()
+    {
+        if(Request::ajax()){
+            $hotel = Hotel::where('user_id', Sentry::getUser()->id)->first();
+            $service = Service::where('id', Input::get('id'))->where('hotel_id', $hotel->id)->first();
+
+            if($service->state==1){
+               $service->state = 0;
+               $message = trans('main.your service this disabled');
+            }else{
+                if(Service::state(Input::get('id'))!=true)
+                {
+                    return Response::json(array(
+                          'success'  => false, 'message'=>trans('main.No puede activar este servicio ya que no tiene en algunos lenguajes activos')
+                    ));
+                }
+
+                $service->state = 1;
+                $message = trans('main.your service this enabled');
+            }
+
+            if($service->save()){
                return Response::json(array('success' => true, 'message'=>$message)); 
             }else{
               return Response::json(array(
