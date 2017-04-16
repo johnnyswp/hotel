@@ -347,6 +347,7 @@ class ComposerStaticInitd1c7785725ca677e720afa176fadcc22
         'Exchanges' => __DIR__ . '/../..' . '/app/models/Exchanges.php',
         'Group' => __DIR__ . '/../..' . '/app/models/Group.php',
         'Hotel' => __DIR__ . '/../..' . '/app/models/Hotel.php',
+        'HotelBusinessController' => __DIR__ . '/../..' . '/app/controllers/hotel/HotelBusinessController.php',
         'HotelCategoryController' => __DIR__ . '/../..' . '/app/controllers/hotel/HotelCategoryController.php',
         'HotelController' => __DIR__ . '/../..' . '/app/controllers/hotel/HotelController.php',
         'HotelMenuController' => __DIR__ . '/../..' . '/app/controllers/hotel/HotelMenuController.php',

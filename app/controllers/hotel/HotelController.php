@@ -273,6 +273,21 @@ class HotelController extends \BaseController {
         ));
     }
 
+    public function anyBusinessPosition()   
+    {
+        $array = Input::get('listItem');
+        foreach ($array as $position => $item)
+        {
+            $category = Business::find($item);
+            $category->businessOrder = $position;
+            $category->save();  
+        }
+
+        return Response::json(array(
+              'success'  => true
+        ));
+    }
+
     public function anyPhonePosition()   
     {
         $array = Input::get('listItem');
@@ -592,6 +607,37 @@ class HotelController extends \BaseController {
             }
 
             if($item->save()){
+               return Response::json(array('success' => true, 'message'=>$message)); 
+            }else{
+              return Response::json(array(
+                    'success'  => false
+              ));
+            } 
+        }
+    }
+
+    public function anyBusinessState()
+    {
+        if(Request::ajax()){
+            $hotel = Hotel::where('user_id', Sentry::getUser()->id)->first();
+            $business = Business::where('id', Input::get('id'))->first();
+
+            if($business->state==1){
+               $business->state = 0;
+               $message = trans('main.your business this disabled');
+            }else{
+                if(Item::state(Input::get('id'))!=true)
+                {
+                    return Response::json(array(
+                          'success'  => false, 'message'=>trans('main.No puede activar este item ya que no tiene en algunos lenguajes activos')
+                    ));
+                }
+
+                $business->state = 1;
+                $message = trans('main.your item this enabled');
+            }
+
+            if($business->save()){
                return Response::json(array('success' => true, 'message'=>$message)); 
             }else{
               return Response::json(array(

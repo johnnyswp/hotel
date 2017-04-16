@@ -76,6 +76,7 @@ return array(
     'Exchanges' => $baseDir . '/app/models/Exchanges.php',
     'Group' => $baseDir . '/app/models/Group.php',
     'Hotel' => $baseDir . '/app/models/Hotel.php',
+    'HotelBusinessController' => $baseDir . '/app/controllers/hotel/HotelBusinessController.php',
     'HotelCategoryController' => $baseDir . '/app/controllers/hotel/HotelCategoryController.php',
     'HotelController' => $baseDir . '/app/controllers/hotel/HotelController.php',
     'HotelMenuController' => $baseDir . '/app/controllers/hotel/HotelMenuController.php',
