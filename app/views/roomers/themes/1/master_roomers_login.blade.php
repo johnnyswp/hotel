@@ -4,6 +4,7 @@
 <head>
 	<title>@yield('title') - Easy Room Service</title>
 	<link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<!--Import materialize.css {{$hotel->limit_time}} -->
 	<?php
 		$a = explode(":",$hotel->limit_time);

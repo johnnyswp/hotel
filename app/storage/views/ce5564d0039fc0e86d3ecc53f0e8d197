@@ -1,0 +1,74 @@
+<?php $template = $hotel->theme; ?>
+
+
+<?php $__env->startSection('title', trans('main.category')); ?>
+
+<?php $__env->startSection('container'); ?>
+<script type="text/javascript">
+    function ll (id,num) {
+    	$('#'+id).ready(function() {
+    		var elem = 'elem_'+num;
+    		var a = store.get(elem); 
+    		if(store.get(elem)==null || store.get(elem) ===undefined){
+	   		$('#'+id).text('0');
+	        }else{
+ 	            var item = store.get(elem);
+	     		$('#'+id).text(item.count);
+	        }
+		});
+    }
+</script>
+<div id="welcome" class="col s12 m12 l8 offset-l2 ">
+	<div class="card-panel teal box " style="position:relative">
+		<?php 
+			$template = $hotel->theme;
+		?>
+		<?php echo $__env->make("roomers.themes.$template.partials.navBar", array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+		<?php echo $__env->make("roomers.themes.$template.partials.cart", array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+		<?php echo $__env->make("roomers.themes.$template.partials.header", array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+		
+		<a href="/roomer/catalog?dt=<?php echo Input::get('dt'); ?>" class="btn-flat waves-effect waves-light back_  back " style="padding: 0 10px; color: white; float: left; clear: both;" >
+				<i class="material-icons">keyboard_backspace</i>
+				<span style="position: relative; top: -4px; "><?php echo $lang->txt_catalogo; ?></span>
+			</a>
+		<div  class="col s12 m12">
+			<h5><?php echo $lang->txt_categoria; ?>: <?php echo $category->category_name; ?></h5>
+		</div>
+		<div class="row">
+			<?php foreach($items as $item): ?>
+
+			<div  class="col s6 m3 item">
+				<span class="card-title truncate">
+					<b> <?php echo $item->item_name; ?> </b> 
+				</span>				
+				<div class="card-image z-depth-2">
+					<?php if(!$item->item_available): ?>
+						<a href="<?php echo url('roomer/item/'); ?>/<?php echo $item->item_id; ?>?dt=<?php echo Input::get('dt'); ?>&a=1">
+						<div class="aviable">
+							<?php echo $lang->txt_no_vailable; ?>
+
+						</div>
+						</a>
+					<?php endif; ?>
+					<a href="<?php echo url('roomer/item/'); ?>/<?php echo $item->item_id; ?>?dt=<?php echo Input::get('dt'); ?>">
+						<img src="<?php echo $item->item_picture; ?>">
+					</a>
+					<div class="card-action">
+						<a href="#" class=""> <b><?php echo $exchange; ?> <?php echo $item->item_price; ?> </b></a>
+						<a   href="#less" class="less0 less_" data-description="<?php echo $item->item_description; ?>" data-name="<?php echo $item->item_name; ?>" data-time="<?php echo $item->item_time; ?>" data-exchange="<?php echo $exchange; ?>"  data-picture="<?php echo $item->item_picture; ?>" data-price="<?php echo $item->item_price; ?>" data-id="<?php echo $item->item_id; ?>" style="right: 42px; "><b><i class="material-icons">remove_circle</i></b></a>
+						<span id="num0-<?php echo $item->item_id; ?>" class="number-text0" style="    right: 23px; position: absolute; width: 20px; text-align: center;"  > </span>
+						<script>
+						var id = "num0-<?php echo $item->item_id; ?>";
+						var num = "<?php echo $item->item_id; ?>";
+						ll(id,num);
+						</script>
+						<a href="#add" class="add" data-description="<?php echo $item->item_description; ?>" data-name="<?php echo $item->item_name; ?>" data-time="<?php echo $item->item_time; ?>" data-exchange="<?php echo $exchange; ?>"  data-picture="<?php echo $item->item_picture; ?>" data-price="<?php echo $item->item_price; ?>" data-id="<?php echo $item->item_id; ?>"><b><i class="material-icons">add_circle</i></b></a>
+					</div>
+				</div>
+			</div>
+			<?php endforeach; ?>	 	
+		</div>	 			 
+	</div>
+</div>
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make("roomers.themes.$template.master_roomers", array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

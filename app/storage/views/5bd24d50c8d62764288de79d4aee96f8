@@ -1,0 +1,212 @@
+ 
+<?php use Carbon\Carbon; ?>
+<?php $__env->startSection('title', trans('main.title_estadias')); ?>
+<?php $__env->startSection('content'); ?>
+<div id="check_in">	
+	<div class="row">
+		<div class="col-md-12">
+			 <section class="panel">
+			<header class="panel-heading sm" data-color="theme-inverse">
+				<h2><strong><?php echo trans('main.title_estadias'); ?></strong></h2>
+        <?php if(Sentry::getUser()->type_user==3): ?>
+          <?php if(Payment::VeryPaymentMessage()==false): ?>
+             <label class="label label-danger"><?php echo trans('main.message end plans'); ?>.  <?php echo trans('main.date end'); ?> <?php echo Carbon::parse(Payment::PaymentsDate())->format('d-m-Y'); ?></label>
+          <?php endif; ?>
+        <?php endif; ?>
+				<?php if(Session::has('flash_message')): ?>
+          <label class="color" style="color: white;background-color: rgba(0, 204, 23, 0.29);"><?php echo Session::get('flash_message'); ?></label>
+        <?php endif; ?>
+        <?php if(Session::has('error')): ?>
+        <label class="color" style="font-size: 12px; color: red;"><?php echo Session::get('error'); ?></label>
+        <?php endif; ?>
+			</header>
+			<div class="panel-body">		
+      <?php if(Helpers::typeU()==1 or Helpers::typeU()==3 or Helpers::typeU()==0): ?>	  
+        <form class="form-horizontal"  data-collabel="3" data-alignlabel="left"  data-label="color">
+					<div class="form-group">
+						<div>
+							<a href="<?php echo url('receptionist'); ?>" class="btn btn-theme"><?php echo trans('main.nuevo check_in'); ?></a>
+						</div>
+					</div>
+				</form>
+      <?php endif; ?>
+
+				<table class="table" id="sector_table">
+					<thead>
+						<tr>
+							<td><?php echo trans('main.huesped'); ?></td>
+							<td><?php echo trans('main.room'); ?></td>
+              <td><?php echo trans('main.date'); ?></td>
+							<td><?php echo trans('main.hour'); ?></td>
+							<td><?php echo trans('main.date_end'); ?></td>
+							<td><?php echo trans('main.hour_end'); ?></td>
+              <?php if(Helpers::typeU()==1 or Helpers::typeU()==3 or Helpers::typeU()==0): ?>
+              <td><?php echo trans('main.check out'); ?></td>
+              <?php endif; ?>
+              <td><?php echo trans('main.order'); ?></td>
+              <?php if(Helpers::typeU()==1 or Helpers::typeU()==3 or Helpers::typeU()==0): ?>
+							<td><?php echo trans('main.action'); ?></td>
+              <?php endif; ?>
+						</tr>
+					</thead>
+
+					<tbody>
+					<?php foreach($stays as $stay): ?>
+					 
+						<tr>
+							<td><?php echo $stay->nombre_huesped; ?> </td>						
+							<td><?php echo $stay->numero_habitacion; ?> </td>
+							<td><?php echo Helpers::date_bd($stay->date_start);; ?> </td>
+							<td><?php echo Helpers::hora_min($stay->hour_start); ?> </td>
+							<td><?php echo Helpers::date_bd($stay->date_end);; ?> </td>
+							<td><?php echo Helpers::hora_min($stay->hour_end); ?> </td>
+              <?php if(Helpers::typeU()==1 or Helpers::typeU()==3 or Helpers::typeU()==0): ?>
+              <td>
+                  <button class="btn btn-info btn-transparent" type="submit" data-toggle="tooltip" data-placement="left" title="<?php echo trans('main.delete'); ?>" onclick="var notice = new PNotify({
+                            text: $('#form_notice_<?php echo $stay->id; ?>').html(),
+                            icon: false,
+                            width: 'auto',
+                            hide: false,
+                            addclass: 'custom',
+                            icon: 'picon picon-32 picon-edit-delete',
+                            opacity: .8,
+                            nonblock: {
+                                nonblock: true
+                            },
+                            animation: {
+                                effect_in: 'show',
+                                effect_out: 'slide'
+                            },
+                            buttons: {
+                              closer: false,
+                              sticker: false
+                            },
+                            insert_brs: false
+                              });
+                              notice.get().find('form.pf-form').on('click', '[name=cancel]', function(){
+                                notice.remove();
+                              }).submit(function(){
+                                       $('#form_notice').submit();
+                                      });"><?php echo trans('main.check out'); ?></button>
+                              <div id="form_notice_<?php echo $stay->id; ?>" style="display: none;">
+                                <?php echo Form::open(array('method'=>'get', 'class'=>'pf-form pform_custom','url' => 'receptionist/stay-check-out/')); ?>
+
+                                  <?php echo Form::hidden("id", $stay->id); ?>
+
+                                  <div class="pf-element pf-heading">
+                                    <h3><?php echo trans('main.confirme el check out'); ?></h3>
+                                    <p></p>
+                                  </div>
+                                  <div class="pf-element pf-buttons pf-centered">
+                                    <input class="pf-button btn btn-primary" type="submit" name="submit" value="<?php echo trans('main.confirmar'); ?>" />
+                                    <input class="pf-button btn btn-default" type="button" name="cancel" value="<?php echo trans('main.cancelar'); ?>" />
+                                  </div>
+                                <?php echo Form::close(); ?>
+
+                              </div>
+              </td>
+              <?php endif; ?>
+              <td><a class="btn btn-info btn-transparent" href="<?php echo url('receptionist/orders/'.$stay->id); ?>" data-toggle="tooltip" data-placement="left" title="<?php echo trans('main.orders'); ?>"> <?php echo trans('main.pedidos'); ?></a> </td>
+			        <?php if(Helpers::typeU()==1 or Helpers::typeU()==3 or Helpers::typeU()==0): ?>
+              <td>	 
+			        	 
+			        	 <a href="<?php echo url('receptionist/stay-edit/'.$stay->id); ?>" type="button" class="btn btn-md btn-primary"><span class="glyphicon glyphicon-pencil" aria-hidden="true" style="color: white;"></span></a>
+			        	 <button class="btn btn-info btn-transparent" type="submit" data-toggle="tooltip" data-placement="left" title="<?php echo trans('main.delete'); ?>" onclick="var notice = new PNotify({
+                            text: $('#form_notice_<?php echo $stay->id; ?>').html(),
+                            icon: false,
+                            width: 'auto',
+                            hide: false,
+                            addclass: 'custom',
+                            icon: 'picon picon-32 picon-edit-delete',
+                            opacity: .8,
+                            nonblock: {
+                                nonblock: true
+                            },
+                            animation: {
+                                effect_in: 'show',
+                                effect_out: 'slide'
+                            },
+                            buttons: {
+                              closer: false,
+                              sticker: false
+                            },
+                            insert_brs: false
+                              });
+                              notice.get().find('form.pf-form').on('click', '[name=cancel]', function(){
+                                notice.remove();
+                              }).submit(function(){
+                                       $('#form_notice').submit();
+                                      });"><i class="glyphicon glyphicon-remove"></i></button>
+                              <div id="form_notice_<?php echo $stay->id; ?>" style="display: none;">
+                                <?php echo Form::open(array('method'=>'get', 'class'=>'pf-form pform_custom','url' => 'receptionist/stay-delete/'.$stay->id)); ?>
+
+                                  <?php echo Form::hidden("_method", "DELETE"); ?>
+
+                                  <div class="pf-element pf-heading">
+                                    <h3><?php echo trans('main.confirme borrar estadia'); ?></h3>
+                                    <p></p>
+                                  </div>
+                                  <div class="pf-element pf-buttons pf-centered">
+                                    <input class="pf-button btn btn-primary" type="submit" name="submit" value="<?php echo trans('main.confirmar'); ?>" />
+                                    <input class="pf-button btn btn-default" type="button" name="cancel" value="<?php echo trans('main.cancelar'); ?>" />
+                                  </div>
+                                <?php echo Form::close(); ?>
+
+                              </div>
+			         </td>
+               <?php endif; ?>
+							 
+						</tr>
+					<?php endforeach; ?>
+					</tbody>
+				</table>
+			</div>
+		</section>
+		</div>
+
+	</div>
+	
+</div>
+<?php $__env->stopSection(); ?>
+
+ 
+
+<?php $__env->startSection('script'); ?>
+
+<script type="text/javascript">
+	$(function() {
+		$('#sector_table').dataTable();
+		$('.clic-delete').on('click', function(event) {
+			event.preventDefault();
+			var notice = new PNotify({
+                  text: '<?php echo trans('main.confirme borrar estadia'); ?>',
+                  icon: false,
+                  width: 'auto',
+                  hide: false,
+                  addclass: 'custom',
+                  icon: 'picon picon-32 picon-edit-delete',
+                  opacity: .8,
+                  nonblock: {
+                      nonblock: true
+                  },
+                  animation: {
+                      effect_in: 'show',
+                      effect_out: 'slide'
+                  },
+                  buttons: {
+                    closer: false,
+                    sticker: false
+                  },
+                  insert_brs: false
+             });  
+			notice.get().find('form.pf-form').on('click', '[name=cancel]', function(){
+              notice.remove();
+            }).submit(function(){
+                console.log('Dale');
+            });
+			/* Act on the event */
+		});
+	});
+</script>
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('receptionists.master', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

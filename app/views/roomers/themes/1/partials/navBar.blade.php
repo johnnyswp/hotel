@@ -9,6 +9,7 @@
 		$llang=$lang;
 ?>
 <div class="col s12 m12 l12 nav">
+
 	<a class="waves-effect waves-light btn modal-trigger right btn-ico" href="#modal1" onclick="return window.onbeforeunload = false;">
 		<i class="material-icons">language</i>
 	</a>
@@ -23,6 +24,9 @@
 		<i class="material-icons medium left ">receipt</i>
 		<span class="badge" id="label_numorder">{{$countOrder}}</span>
 	</a>
+		<a class="waves-effect waves-light btn modal-trigger right btn-ico" href="/roomer/seleccion">
+			<i class="material-icons">home</i>
+		</a>
 </div>
  
 <div id="modal4" class="modal grey lighten-4">

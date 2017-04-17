@@ -141,7 +141,7 @@ class RoomerController extends \BaseController {
 					Session::put('hotel_id', $stay->hotel_id);
 					Session::put('token_stay', $stay->id);
 				$hotel = Hotel::find($stay->hotel_id);
-				  return Redirect::to('roomer/')
+				  return Redirect::to('roomer/seleccion')
 				->withHotel($hotel)
 				->withStay($stay);
 			}else{
@@ -268,7 +268,7 @@ class RoomerController extends \BaseController {
 					Session::put('hotel_id', $stay->hotel_id);
 					Session::put('token_stay', $stay->id);
 				$hotel = Hotel::find($stay->hotel_id);
-				  return Redirect::to('roomer/')
+				  return Redirect::to('roomer/seleccion')
 				->withHotel($hotel)
 				->withStay($stay);
 			}else{
@@ -337,6 +337,181 @@ class RoomerController extends \BaseController {
 			->withMax($max)
 			->withStay($stay);
 	}
+
+	public function getSeleccion()
+	{
+		$stay = Stay::find(Session::get('token_stay'));
+
+		#$lang_id = LanguageHotel::find(Session::get('lang_id'))->language_id;
+		$lang_id = Session::get('lang_id');
+		
+		$hotel = Hotel::find($stay->hotel_id);
+
+		$categories = DB::table('category_menu')
+				   	->Join('names_category_menu', 'names_category_menu.category_menu_id', '=', 'category_menu.id')
+				   	->where('hotel_id','=',$stay->hotel_id)
+				   	->where('category_menu.state','=',1)
+				   	->where('language_id','=',$lang_id)
+				   	->select('category_menu.id as category_id',
+					   		'names_category_menu.name as category_name',
+					   		'category_menu.picture as category_picture')
+ 					->orderBy('category_menu.order','ASC')
+				   	->get();
+		$exchange = Exchanges::find($hotel->exchange_id)->symbol;
+		$lang = Language::find($lang_id);
+		$phones =  DB::table('phones')
+				   	->Join('name_phones', 'name_phones.phone_id', '=', 'phones.id')
+				   	->where('phones.hotel_id','=',$stay->hotel_id)
+				   	->where('name_phones.language_id','=',$lang_id)
+				   	->where('phones.state','=',1)
+				   	->select('name_phones.id as phones_id',
+					   		'name_phones.name as phones_name',
+					   		'phones.number as phones_number')
+ 					->orderBy('phones.order','ASC')
+				   	->get();
+		
+		$today = Carbon::today();
+		$stay_token = Carbon::parse($stay->closing_date);			
+		 
+		 
+		//Dia del cheking
+		if($stay_token == $today){			
+			$max = "true";
+		}else{
+			$max = 1;	
+		}
+		
+		$template = $hotel->theme; 
+		
+		return View::make("roomers.themes.$template.home_firts")
+			->withHotel($hotel)
+			->withExchange($exchange)
+			->withCategories($categories)
+			->withPhones($phones)
+			->withLang($lang)
+			->withMax($max)
+			->withStay($stay);
+	}
+
+	public function getServicios()
+	{
+		$stay = Stay::find(Session::get('token_stay'));
+
+		#$lang_id = LanguageHotel::find(Session::get('lang_id'))->language_id;
+		$lang_id = Session::get('lang_id');
+		
+		$hotel = Hotel::find($stay->hotel_id);
+		$lang = Language::find($lang_id);
+		 
+		$categories = DB::table('category_menu')
+				   	->Join('names_category_menu', 'names_category_menu.category_menu_id', '=', 'category_menu.id')
+				   	->where('hotel_id','=',$stay->hotel_id)
+				   	->where('category_menu.state','=',1)
+				   	->where('language_id','=',$lang_id)
+				   	->select('category_menu.id as category_id',
+					   		'names_category_menu.name as category_name',
+					   		'category_menu.picture as category_picture')
+ 					->orderBy('category_menu.order','ASC')
+				   	->get();
+		$exchange = Exchanges::find($hotel->exchange_id)->symbol;
+		
+		$phones =  DB::table('phones')
+				   	->Join('name_phones', 'name_phones.phone_id', '=', 'phones.id')
+				   	->where('phones.hotel_id','=',$stay->hotel_id)
+				   	->where('name_phones.language_id','=',$lang_id)
+				   	->where('phones.state','=',1)
+				   	->select('name_phones.id as phones_id',
+					   		'name_phones.name as phones_name',
+					   		'phones.number as phones_number')
+ 					->orderBy('phones.order','ASC')
+				   	->get();
+		
+		$today = Carbon::today();
+		$stay_token = Carbon::parse($stay->closing_date);		 
+	 
+		if($stay_token == $today){			
+			$max = "true";
+		}else{
+			$max = 1;	
+		}
+		 
+
+		$services = Service::where('hotel_id',$stay->hotel_id)->orderBy('Serviceorder','ASC')->get();
+	 
+		$template = $hotel->theme; 
+		
+		return View::make("roomers.themes.$template.info_servicios")
+			->withHotel($hotel)
+			 ->withExchange($exchange)
+			->withCategories($categories)
+			->withPhones($phones)
+			->withMax($max) 
+			->withStay($stay)
+			->withLang($lang)
+			->withServices($services);			
+	}	
+
+	public function getServiciosList($id)
+	{
+
+		$service_id =$id;
+	 
+		$stay = Stay::find(Session::get('token_stay'));
+
+		#$lang_id = LanguageHotel::find(Session::get('lang_id'))->language_id;
+		$lang_id = Session::get('lang_id');
+		
+		$hotel = Hotel::find($stay->hotel_id);
+		$lang = Language::find($lang_id);
+		 
+		$categories = DB::table('category_menu')
+				   	->Join('names_category_menu', 'names_category_menu.category_menu_id', '=', 'category_menu.id')
+				   	->where('hotel_id','=',$stay->hotel_id)
+				   	->where('category_menu.state','=',1)
+				   	->where('language_id','=',$lang_id)
+				   	->select('category_menu.id as category_id',
+					   		'names_category_menu.name as category_name',
+					   		'category_menu.picture as category_picture')
+ 					->orderBy('category_menu.order','ASC')
+				   	->get();
+		$exchange = Exchanges::find($hotel->exchange_id)->symbol;
+		
+		$phones =  DB::table('phones')
+				   	->Join('name_phones', 'name_phones.phone_id', '=', 'phones.id')
+				   	->where('phones.hotel_id','=',$stay->hotel_id)
+				   	->where('name_phones.language_id','=',$lang_id)
+				   	->where('phones.state','=',1)
+				   	->select('name_phones.id as phones_id',
+					   		'name_phones.name as phones_name',
+					   		'phones.number as phones_number')
+ 					->orderBy('phones.order','ASC')
+				   	->get();
+		
+		$today = Carbon::today();
+		$stay_token = Carbon::parse($stay->closing_date);		 
+	 
+		if($stay_token == $today){			
+			$max = "true";
+		}else{
+			$max = 1;	
+		}
+		 
+
+		$business = Business::where('hotel_id',$stay->hotel_id)->where('service_id',$service_id)->orderBy('businessOrder','ASC')->get();
+		 
+		$template = $hotel->theme; 
+		
+		return View::make("roomers.themes.$template.list_servicios")
+			->withHotel($hotel)
+			 ->withExchange($exchange)
+			->withCategories($categories)
+			->withPhones($phones)
+			->withMax($max) 
+			->withStay($stay)
+			->withLang($lang)
+			->withBusiness($business);			
+	}
+
 
 	public function getCatalog()
 	{

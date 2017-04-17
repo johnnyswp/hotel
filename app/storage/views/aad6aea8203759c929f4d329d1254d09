@@ -1,0 +1,46 @@
+<?php $template = $hotel->theme; ?>
+
+
+
+<?php $__env->startSection('title', 'Welcome'); ?>
+
+<?php $__env->startSection('container'); ?>
+
+<div id="welcome" class="col s12 m9 l6 offset-m1 offset-l3">
+	<div class="card-panel teal box " style="position:relative">
+		<?php 
+			$template = $hotel->theme;
+		?>
+		<?php echo $__env->make("roomers.themes.$template.partials.navBar", array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>		
+		<?php echo $__env->make("roomers.themes.$template.partials.header", array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>	
+		<div  class="col s12 m12">
+				<?php echo Form::open(array('class'=>'col s12', 'style'=>'margin-left: 0; padding-left: 0;','action' => 'RoomerController@postCheckToken')); ?> 
+
+				<div class="row" >
+
+					<div class="input-field col s12" style="margin-left: 0; padding-left: 0;">
+						<input id="token" name="token" type="text" class="validate" style="height: 53px; font-size: 45px; font-weight: 800;border-bottom: 1px solid #FFFFFF;">
+						<input value="<?php echo Input::get('lang'); ?>" id="lang" name="lang"  type="hidden">
+						<input value="<?php echo $stay->id; ?>" id="stay_id" name="stay_id"  type="hidden">
+						<label for="token" style="left:0; color:white"><?php echo $lang->txt_pass; ?></label>
+					</div>
+					<ul class="parsley-error-list">
+							<li class="mincheck red-text" style="display: list-item; font-weight: 700; text-shadow: 2px 2px 6px #7CB342; color: #B71C1C !important;">
+								<?php echo $errors->first('token'); ?>																	
+								<?php if(Session::has('mgs')): ?>
+								 <?php echo Session::get('mgs'); ?> 
+								<?php endif; ?>
+							</li>
+						</ul> 
+					<label class="white-text">* <?php echo $lang->txt_message_ingresar_contrasena; ?></label>
+
+					<div class="input-field col s12">
+						<button class="waves-effect waves-light btn red darken-4"><?php echo $lang->txt_enviar; ?></button>
+					</div>
+				</div>		
+			</form>
+		</div>	 			 
+	</div>
+</div>
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make("roomers.themes.$template.master_roomers", array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
