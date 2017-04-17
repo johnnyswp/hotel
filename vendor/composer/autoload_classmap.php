@@ -6,6 +6,8 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'Activity' => $baseDir . '/app/models/Activity.php',
+    'ActivityLang' => $baseDir . '/app/models/ActivityLang.php',
     'AdminController' => $baseDir . '/app/controllers/admin/AdminController.php',
     'AdminHotelController' => $baseDir . '/app/controllers/admin/AdminHotelController.php',
     'AdminLanguagesController' => $baseDir . '/app/controllers/admin/AdminLanguagesController.php',
@@ -80,6 +82,7 @@ return array(
     'Hotel' => $baseDir . '/app/models/Hotel.php',
     'HotelActivityController' => $baseDir . '/app/controllers/hotel/HotelActivityController.php',
     'HotelBusinessController' => $baseDir . '/app/controllers/hotel/HotelBusinessController.php',
+    'HotelBusinessMenusController' => $baseDir . '/app/controllers/hotel/HotelBusinessMenusController.php',
     'HotelCategoryController' => $baseDir . '/app/controllers/hotel/HotelCategoryController.php',
     'HotelController' => $baseDir . '/app/controllers/hotel/HotelController.php',
     'HotelMenuController' => $baseDir . '/app/controllers/hotel/HotelMenuController.php',
@@ -95,6 +98,8 @@ return array(
     'ItemOrder' => $baseDir . '/app/models/ItemOrder.php',
     'Language' => $baseDir . '/app/models/Language.php',
     'LanguageHotel' => $baseDir . '/app/models/LanguageHotel.php',
+    'Menu' => $baseDir . '/app/models/Manu.php',
+    'MenuLang' => $baseDir . '/app/models/MenuLang.php',
     'MigrationCartalystSentryInstallGroups' => $vendorDir . '/cartalyst/sentry/src/migrations/2012_12_06_225929_migration_cartalyst_sentry_install_groups.php',
     'MigrationCartalystSentryInstallThrottle' => $vendorDir . '/cartalyst/sentry/src/migrations/2012_12_06_225988_migration_cartalyst_sentry_install_throttle.php',
     'MigrationCartalystSentryInstallUsers' => $vendorDir . '/cartalyst/sentry/src/migrations/2012_12_06_225921_migration_cartalyst_sentry_install_users.php',

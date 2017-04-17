@@ -277,6 +277,8 @@ class ComposerStaticInitd1c7785725ca677e720afa176fadcc22
     );
 
     public static $classMap = array (
+        'Activity' => __DIR__ . '/../..' . '/app/models/Activity.php',
+        'ActivityLang' => __DIR__ . '/../..' . '/app/models/ActivityLang.php',
         'AdminController' => __DIR__ . '/../..' . '/app/controllers/admin/AdminController.php',
         'AdminHotelController' => __DIR__ . '/../..' . '/app/controllers/admin/AdminHotelController.php',
         'AdminLanguagesController' => __DIR__ . '/../..' . '/app/controllers/admin/AdminLanguagesController.php',
@@ -351,6 +353,7 @@ class ComposerStaticInitd1c7785725ca677e720afa176fadcc22
         'Hotel' => __DIR__ . '/../..' . '/app/models/Hotel.php',
         'HotelActivityController' => __DIR__ . '/../..' . '/app/controllers/hotel/HotelActivityController.php',
         'HotelBusinessController' => __DIR__ . '/../..' . '/app/controllers/hotel/HotelBusinessController.php',
+        'HotelBusinessMenusController' => __DIR__ . '/../..' . '/app/controllers/hotel/HotelBusinessMenusController.php',
         'HotelCategoryController' => __DIR__ . '/../..' . '/app/controllers/hotel/HotelCategoryController.php',
         'HotelController' => __DIR__ . '/../..' . '/app/controllers/hotel/HotelController.php',
         'HotelMenuController' => __DIR__ . '/../..' . '/app/controllers/hotel/HotelMenuController.php',
@@ -366,6 +369,8 @@ class ComposerStaticInitd1c7785725ca677e720afa176fadcc22
         'ItemOrder' => __DIR__ . '/../..' . '/app/models/ItemOrder.php',
         'Language' => __DIR__ . '/../..' . '/app/models/Language.php',
         'LanguageHotel' => __DIR__ . '/../..' . '/app/models/LanguageHotel.php',
+        'Menu' => __DIR__ . '/../..' . '/app/models/Manu.php',
+        'MenuLang' => __DIR__ . '/../..' . '/app/models/MenuLang.php',
         'MigrationCartalystSentryInstallGroups' => __DIR__ . '/..' . '/cartalyst/sentry/src/migrations/2012_12_06_225929_migration_cartalyst_sentry_install_groups.php',
         'MigrationCartalystSentryInstallThrottle' => __DIR__ . '/..' . '/cartalyst/sentry/src/migrations/2012_12_06_225988_migration_cartalyst_sentry_install_throttle.php',
         'MigrationCartalystSentryInstallUsers' => __DIR__ . '/..' . '/cartalyst/sentry/src/migrations/2012_12_06_225921_migration_cartalyst_sentry_install_users.php',
