@@ -258,6 +258,21 @@ class HotelController extends \BaseController {
         ));
     }
 
+    public function anyActivityPosition()   
+    {
+        $array = Input::get('listItem');
+        foreach ($array as $position => $item)
+        {
+            $activity = Activity::find($item);
+            $activity->activityOrder = $position;
+            $activity->save();  
+        }
+
+        return Response::json(array(
+              'success'  => true
+        ));
+    }
+
     public function anyItemPosition()   
     {
         $array = Input::get('listItem');
@@ -576,6 +591,37 @@ class HotelController extends \BaseController {
             }
 
             if($service->save()){
+               return Response::json(array('success' => true, 'message'=>$message)); 
+            }else{
+              return Response::json(array(
+                    'success'  => false
+              ));
+            } 
+        }
+    }
+
+    public function anyActivityState()
+    {
+        if(Request::ajax()){
+            $hotel = Hotel::where('user_id', Sentry::getUser()->id)->first();
+            $activity = Activity::where('id', Input::get('id'))->where('hotel_id', $hotel->id)->first();
+
+            if($activity->state==1){
+               $activity->state = 0;
+               $message = trans('main.your activity this disabled');
+            }else{
+                if(Activity::state(Input::get('id'))!=true)
+                {
+                    return Response::json(array(
+                          'success'  => false, 'message'=>trans('main.No puede activar esta actvidad ya que no tiene en algunos lenguajes activos')
+                    ));
+                }
+
+                $activity->state = 1;
+                $message = trans('main.your service this enabled');
+            }
+
+            if($activity->save()){
                return Response::json(array('success' => true, 'message'=>$message)); 
             }else{
               return Response::json(array(

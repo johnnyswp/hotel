@@ -57,14 +57,6 @@ class HotelBusinessController extends \BaseController {
         $hotel = Hotel::where('user_id', Sentry::getUser()->id)->first();
         $lang_active = LanguageHotel::where('hotel_id', $hotel->id)->orderBy('main', 'DESC')->orderBy('state', 'DESC');
         $lang_main = LanguageHotel::where('main', 1)->where('hotel_id', $hotel->id)->first();
-        //verificamos el plsn
-        //$payment  = Payment::where('user_id', $hotel->user_id)->first();
-        //$plan = Plan::find($payment->plan_id);
-        //$item = Business::where('hotel_id', $hotel->id)->count();
-        //if($plan->items <= $item){
-        //    return Redirect::to('hotel/business')->withError(trans('main.Su plan ha llegado al limite de').$plan->items.' '.trans('main.items'));
-        //}
-        
         $services = array(''=>trans('main.seleccione un service'));
         $servicesAll = Service::where('hotel_id', $hotel->id)->orderBy('Serviceorder', 'ASC')->get();
         foreach($servicesAll as $service)
