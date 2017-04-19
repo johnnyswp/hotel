@@ -1,0 +1,123 @@
+ 
+
+<?php $__env->startSection('title', trans('main.panel de control')); ?>
+
+<?php $__env->startSection('content'); ?>
+<div id="content">
+	
+	<div class="row">
+		<div class="col-lg-8 col-lg-offset-2">
+		<section class="panel">
+			<header class="panel-heading sm" data-color="theme-inverse">
+				<h2><strong><?php echo trans('main.alta de'); ?></strong> <?php echo trans('main.service'); ?></h2>
+				<?php if(Session::has('flash_message')): ?>
+                <label class="color" style="color: white;background-color: rgba(0, 204, 23, 0.29);"><?php echo Session::get('flash_message'); ?></label>
+                <?php endif; ?>
+			</header>
+			<div class="panel-body">
+				<?php echo Form::open(array('action' => 'HotelServicesController@store','files'=>true)); ?> 
+					
+					<div class="form-group offset">
+						<div>
+							<?php echo Form::submit(trans('main.save'), ['class' => 'btn btn-primary']); ?>
+
+                            <?php echo Form::reset(trans('main.cancel'), ['class' => 'btn btn-default']); ?>
+
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="control-label"><?php echo trans('main.select a Picture'); ?></label><br>
+						<div>
+							<div class="fileinput fileinput-exists" data-provides="fileinput">
+								<input type="hidden" value="" name="">
+								<div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 200px; height: 150px; line-height: 150px;">
+									<img src="/assets/img/no-image.png" />
+								</div>
+							<div>
+								<span class="btn btn-default btn-file">
+									<span class="fileinput-new"><?php echo trans('main.select image'); ?></span><span class="fileinput-exists"><?php echo trans('main.change'); ?></span>
+									<input type="file" name="picture">
+								</span>
+							<a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput"><?php echo trans('main.delete'); ?></a>
+							</div>
+						</div>
+						<br>
+
+						<span class="label label-danger "><?php echo trans('main.note'); ?></span>
+						<span><?php echo trans('main.you must select single files of'); ?></span>
+						</div>
+					</div>
+
+					<label class="control-label"><?php echo trans('main.Nombre en idiomas activos'); ?></label><br/>
+					<?php $x=0; ?>
+					<?php foreach($langs as $lang): ?>
+					    <?php if($lang->main==1): ?>
+					    <label class="control-label"><?php echo trans('main.Nombre en'); ?> <?php echo $lang->language->language; ?> (<?php echo trans('main.lang'); ?>)</label>
+					    <div class="form-group">
+					    	<div>
+					    		<?php echo Form::text($lang->language->language, NULL, ['class' => 'form-control', 'placeholder'=>$lang->language->language, 'autocomplete'=>'off', 'required'=>'required']); ?>
+
+                                <?php echo errors_for($lang->language->language, $errors); ?>
+
+					    	</div>
+					    </div>
+					    <label class="control-label"><?php echo trans('main.descripcion en'); ?> <?php echo $lang->language->language; ?> (<?php echo trans('main.lang'); ?>)</label>
+					    <div class="form-group">
+					    	<div>
+					    		<?php echo Form::textarea('descrption_'.$lang->language->language, NULL, ['class' => 'form-control', 'style'=>'height: 75px;', 'placeholder'=>trans('main.descrpcion en').' '.$lang->language->language, 'autocomplete'=>'off', 'required'=>'required']); ?>
+
+                                <?php echo errors_for('descrption_'.$lang->language->language, $errors); ?>
+
+					    	</div>
+					    </div>
+
+					    <?php else: ?>
+                            <?php if($lang->state==0 and $x==0): ?>
+                            <label class="control-label"><?php echo trans('main.Nombre en idiomas no activos'); ?></label><br/>
+                            <?php $x=1; ?>
+                            <?php endif; ?>
+					        <label class="control-label"><?php echo trans('main.Nombre en'); ?> <?php echo $lang->language->language; ?></label>
+					        <div class="form-group">
+					        	<div>
+					        		<?php echo Form::text($lang->language->language, NULL, ['class' => 'form-control', 'placeholder'=>$lang->language->language, 'autocomplete'=>'off']); ?>
+
+                                    <?php echo errors_for($lang->language->language, $errors); ?>
+
+					        	</div>
+					        </div>
+					        <label class="control-label"><?php echo trans('main.descripcion en'); ?> <?php echo $lang->language->language; ?></label>
+					        <div class="form-group">
+					        	<div>
+					        		<?php echo Form::textarea('descrption_'.$lang->language->language, NULL, ['class' => 'form-control', 'style'=>'height: 75px;', 'placeholder'=>trans('main.descrpcion en').' '.$lang->language->language, 'autocomplete'=>'off']); ?>
+
+                                    <?php echo errors_for('descrption_'.$lang->language->language, $errors); ?>
+
+					        	</div>
+					        </div>
+					        
+					    <?php endif; ?>
+					<?php endforeach; ?>
+
+                    <div class="form-group offset">
+						<div>
+							<?php echo Form::submit(trans('main.save'), ['class' => 'btn btn-primary']); ?>
+
+                            <?php echo Form::reset(trans('main.cancel'), ['class' => 'btn btn-default']); ?>
+
+						</div>
+					</div>
+
+				<?php echo Form::close(); ?>
+
+			</div>
+		</section>
+		</div>
+
+	</div>
+	
+</div>
+
+
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('hotel.master', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

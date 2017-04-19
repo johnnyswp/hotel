@@ -50,6 +50,12 @@
 					<img src="{{$business->picture}}">
 				</div>
 			</a>
+
+			<a style="margin-bottom: 30px; font-size:14px;"  class="col s6 m6 btn waves-effect waves-white">
+				<span>Ver Productos</span>
+			</a>
+
+
 			<a style="margin-bottom: 30px;"  class="col s12 m12 waves-effect waves-white textP">
 				<i class="fa fa-list-alt" aria-hidden="true"></i>  
 				<span>{{BusinessLang::where('business_id',$business->id)->first()->description}}</span>

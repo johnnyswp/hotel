@@ -14,7 +14,7 @@
 			<i class="material-icons">home</i>
 		</a>
          
-		<a class="waves-effect waves-light btn modal-trigger right btn-ico" href="#"  onclick="history.go(-1);" />
+		<a class="waves-effect waves-light btn modal-trigger right btn-ico" href="#"  onclick="history.go(-1);" >
 			<i class="material-icons">keyboard_backspace</i>
 		</a>
 </div>

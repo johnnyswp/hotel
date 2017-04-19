@@ -20,12 +20,16 @@
 	#welcome .divider{
 		display:none;
 	}
-	.text-catg{
-		color:White;    border: 1px solid;line-height: 1;    text-align: center;
+	.textP{
+		color:White;    line-height: 1.25;    text-align: left;
 	}
-	.text-catg span{
-		font-size:12px;
+	.textP span{
+		font-size:18px;
 	}	
+	.textP i.fa {
+		margin-right: 15px;
+	}
+
 </style>
 <div id="welcome" class="col s12 m8 offset-m2">
 	<div class="card-panel teal box " style="position:relative">
@@ -34,19 +38,24 @@
 		?>	 
 		<?php echo $__env->make("roomers.themes.$template.partials.navBar-services", array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
 		<?php echo $__env->make("roomers.themes.$template.partials.header", array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>			
-		<!--<div  class="col s12 m12">
-			<h5 style="padding: 0;margin: 0 0 20px;" class="center">!! <?php echo $lang->txt_catalogo; ?></h5>
-		</div>-->
-		 
-		<div class="row">
-			 <?php foreach($business as $cat): ?>
-			<a style="margin: 30px 0;" href="<?php echo url('roomer/servicio-item/'); ?>/<?php echo $cat->id; ?>" class="col s12 m12 waves-effect waves-white">
-				<span style="font-size: 1.2rem; display: block; color: white; position: relative; background: rgba(38, 166, 154, 0.82); width: 100%; padding: 0 5px; top: 0; z-index: 2;" class="card-title truncate"><?php echo BusinessLang::where('business_id',$cat->id)->first()->name; ?> </span>
-				<div class="card-image z-depth-2">
-					<img src="<?php echo $cat->picture; ?>">
+	 
+		<div class="row">		 
+		    <?php foreach($productos as $item): ?>
+			 
+            <div  class="col s6 m3 item">
+				<span class="card-title truncate">
+					<b> <?php echo MenuLang::where('menu_id',$item->id)->where('language_id',$lang->id)->first()->name; ?> </b> 
+				</span>				
+				<div class="card-image z-depth-2">					
+					<a href="#">
+						<img src="<?php echo $item->picture; ?>">
+					</a>
+					<div class="card-action">
+						<a href="#" class=""> <b><?php echo $exchange; ?> <?php echo $item->price; ?> </b></a>
+					</div>
 				</div>
-			</a>
-			<?php endforeach; ?>	
+			</div>
+			<?php endforeach; ?>				 
 		</div>	
 		 
 		 
