@@ -8,7 +8,7 @@
 		<div class="col-lg-12">
 		<section class="panel">
 			<header class="panel-heading sm" data-color="theme-inverse">
-				<h2><strong>{{trans('main.services')}}</strong></h2>
+				<h2><strong>{{trans('main.Informacion de alrededores')}}</strong></h2>
 				@if (Session::has('flash_message'))
         <label class="color" style="color: white;background-color: rgba(0, 204, 23, 0.29);">{{ Session::get('flash_message') }}</label>
         @endif
@@ -21,7 +21,7 @@
 
 					<div class="form-group">
 						<div>
-							<a href="{{url('hotel/services/create')}}" class="btn btn-theme">{{trans('main.nuevo')}} {{trans('main.service')}}</a>
+							<a href="{{url('hotel/info-places/create')}}" class="btn btn-theme">{{trans('main.nuevo')}} {{trans('main.alrededor')}}</a>
 						</div>
 					</div>
 				</form>
@@ -39,32 +39,32 @@
 			          	</li>
                     </ul>
 			        <ul id="sortable" class="col-md-12 list">
-			          	@foreach ($services as $service )
+			          	@foreach ($infoPlace as $infoPlace )
 			          	<?php 
-                             $serviceLang = ServiceLang::where('service_id', $service->id)->where('language_id', $lang->language_id)->first();
+                             $infoLang = InfoPlaceLang::where('info_place_id', $infoPlace->id)->where('language_id', $lang->language_id)->first();
 				  	    ?>
-			          	<li id="listItem_{{$service->id}}" class="col-md-12 item-category" style="padding-bottom: 5px; padding-top: 5px;">
-			          		<div class="col-md-2"><img src="{{$service->picture}}" width="35px" height="35px"></div>
-			          		<div class="col-md-5" style="text-align: center;">{{$serviceLang->name}}</div>
+			          	<li id="listItem_{{$infoPlace->id}}" class="col-md-12 item-category" style="padding-bottom: 5px; padding-top: 5px;">
+			          		<div class="col-md-2"><img src="{{$infoPlace->picture}}" width="35px" height="35px"></div>
+			          		<div class="col-md-5" style="text-align: center;">{{$infoLang->name}}</div>
 			          		<div class="col-md-2" >
 			          			<div class="row" style="display: block; width: 75px; margin: 0 auto;     height: 25px;">
 									<div class="col-sm-4 iSwitch flat-switch">
 										<div class="switch">
-											<input name="state" class="state" value="{{$service->id}}" type="checkbox" @if($service->state==1) checked @endif @if(Service::state($service->id)!=true) disabled @endif>
+											<input name="state" class="state" value="{{$infoPlace->id}}" type="checkbox" @if($infoPlace->state==1) checked @endif @if(InfoPlace::state($infoPlace->id)!=true) disabled @endif>
 										</div>
 									</div>
 								</div>
 			          		</div>
 			          		<div class="col-md-1">
-			          		    <a href="{{url('hotel/services/'.$service->id.'/edit')}}" type="button" class="btn btn-md btn-primary"><span class="glyphicon glyphicon-pencil" aria-hidden="true" style="color: white;"></span></a>
+			          		    <a href="{{url('hotel/info-places/'.$infoPlace->id.'/edit')}}" type="button" class="btn btn-md btn-primary"><span class="glyphicon glyphicon-pencil" aria-hidden="true" style="color: white;"></span></a>
 			          		</div>
 			          		<div class="col-md-1">
-                      <button type="submit" class="btn btn-md btn-warning"  onclick="var notice = new PNotify({text: $('#form_notice_{{$service->id}}').html(), icon: false, width: 'auto', hide: false, addclass: 'custom', icon: 'picon picon-32 picon-edit-delete', opacity: .8, nonblock: {nonblock: true }, animation: {effect_in: 'show', effect_out: 'slide'}, buttons: {closer: false, sticker: false }, insert_brs: false }); notice.get().find('form.pf-form').on('click', '[name=cancel]', function(){notice.remove(); }).submit(function(){$('#form_notice').submit(); });"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
-                      <div id="form_notice_{{$service->id}}" style="display: none;">
-                        {{ Form::open(array('class'=>'pf-form pform_custom','url' => 'hotel/services/'.$service->id)) }}
+                      <button type="submit" class="btn btn-md btn-warning"  onclick="var notice = new PNotify({text: $('#form_notice_{{$infoPlace->id}}').html(), icon: false, width: 'auto', hide: false, addclass: 'custom', icon: 'picon picon-32 picon-edit-delete', opacity: .8, nonblock: {nonblock: true }, animation: {effect_in: 'show', effect_out: 'slide'}, buttons: {closer: false, sticker: false }, insert_brs: false }); notice.get().find('form.pf-form').on('click', '[name=cancel]', function(){notice.remove(); }).submit(function(){$('#form_notice').submit(); });"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+                      <div id="form_notice_{{$infoPlace->id}}" style="display: none;">
+                        {{ Form::open(array('class'=>'pf-form pform_custom','url' => 'hotel/info-places/'.$infoPlace->id)) }}
                           {{ Form::hidden("_method", "DELETE") }}
                           <div class="pf-element pf-heading">
-                            <h3>{{trans('main.confirm delete Servicio')}}</h3>
+                            <h3>{{trans('main.confirm delete informacion de alrededores')}}</h3>
                             <p></p>
                           </div>
                           <div class="pf-element pf-buttons pf-centered">
@@ -75,7 +75,7 @@
                       </div>
                     </div>
 			          		<div class="col-md-1">
-			          		    <img src="@if(Service::state($service->id)==true) {{url('assets/img/active.png')}} @else {{url('assets/img/no-active.png')}} @endif" width="35px" height="35px" style="display: block; margin: 0 auto;">
+			          		    <img src="@if(InfoPlace::state($infoPlace->id)==true) {{url('assets/img/active.png')}} @else {{url('assets/img/no-active.png')}} @endif" width="35px" height="35px" style="display: block; margin: 0 auto;">
 			          		</div>
 			          	</li>
 			          	@endforeach					
@@ -103,7 +103,7 @@ $(function() {
         $.ajax({
             type: 'get',
             dataType: "json",
-            url: "{{url('hotel/service-state')}}",
+            url: "{{url('hotel/info-places-state')}}",
             data: {id: $input.val()},
             success: function(data){
               if(data.success==true){
@@ -163,7 +163,7 @@ $(function() {
     	var order = $("#sortable").sortable('serialize');
     	$.ajax({
             type: 'GET',
-            url: "{{url('hotel/service-position')}}",
+            url: "{{url('hotel/info-places-position')}}",
             data: order,
             success: function (data) {
                 new PNotify({

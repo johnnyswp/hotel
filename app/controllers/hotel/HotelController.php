@@ -258,6 +258,21 @@ class HotelController extends \BaseController {
         ));
     }
 
+    public function anyInfoPlacesPosition()   
+    {
+        $array = Input::get('listItem');
+        foreach ($array as $position => $item)
+        {
+            $info = InfoPlace::find($item);
+            $info->infoOrder = $position;
+            $info->save();  
+        }
+
+        return Response::json(array(
+              'success'  => true
+        ));
+    }
+
     public function anyActivityPosition()   
     {
         $array = Input::get('listItem');
@@ -591,6 +606,37 @@ class HotelController extends \BaseController {
             }
 
             if($service->save()){
+               return Response::json(array('success' => true, 'message'=>$message)); 
+            }else{
+              return Response::json(array(
+                    'success'  => false
+              ));
+            } 
+        }
+    }
+
+    public function anyInfoPlacesState()
+    {
+        if(Request::ajax()){
+            $hotel = Hotel::where('user_id', Sentry::getUser()->id)->first();
+            $info = InfoPlace::where('id', Input::get('id'))->where('hotel_id', $hotel->id)->first();
+
+            if($info->state==1){
+               $info->state = 0;
+               $message = trans('main.your InfoPlace this disabled');
+            }else{
+                if(InfoPlace::state(Input::get('id'))!=true)
+                {
+                    return Response::json(array(
+                          'success'  => false, 'message'=>trans('main.No puede activar este servicio ya que no tiene en algunos lenguajes activos')
+                    ));
+                }
+
+                $info->state = 1;
+                $message = trans('main.your InfoPlace this enabled');
+            }
+
+            if($info->save()){
                return Response::json(array('success' => true, 'message'=>$message)); 
             }else{
               return Response::json(array(

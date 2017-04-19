@@ -172,6 +172,7 @@ Route::group(['prefix'=>'hotel','before' => 'auth|hotels'], function(){
     Route::resource('services','HotelServicesController', ['only' => ['index','create','store','edit','update','destroy']]);
     Route::resource('business','HotelBusinessController', ['only' => ['index','create','store','edit','update','destroy']]);
     Route::resource('activity','HotelActivityController', ['only' => ['index','create','store','edit','update','destroy']]);
+    Route::resource('info-places','HotelInfoPlacesController', ['only' => ['index','create','store','edit','update','destroy']]);
     Route::resource('business/menu','HotelBusinessMenusController', ['only' => ['index','create','store','edit','update','destroy']]);
     Route::resource('users','HotelUsersController', ['only' => ['index','create','store','edit','update','destroy']]);
     Route::resource('sectors','HotelSectorsController', ['only' => ['index','create','store','edit','update','destroy']]);

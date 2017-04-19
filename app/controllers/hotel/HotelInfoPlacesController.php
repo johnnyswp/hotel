@@ -1,5 +1,5 @@
 <?php
-class HotelServicesController extends \BaseController {
+class HotelInfoPlacesController extends \BaseController {
 	
     /**
 	 * Display a listing of the resource.
@@ -14,9 +14,9 @@ class HotelServicesController extends \BaseController {
            return View::make('hotel.Payment.renews-payment');
 
         $hotel = Hotel::where('user_id', Sentry::getUser()->id)->first();
-        $services = Service::where('hotel_id', $hotel->id)->orderBy('Serviceorder', 'ASC')->get();
+        $info = InfoPlace::where('hotel_id', $hotel->id)->orderBy('infoOrder', 'ASC')->get();
         $lang = LanguageHotel::where('main', 1)->where('hotel_id', $hotel->id)->first();
-		return View::make('hotel.pages.services')->with(array('services'=>$services, 'lang'=>$lang));
+		return View::make('hotel.pages.info_places')->with(array('infoPlace'=>$info, 'lang'=>$lang));
 	}
 
     /**
@@ -33,7 +33,7 @@ class HotelServicesController extends \BaseController {
         $hotel = Hotel::where('user_id', Sentry::getUser()->id)->first();
         $lang_active = LanguageHotel::where('hotel_id', $hotel->id)->orderBy('main', 'DESC')->orderBy('state', 'DESC');
 
-        return View::make('hotel.pages.alta_services')->withHotel($hotel)
+        return View::make('hotel.pages.alta_infoPlace')->withHotel($hotel)
                                                        ->withLangs($lang_active->get());
     }
 
@@ -76,8 +76,9 @@ class HotelServicesController extends \BaseController {
             return Redirect::back()->withErrors($validation)->withInput();
         }else{
             $hotel = Hotel::where('user_id', Sentry::getUser()->id)->first();
-            $service = new Service;
-            $service->hotel_id = $hotel->id;
+            $infoPlace = new InfoPlace;
+            $infoPlace->hotel_id = $hotel->id;
+            $infoPlace->state = 0;
 
             if(Input::file('picture')!=NULL)
             {
@@ -88,13 +89,13 @@ class HotelServicesController extends \BaseController {
                 $picture=$hotel->id.$nameIMG.'.'.$ext;
                 $picname = $picture;
                 $picture= url().'/assets/pictures_hotels/services/PIC'.$picture;
-                $service->picture = $picture;
+                $infoPlace->picture = $picture;
             }else{
-                $service->picture = url().'/assets/img/no-image.png';
+                $infoPlace->picture = url().'/assets/img/no-image.png';
 
             }
 
-            if($service->save()){
+            if($infoPlace->save()){
                 if(Input::file('picture')!=NULL)
                 {
                     $file_picture->move("assets/pictures_hotels/services/",$picture); 
@@ -106,28 +107,28 @@ class HotelServicesController extends \BaseController {
 
                 foreach($lang_active->get() as $lang_)
                 {
-                   $serviceLang = new serviceLang;
-                   $serviceLang->name = Input::get($lang_->language->language);
-                   $serviceLang->description = Input::get('descrption_'.$lang_->language->language);
-                   $serviceLang->service_id = $service->id;
-                   $serviceLang->language_id = $lang_->language->id;
-                   $serviceLang->save();
+                   $infoPlaceLang = new InfoPlaceLang;
+                   $infoPlaceLang->name = Input::get($lang_->language->language);
+                   $infoPlaceLang->description = Input::get('descrption_'.$lang_->language->language);
+                   $infoPlaceLang->info_place_id = $infoPlace->id;
+                   $infoPlaceLang->language_id = $lang_->language->id;
+                   $infoPlaceLang->save();
                 }
 
                 foreach($langs as $lang)
                 {
                     if(Input::has($lang->language))
                     {
-                        $serviceLang = new serviceLang;
-                        $serviceLang->name = Input::get($lang->language);
-                        $serviceLang->description = Input::get('descrption_'.$lang->language);
-                        $serviceLang->service_id = $service->id;
-                        $serviceLang->language_id = $lang->id;
-                        $serviceLang->save();
+                        $infoPlaceLang = new InfoPlaceLang;
+                        $infoPlaceLang->name = Input::get($lang->language);
+                        $infoPlaceLang->description = Input::get('descrption_'.$lang->language);
+                        $infoPlaceLang->info_place_id = $infoPlace->id;
+                        $infoPlaceLang->language_id = $lang->id;
+                        $infoPlaceLang->save();
                     }
                 }
 
-                return Redirect::to('hotel/services')->withFlash_message(trans('main.Guardado Exitosamente'));
+                return Redirect::to('hotel/info-places')->withFlash_message(trans('main.Guardado Exitosamente'));
             }else{
                 return Redirect::back()->withErrors("Error")->withInput();
             }
@@ -147,12 +148,12 @@ class HotelServicesController extends \BaseController {
            return View::make('hotel.Payment.renews-payment');
         $hotel = Hotel::where('user_id', Sentry::getUser()->id)->first();
 
-        $service = Service::where('id', $id)->where('hotel_id', $hotel->id)->first();
-        if($service)
+        $infoPlace = InfoPlace::where('id', $id)->where('hotel_id', $hotel->id)->first();
+        if($infoPlace)
         {
             $lang_active = LanguageHotel::where('hotel_id', $hotel->id)->orderBy('main', 'DESC')->orderBy('state', 'DESC');
 
-            return View::make('hotel.pages.edit_services')->withService($service)
+            return View::make('hotel.pages.edit_infoPlace')->withInfo($infoPlace)
                                                            ->withHotel($hotel)
                                                            ->withLangActive($lang_active->get());
         }else{
@@ -198,7 +199,7 @@ class HotelServicesController extends \BaseController {
             return Redirect::back()->withErrors($validation)->withInput();
         }else{
             $hotel = Hotel::where('user_id', Sentry::getUser()->id)->first();
-            $service = Service::where('id', $id)->where('hotel_id', $hotel->id)->first();
+            $infoPlace = InfoPlace::where('id', $id)->where('hotel_id', $hotel->id)->first();
 
             if(Input::file('picture')!=NULL)
             {
@@ -209,10 +210,10 @@ class HotelServicesController extends \BaseController {
                 $picture=$hotel->id.$nameIMG.'.'.$ext;
                 $picname = $picture;
                 $picture= url().'/assets/pictures_hotels/services/PIC'.$picture;
-                $service->picture = $picture;
+                $infoPlace->picture = $picture;
             }
 
-            if($service->save()){
+            if($infoPlace->save()){
                 if(Input::file('picture')!=NULL)
                 {
                     $file_picture->move("assets/pictures_hotels/services/",$picture);
@@ -225,33 +226,33 @@ class HotelServicesController extends \BaseController {
                 foreach($lang_active->get() as $lang_)
                 {
 
-                    $serviceLang = ServiceLang::where('service_id', $service->id)->where('language_id', $lang_->language_id)->first();
-                    if(!$serviceLang)
-                        $serviceLang = new ServiceLang;
+                    $infoPlaceLang = InfoPlaceLang::where('info_place_id', $infoPlace->id)->where('language_id', $lang_->language_id)->first();
+                    if(!$infoPlaceLang)
+                        $infoPlaceLang = new InfoPlaceLang;
 
-                    $serviceLang->name = Input::get($lang_->language->language);
-                    $serviceLang->description = Input::get('descrption_'.$lang_->language->language);
-                    $serviceLang->service_id = $service->id;
-                    $serviceLang->language_id = $lang_->language->id;
-                    $serviceLang->save();
+                    $infoPlaceLang->name = Input::get($lang_->language->language);
+                    $infoPlaceLang->description = Input::get('descrption_'.$lang_->language->language);
+                    $infoPlaceLang->info_place_id = $infoPlace->id;
+                    $infoPlaceLang->language_id = $lang_->language->id;
+                    $infoPlaceLang->save();
                 }
 
                 foreach($langs as $lang)
                 {
                     if(Input::has($lang->language))
                     {
-                        $serviceLang = ServiceLang::where('service_id', $service->id)->where('language_id', $lang->id)->first();
-                        if(!$serviceLang)
-                            $serviceLang = new ServiceLang;
-                        $serviceLang->name = Input::get($lang->language);
-                        $serviceLang->description = Input::get('descrption_'.$lang->language);
-                        $serviceLang->service_id = $service->id;
-                        $serviceLang->language_id = $lang->id;
-                        $serviceLang->save();
+                        $infoPlaceLang = InfoPlaceLang::where('info_place_id', $infoPlace->id)->where('language_id', $lang->id)->first();
+                        if(!$infoPlaceLang)
+                            $infoPlaceLang = new InfoPlaceLang;
+                        $infoPlaceLang->name = Input::get($lang->language);
+                        $infoPlaceLang->description = Input::get('descrption_'.$lang->language);
+                        $infoPlaceLang->info_place_id = $infoPlace->id;
+                        $infoPlaceLang->language_id = $lang->id;
+                        $infoPlaceLang->save();
                     }
                 }
 
-                return Redirect::to('hotel/services')->withFlash_message(trans('main.Guardado Exitosamente'));
+                return Redirect::to('hotel/info-places')->withFlash_message(trans('main.Guardado Exitosamente'));
             }else{
                 return Redirect::back()->withErrors("Error")->withInput();
             }
@@ -266,13 +267,13 @@ class HotelServicesController extends \BaseController {
            return View::make('hotel.Payment.renews-payment');
 
        $hotel = Hotel::where('user_id', Sentry::getUser()->id)->first();
-       $service = Service::where('id', $id)->where('hotel_id', $hotel->id)->first();
-       if($service){
-          $names_services = ServiceLang::where('service_id', $service->id)->get();
-          foreach ($names_services as $serviceLang) {
-              $serviceLang->delete();
+       $infoPlace = InfoPlace::where('id', $id)->where('hotel_id', $hotel->id)->first();
+       if($infoPlace){
+          $names_services = InfoPlaceLang::where('info_place_id', $infoPlace->id)->get();
+          foreach ($names_services as $infoPlaceLang) {
+              $infoPlaceLang->delete();
           }
-          $service->delete();
+          $infoPlace->delete();
           return Redirect::back()->withFlash_message(trans('main.Eliminado Exitosamente'));
         }else{
           return Redirect::back()->withError(trans('main.Error'));
