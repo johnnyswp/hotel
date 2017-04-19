@@ -558,11 +558,11 @@ class RoomerController extends \BaseController {
 		}
 		 
 
-		$business = Business::where('hotel_id',$stay->hotel_id)->where('service_id',$service_id)->orderBy('businessOrder','ASC')->get();
-		 
+		$business = Business::find($service_id);
+	 
 		$template = $hotel->theme; 
 		
-		return View::make("roomers.themes.$template.list_servicios")
+		return View::make("roomers.themes.$template.item_servicios")
 			->withHotel($hotel)
 			 ->withExchange($exchange)
 			->withCategories($categories)
