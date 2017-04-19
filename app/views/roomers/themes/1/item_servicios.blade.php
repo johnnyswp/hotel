@@ -44,14 +44,14 @@
 		
 		<div class="row">
 		 
-			<a style="margin: 30px 0;" href="{{url('roomer/servicios-detalle/')}}/{{$business->id}}" class="col s12 m12 waves-effect waves-white">
+			<a style="margin: 30px 0;" href="#" class="col s12 m12 waves-effect waves-white">
 				<span style="font-size: 1.2rem; display: block; color: white; position: relative; background: rgba(38, 166, 154, 0.82); width: 100%; padding: 0 5px; top: 0; z-index: 2;" class="card-title truncate">{{BusinessLang::where('business_id',$business->id)->first()->name}} </span>
 				<div class="card-image z-depth-2">
 					<img src="{{$business->picture}}">
 				</div>
 			</a>
 
-			<a style="margin-bottom: 30px; font-size:14px;"  class="col s6 m6 btn waves-effect waves-white">
+			<a href="/roomer/producto-item/{{$business->id}}" style="margin-bottom: 30px; font-size:14px;"  class="col s6 m6 btn waves-effect waves-white">
 				<span>Ver Productos</span>
 			</a>
 
