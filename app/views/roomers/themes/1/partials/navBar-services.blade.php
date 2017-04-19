@@ -10,22 +10,12 @@
 ?>
 <div class="col s12 m12 l12 nav">
 
-	<a class="waves-effect waves-light btn modal-trigger right btn-ico" href="#modal1" onclick="return window.onbeforeunload = false;">
-		<i class="material-icons">language</i>
-	</a>
-	<a class="waves-effect waves-light btn modal-trigger right btn-ico" href="#modal3">
-		<i class="material-icons">settings_phone</i>
-	</a>
-	<a id="btnShopCart" class="waves-effect waves-light btn  right btn-ico" href="#modal2">
-		<i class="material-icons medium left ">shopping_cart</i>
-		<span class="badge" id="label_numcar">0</span>
-	</a>
-	<a id="btnOrder" class="waves-effect waves-light btn modal-trigger  right btn-ico" href="#modal4">
-		<i class="material-icons medium left ">receipt</i>
-		<span class="badge" id="label_numorder">{{$countOrder}}</span>
-	</a>
-		<a class="waves-effect waves-light btn modal-trigger right btn-ico" href="/roomer/seleccion">
+	   	<a class="waves-effect waves-light btn modal-trigger right btn-ico" href="/roomer/seleccion">
 			<i class="material-icons">home</i>
+		</a>
+         
+		<a class="waves-effect waves-light btn modal-trigger right btn-ico" href="#"  onclick="history.go(-1);" />
+			<i class="material-icons">keyboard_backspace</i>
 		</a>
 </div>
  

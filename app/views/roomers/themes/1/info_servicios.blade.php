@@ -32,13 +32,15 @@
 		<?php 
 			$template = $hotel->theme;
 		?>	 
+		@include("roomers.themes.$template.partials.navBar-services")
 		@include("roomers.themes.$template.partials.header")			
-		<div  class="col s12 m12">
+		<!--<div  class="col s12 m12">
 			<h5 style="padding: 0;margin: 0 0 20px;" class="center">!! {{$lang->txt_catalogo}}</h5>
-		</div>
+		</div>-->
+		 
 		<div class="row">
 			 @foreach($services as $cat)
-			<a style="margin-bottom: 30px;" href="{{url('roomer/servicios-list/')}}/{{$cat->id}}" class="col s12 m12 waves-effect waves-white">
+			<a style="margin: 30px 0;" href="{{url('roomer/servicios-list/')}}/{{$cat->id}}" class="col s12 m12 waves-effect waves-white">
 				<span style="font-size: 1.2rem; display: block; color: white; position: relative; background: rgba(38, 166, 154, 0.82); width: 100%; padding: 0 5px; top: 0; z-index: 2;" class="card-title truncate">{{ServiceLang::where('service_id',$cat->id)->where('language_id',$lang->id)->first()->name}} </span>
 				<div class="card-image z-depth-2">
 					<img src="{{$cat->picture}}">

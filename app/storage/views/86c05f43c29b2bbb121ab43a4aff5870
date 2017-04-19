@@ -32,10 +32,12 @@
 		<?php 
 			$template = $hotel->theme;
 		?>	 
+		<?php echo $__env->make("roomers.themes.$template.partials.navBar-services", array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
 		<?php echo $__env->make("roomers.themes.$template.partials.header", array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>			
-		<div  class="col s12 m12">
+		<!--<div  class="col s12 m12">
 			<h5 style="padding: 0;margin: 0 0 20px;" class="center">!! <?php echo $lang->txt_catalogo; ?></h5>
-		</div>
+		</div>-->
+		<br>
 		<div class="row">
 			 <?php foreach($services as $cat): ?>
 			<a style="margin-bottom: 30px;" href="<?php echo url('roomer/servicios-list/'); ?>/<?php echo $cat->id; ?>" class="col s12 m12 waves-effect waves-white">

@@ -36,13 +36,15 @@
 		<?php 
 			$template = $hotel->theme;
 		?>	 
+		<?php echo $__env->make("roomers.themes.$template.partials.navBar-services", array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
 		<?php echo $__env->make("roomers.themes.$template.partials.header", array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>			
-		<div  class="col s12 m12">
+		<!--<div  class="col s12 m12">
 			<h5 style="padding: 0;margin: 0 0 20px;" class="center">!! <?php echo $lang->txt_catalogo; ?></h5>
-		</div>
+		</div>-->
+		
 		<div class="row">
 		 
-			<a style="margin-bottom: 30px;" href="<?php echo url('roomer/servicios-detalle/'); ?>/<?php echo $business->id; ?>" class="col s12 m12 waves-effect waves-white">
+			<a style="margin: 30px 0;" href="<?php echo url('roomer/servicios-detalle/'); ?>/<?php echo $business->id; ?>" class="col s12 m12 waves-effect waves-white">
 				<span style="font-size: 1.2rem; display: block; color: white; position: relative; background: rgba(38, 166, 154, 0.82); width: 100%; padding: 0 5px; top: 0; z-index: 2;" class="card-title truncate"><?php echo BusinessLang::where('business_id',$business->id)->first()->name; ?> </span>
 				<div class="card-image z-depth-2">
 					<img src="<?php echo $business->picture; ?>">
