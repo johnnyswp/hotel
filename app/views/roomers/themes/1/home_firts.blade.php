@@ -42,7 +42,7 @@
 
 		<div class="row">
 			 <a href="/roomer/servicios" class="text-catg waves-effect waves-white flow-text col s5" style="margin-right: 14%;"><span>  {{$lang->txt_informacion_de_servicio}}</span> <i class="fa fa-info-circle fa-5x" aria-hidden="true"></i></a>
-			 <a id="bt_pg" class="text-catg waves-effect waves-white flow-text col s5"><span> {{$lang->txt_programa_de_actividades}} </span><i class="fa fa-calendar fa-5x" aria-hidden="true"></i></a>
+			 <a href="/roomer/actividades?day=0"   class="text-catg waves-effect waves-white flow-text col s5"><span> {{$lang->txt_programa_de_actividades}} </span><i class="fa fa-calendar fa-5x" aria-hidden="true"></i></a>
 		</div>	
 		<div class="row" style="margin-top:20px">
 			 <a href="/roomer"  class="text-catg waves-effect waves-white flow-text col s5" style="margin-right: 14%;"><span>  {{$lang->txt_de_servicios_de_habitaciones}} </span><i class="fa fa-cutlery fa-5x" aria-hidden="true"></i></a>
