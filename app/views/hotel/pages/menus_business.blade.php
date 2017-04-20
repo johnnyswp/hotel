@@ -57,7 +57,7 @@
 			          			<div class="row" style="display: block; width: 75px; margin: 0 auto;     height: 25px;">
 									<div class="col-sm-4 iSwitch flat-switch">
 										<div class="switch">
-											<input name="state" class="state" value="{{$menu->id}}" type="checkbox" @if($menu->state==1) checked @endif @if(Item::state($menu->id)!=true) disabled @endif>
+											<input name="state" class="state" value="{{$menu->id}}" type="checkbox" @if($menu->state==1) checked @endif @if(Menu::state($menu->id)!=true) disabled @endif>
 										</div>
 									</div>
 								</div>
@@ -82,7 +82,7 @@
                                 </div>
 			          		</div>
 			          		<div class="col-md-1">
-			          		     <img src="@if(Item::state($menu->id)==true) {{url('assets/img/active.png')}} @else {{url('assets/img/no-active.png')}} @endif" width="35px" height="35px" style="display: block; margin: 0 auto;">
+			          		     <img src="@if(Menu::state($menu->id)==true) {{url('assets/img/active.png')}} @else {{url('assets/img/no-active.png')}} @endif" width="35px" height="35px" style="display: block; margin: 0 auto;">
 			          		</div>
 			          	</li>
 			          	@endforeach					
@@ -109,7 +109,7 @@ $(function() {
         $.ajax({
             type: 'get',
             dataType: "json",
-            url: "{{url('hotel/business-state')}}",
+            url: "{{url('hotel/business-menu-state')}}",
             data: {id: $input.val()},
             success: function(data){
               if(data.success==true){
@@ -169,7 +169,7 @@ $(function() {
     	var order = $("#sortable").sortable('serialize');
     	$.ajax({
             type: 'GET',
-            url: "{{url('hotel/business-position')}}",
+            url: "{{url('hotel/business-menu-position')}}",
             data: order,
             success: function (data) {
                 new PNotify({

@@ -61,12 +61,12 @@
 			          		<div class="col-md-1">
                       <button type="submit" class="btn btn-md btn-warning"  onclick="var notice = new PNotify({text: $('#form_notice_<?php echo $service->id; ?>').html(), icon: false, width: 'auto', hide: false, addclass: 'custom', icon: 'picon picon-32 picon-edit-delete', opacity: .8, nonblock: {nonblock: true }, animation: {effect_in: 'show', effect_out: 'slide'}, buttons: {closer: false, sticker: false }, insert_brs: false }); notice.get().find('form.pf-form').on('click', '[name=cancel]', function(){notice.remove(); }).submit(function(){$('#form_notice').submit(); });"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
                       <div id="form_notice_<?php echo $service->id; ?>" style="display: none;">
-                        <?php echo Form::open(array('class'=>'pf-form pform_custom','url' => 'hotel/category/'.$service->id)); ?>
+                        <?php echo Form::open(array('class'=>'pf-form pform_custom','url' => 'hotel/services/'.$service->id)); ?>
 
                           <?php echo Form::hidden("_method", "DELETE"); ?>
 
                           <div class="pf-element pf-heading">
-                            <h3><?php echo trans('main.confirm delete category'); ?></h3>
+                            <h3><?php echo trans('main.confirm delete Servicio'); ?></h3>
                             <p></p>
                           </div>
                           <div class="pf-element pf-buttons pf-centered">

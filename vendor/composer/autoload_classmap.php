@@ -101,7 +101,7 @@ return array(
     'ItemOrder' => $baseDir . '/app/models/ItemOrder.php',
     'Language' => $baseDir . '/app/models/Language.php',
     'LanguageHotel' => $baseDir . '/app/models/LanguageHotel.php',
-    'Menu' => $baseDir . '/app/models/Manu.php',
+    'Menu' => $baseDir . '/app/models/Menu.php',
     'MenuLang' => $baseDir . '/app/models/MenuLang.php',
     'MigrationCartalystSentryInstallGroups' => $vendorDir . '/cartalyst/sentry/src/migrations/2012_12_06_225929_migration_cartalyst_sentry_install_groups.php',
     'MigrationCartalystSentryInstallThrottle' => $vendorDir . '/cartalyst/sentry/src/migrations/2012_12_06_225988_migration_cartalyst_sentry_install_throttle.php',

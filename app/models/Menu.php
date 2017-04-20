@@ -10,13 +10,12 @@ class Menu extends Eloquent {
     	$menu = Menu::find($id);
         $langs = LanguageHotel::where('state', 1)->where('hotel_id', $hotel->id)->get();
         foreach($langs as $lang){
-        	$menuLang = MenuLang::where('language_id', $lang->language_id)->where('Menu_id', $menu->id)->first();
+        	$menuLang = MenuLang::where('language_id', $lang->language_id)->where('menu_id', $menu->id)->first();
         	if(!$menuLang)
         		return false;
-        	if($menuLang->menuLang=="")
+        	if($menuLang->name=="")
         		return false;
         }
-
         return true;
     }
 }

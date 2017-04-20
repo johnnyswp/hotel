@@ -14,7 +14,7 @@ class HotelBusinessMenusController extends \BaseController {
            return View::make('hotel.Payment.renews-payment');
 
         $hotel = Hotel::where('user_id', Sentry::getUser()->id)->first();
-        $menus = Menu::where('hotel_id', $hotel->id)->orderBy('menuOrder', 'ASC')->get();
+        
         $lang = LanguageHotel::where('main', 1)->where('hotel_id', $hotel->id)->first();
         
         $business = array(''=>trans('main.Seleccione un business'));
@@ -26,15 +26,16 @@ class HotelBusinessMenusController extends \BaseController {
         }
 
         if(Input::has('business')){
-            $first_business = Input::get('service');
+            $first_business = Input::get('business');
         }else{
-            $first_business = Business::where('hotel_id', $hotel->id)->where('state', 1)->orderBy('businessOrder', 'ASC')->first();
+            $first_business = Business::where('hotel_id', $hotel->id)->orderBy('businessOrder', 'ASC')->first();
             if($first_business)
                 $first_business = $first_business->id;
             else
                 $first_business ='';
         }
-
+        
+        $menus = Menu::where('business_id', $first_business)->orderBy('menuOrder', 'ASC')->get();
 		return View::make('hotel.pages.menus_business')->with(array('menus'=>$menus, 'lang'=>$lang, 'business'=>$business, 'first_business'=>$first_business));
 	}
 
@@ -162,7 +163,7 @@ class HotelBusinessMenusController extends \BaseController {
                     }
                 }
 
-                return Redirect::to('hotel/services')->withFlash_message(trans('main.Guardado Exitosamente'));
+                return Redirect::to('hotel/business/menu?business='.$menu->business_id)->withFlash_message(trans('main.Guardado Exitosamente'));
             }else{
                 return Redirect::back()->withErrors("Error")->withInput();
             }
@@ -182,14 +183,24 @@ class HotelBusinessMenusController extends \BaseController {
            return View::make('hotel.Payment.renews-payment');
         $hotel = Hotel::where('user_id', Sentry::getUser()->id)->first();
 
-        $menu = Service::where('id', $id)->where('hotel_id', $hotel->id)->first();
+        $menu = Menu::where('id', $id)->where('hotel_id', $hotel->id)->first();
         if($menu)
         {
+            $lang_main = LanguageHotel::where('main', 1)->where('hotel_id', $hotel->id)->first();
+            $business = array(''=>'Seleccione una categoria');
+            $businessAll = Business::where('hotel_id', $hotel->id)->orderBy('businessOrder', 'ASC')->get();
+            foreach($businessAll as $busin)
+            {
+                $businessLang = BusinessLang::where('business_id', $busin->id)->where('language_id', $lang_main->language_id)->first();
+                $business[$busin->id] = $businessLang->name;
+            }
+
             $lang_active = LanguageHotel::where('hotel_id', $hotel->id)->orderBy('main', 'DESC')->orderBy('state', 'DESC');
 
-            return View::make('hotel.pages.edit_services')->withService($menu)
+            return View::make('hotel.pages.edit_business')->withMenu($menu)
                                                            ->withHotel($hotel)
-                                                           ->withLangActive($lang_active->get());
+                                                           ->withLangs($lang_active->get())
+                                                           ->withBusiness($business);
         }else{
             return View::make('404');
         }
@@ -212,13 +223,19 @@ class HotelBusinessMenusController extends \BaseController {
             $langs = Language::whereNotIn('id', $lang_active->lists('language_id'))->where('state', 1)->get();
 
         $data = array(
+            "business_id"   =>  Input::get("business_id"),
+            "price"   =>  Input::get("price"),
+            "code"   =>  Input::get("code"),
             "picture" =>  Input::file("picture")
         );
 
         $data[$lang_main->language->language] = Input::get($lang_main->language->language);
 
         $rules = array(
-            "picture" =>  'mimes:jpeg,gif,png'
+            "picture" =>  'mimes:jpeg,gif,png',
+            "business_id" => 'required|min:1|max:255',
+            "price" => 'required|min:1|max:255',
+            "code" => 'min:1|max:255'
         );
         
         $rules[$lang_main->language->language]  = 'required|min:1|max:255';
@@ -233,7 +250,10 @@ class HotelBusinessMenusController extends \BaseController {
             return Redirect::back()->withErrors($validation)->withInput();
         }else{
             $hotel = Hotel::where('user_id', Sentry::getUser()->id)->first();
-            $menu = Service::where('id', $id)->where('hotel_id', $hotel->id)->first();
+            $menu = Menu::where('id', $id)->where('hotel_id', $hotel->id)->first();
+            $menu->business_id = Input::get("business_id");
+            $menu->code = Input::get("code");
+            $menu->price = Input::get("price");
 
             if(Input::file('picture')!=NULL)
             {
@@ -260,12 +280,13 @@ class HotelBusinessMenusController extends \BaseController {
                 foreach($lang_active->get() as $lang_)
                 {
 
-                    $menuLang = MenuLang::where('service_id', $menu->id)->where('language_id', $lang_->language_id)->first();
+                    $menuLang = MenuLang::where('menu_id', $menu->id)->where('language_id', $lang_->language_id)->first();
                     if(!$menuLang)
                         $menuLang = new MenuLang;
 
                     $menuLang->name = Input::get($lang_->language->language);
-                    $menuLang->service_id = $menu->id;
+                    $menuLang->description = Input::get('descrption_'.$lang_->language->language);
+                    $menuLang->menu_id = $menu->id;
                     $menuLang->language_id = $lang_->language->id;
                     $menuLang->save();
                 }
@@ -274,17 +295,18 @@ class HotelBusinessMenusController extends \BaseController {
                 {
                     if(Input::has($lang->language))
                     {
-                        $menuLang = MenuLang::where('service_id', $menu->id)->where('language_id', $lang->id)->first();
+                        $menuLang = MenuLang::where('menu_id', $menu->id)->where('language_id', $lang->id)->first();
                         if(!$menuLang)
                             $menuLang = new MenuLang;
                         $menuLang->name = Input::get($lang->language);
-                        $menuLang->service_id = $menu->id;
+                        $menuLang->description = Input::get('descrption_'.$lang->language);
+                        $menuLang->menu_id = $menu->id;
                         $menuLang->language_id = $lang->id;
                         $menuLang->save();
                     }
                 }
 
-                return Redirect::to('hotel/services')->withFlash_message(trans('main.Guardado Exitosamente'));
+                return Redirect::to('hotel/business/menu?business='.$menu->business_id)->withFlash_message(trans('main.Guardado Exitosamente'));
             }else{
                 return Redirect::back()->withErrors("Error")->withInput();
             }
@@ -299,14 +321,10 @@ class HotelBusinessMenusController extends \BaseController {
            return View::make('hotel.Payment.renews-payment');
 
        $hotel = Hotel::where('user_id', Sentry::getUser()->id)->first();
-       $menu = Service::where('id', $id)->where('hotel_id', $hotel->id)->first();
+       $menu = Menu::where('id', $id)->where('hotel_id', $hotel->id)->first();
        if($menu){
-        $item = Item::where('service_id', $menu->id)->first();
-        if($item)
-            return Redirect::back()->withError("Error: Existen algunos elemento que pertenecen ha la categoria que intenta eliminar");
-
-          $names_services = MenuLang::where('service_id', $menu->id)->get();
-          foreach ($names_services as $menuLang) {
+          $menuLang = MenuLang::where('menu_id', $menu->id)->get();
+          foreach ($menuLang as $menuLang) {
               $menuLang->delete();
           }
           $menu->delete();

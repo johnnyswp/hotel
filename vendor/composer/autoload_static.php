@@ -372,7 +372,7 @@ class ComposerStaticInitd1c7785725ca677e720afa176fadcc22
         'ItemOrder' => __DIR__ . '/../..' . '/app/models/ItemOrder.php',
         'Language' => __DIR__ . '/../..' . '/app/models/Language.php',
         'LanguageHotel' => __DIR__ . '/../..' . '/app/models/LanguageHotel.php',
-        'Menu' => __DIR__ . '/../..' . '/app/models/Manu.php',
+        'Menu' => __DIR__ . '/../..' . '/app/models/Menu.php',
         'MenuLang' => __DIR__ . '/../..' . '/app/models/MenuLang.php',
         'MigrationCartalystSentryInstallGroups' => __DIR__ . '/..' . '/cartalyst/sentry/src/migrations/2012_12_06_225929_migration_cartalyst_sentry_install_groups.php',
         'MigrationCartalystSentryInstallThrottle' => __DIR__ . '/..' . '/cartalyst/sentry/src/migrations/2012_12_06_225988_migration_cartalyst_sentry_install_throttle.php',

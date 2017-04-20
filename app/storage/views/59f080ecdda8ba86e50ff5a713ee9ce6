@@ -61,7 +61,7 @@
 			          			<div class="row" style="display: block; width: 75px; margin: 0 auto;     height: 25px;">
 									<div class="col-sm-4 iSwitch flat-switch">
 										<div class="switch">
-											<input name="state" class="state" value="<?php echo $menu->id; ?>" type="checkbox" <?php if($menu->state==1): ?> checked <?php endif; ?> <?php if(Item::state($menu->id)!=true): ?> disabled <?php endif; ?>>
+											<input name="state" class="state" value="<?php echo $menu->id; ?>" type="checkbox" <?php if($menu->state==1): ?> checked <?php endif; ?> <?php if(Menu::state($menu->id)!=true): ?> disabled <?php endif; ?>>
 										</div>
 									</div>
 								</div>
@@ -89,7 +89,7 @@
                                 </div>
 			          		</div>
 			          		<div class="col-md-1">
-			          		     <img src="<?php if(Item::state($menu->id)==true): ?> <?php echo url('assets/img/active.png'); ?> <?php else: ?> <?php echo url('assets/img/no-active.png'); ?> <?php endif; ?>" width="35px" height="35px" style="display: block; margin: 0 auto;">
+			          		     <img src="<?php if(Menu::state($menu->id)==true): ?> <?php echo url('assets/img/active.png'); ?> <?php else: ?> <?php echo url('assets/img/no-active.png'); ?> <?php endif; ?>" width="35px" height="35px" style="display: block; margin: 0 auto;">
 			          		</div>
 			          	</li>
 			          	<?php endforeach; ?>					
@@ -116,7 +116,7 @@ $(function() {
         $.ajax({
             type: 'get',
             dataType: "json",
-            url: "<?php echo url('hotel/business-state'); ?>",
+            url: "<?php echo url('hotel/business-menu-state'); ?>",
             data: {id: $input.val()},
             success: function(data){
               if(data.success==true){
@@ -176,7 +176,7 @@ $(function() {
     	var order = $("#sortable").sortable('serialize');
     	$.ajax({
             type: 'GET',
-            url: "<?php echo url('hotel/business-position'); ?>",
+            url: "<?php echo url('hotel/business-menu-position'); ?>",
             data: order,
             success: function (data) {
                 new PNotify({
