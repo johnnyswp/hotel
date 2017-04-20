@@ -15,7 +15,7 @@
 		</a>
          
 		<a class="waves-effect waves-light btn modal-trigger right btn-ico" href="#"  onclick="history.go(-1);" >
-			<i class="material-icons">keyboard_backspace</i>
+			<i class="material-icons">undo</i>
 		</a>
 </div>
  
