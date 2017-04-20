@@ -46,7 +46,7 @@
 		</div>	
 		<div class="row" style="margin-top:20px">
 			 <a href="/roomer"  class="text-catg waves-effect waves-white flow-text col s5" style="margin-right: 14%;"><span>  <?php echo $lang->txt_de_servicios_de_habitaciones; ?> </span><i class="fa fa-cutlery fa-5x" aria-hidden="true"></i></a>
-			 <a  class="text-catg waves-effect waves-white flow-text col s5 "><span>  <?php echo $lang->txt_informacion_de_alrededores; ?> </span><i class="fa fa-info-circle fa-5x" aria-hidden="true"></i></a>
+			 <a href="/roomer/info-list"    class="text-catg waves-effect waves-white flow-text col s5 "><span>  <?php echo $lang->txt_informacion_de_alrededores; ?> </span><i class="fa fa-info-circle fa-5x" aria-hidden="true"></i></a>
 		</div>	
 		 
 	</div>
