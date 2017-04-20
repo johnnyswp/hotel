@@ -46,10 +46,11 @@
 		<?php echo $__env->make("roomers.themes.$template.partials.header", array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>	
         <div class="row">
             <div class=" col s12 m12">
-                <a href="/roomer/actividades?day=<?php echo $myday; ?>&type=less" class="waves-effect waves-light btn modal-trigger left btn-ico" >
+            <?php $myday2 = Input::get('day') - 1; ?>
+                <a href="/roomer/actividades?day=<?php echo $myday2; ?>" class="waves-effect waves-light btn modal-trigger left btn-ico" >
 			      <i class="material-icons">keyboard_arrow_left</i>
 		        </a>
-                <a href="/roomer/actividades?day=<?php echo $myday; ?>&type=more" class="waves-effect waves-light btn modal-trigger right btn-ico"  >
+                <a href="/roomer/actividades?day=<?php echo $myday; ?>" class="waves-effect waves-light btn modal-trigger right btn-ico"  >
 			      <i class="material-icons">keyboard_arrow_right</i>
 		        </a>
             </div>
@@ -59,6 +60,13 @@
 		</div>-->
 		 
 		<div class="row">
+        <?php if($vacio): ?>
+            <a style="margin: 10px 0;" href="" class="col s12 m12 waves-effect waves-white">
+				<div class="card-image z-depth-2">
+					 <h5 class="textP">No hay Actividades</h5>
+				</div>
+			</a>
+        <?php endif; ?>
 			 <?php foreach($actividades as $cat): ?>
 			<a style="margin: 10px 0;" href="<?php echo url('roomer/servicio-item/'); ?>/<?php echo $cat->id; ?>" class="col s12 m12 waves-effect waves-white">
 				<span style="font-size: 1.2rem; display: block; color: white; position: relative; background: rgba(38, 166, 154, 0.82); width: 100%; padding: 0 5px; top: 0; z-index: 2;" class="card-title truncate"><?php echo ActivityLang::where('activity_id',$cat->id)->where('language_id',$lang->id)->first()->name; ?> </span>

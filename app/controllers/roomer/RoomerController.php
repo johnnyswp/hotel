@@ -670,10 +670,18 @@ class RoomerController extends \BaseController {
 		 
 		#Actividades Repetibles
 		$day=Input::get('day');
-		$type=Input::get('type');
+		
 		
 		$hoy = Carbon::today();		
+		if ($day > 0)
+		{
+		 $type="more";
+		}else{
+			$type="less";
+		}
+
 		$myday=$day+1;
+	 
 		if($day=="0"){
 		   	$num = 		$hoy->dayOfWeek;
 			$fechita = 	$hoy->format("d-m-Y");
@@ -716,6 +724,10 @@ class RoomerController extends \BaseController {
 
 		#dd($fechita,$num,$allArray,$rauls);
 
+		$vacio = false;
+		if(!$AllActivities){
+			$vacio = true;
+		}
 		$today = Carbon::today();
 		
 		$stay_token = Carbon::parse($stay->closing_date);		 
@@ -739,6 +751,8 @@ class RoomerController extends \BaseController {
 			->withStay($stay)
 			->withLang($lang)
 			->withMyday($myday)
+			#->withMyday2($myday2)
+			->withVacio($vacio)
 			->withActividades($AllActivities);			
 	}
 
