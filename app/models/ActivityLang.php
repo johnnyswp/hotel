@@ -1,7 +1,7 @@
 <?php
 class ActivityLang extends Eloquent {
 
-	protected $table = 'ActivityLang';
+	protected $table = 'activitylang';
 	public $timestamps = true;
 
 }

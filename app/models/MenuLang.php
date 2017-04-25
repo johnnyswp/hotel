@@ -1,7 +1,7 @@
 <?php
 class MenuLang extends Eloquent {
 
-	protected $table = 'menuLang';
+	protected $table = 'menulang';
 	public $timestamps = true;
 
 }

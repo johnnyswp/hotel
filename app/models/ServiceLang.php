@@ -1,7 +1,7 @@
 <?php
 class ServiceLang extends Eloquent {
 
-	protected $table = 'servicesLang';
+	protected $table = 'serviceslang';
 	public $timestamps = true;
 
 }
