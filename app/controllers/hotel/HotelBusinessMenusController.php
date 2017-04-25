@@ -197,7 +197,7 @@ class HotelBusinessMenusController extends \BaseController {
 
             $lang_active = LanguageHotel::where('hotel_id', $hotel->id)->orderBy('main', 'DESC')->orderBy('state', 'DESC');
 
-            return View::make('hotel.pages.edit_business')->withMenu($menu)
+            return View::make('hotel.pages.edit_menu_business')->withMenu($menu)
                                                            ->withHotel($hotel)
                                                            ->withLangs($lang_active->get())
                                                            ->withBusiness($business);

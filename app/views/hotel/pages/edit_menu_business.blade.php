@@ -9,13 +9,13 @@
 		<div class="col-lg-8 col-lg-offset-2">
 		<section class="panel">
 			<header class="panel-heading sm" data-color="theme-inverse">
-				<h2><strong> {{trans('main.Editar')}}</strong>  {{trans('main.business')}}</h2>
+				<h2><strong> {{trans('main.Editar')}}</strong>  {{trans('main.business menu')}}</h2>
 				@if (Session::has('flash_message'))
                 <label class="color" style="color: white;background-color: rgba(0, 204, 23, 0.29);">{{ Session::get('flash_message') }}</label>
                 @endif
 			</header>
 			<div class="panel-body">
-				{{ Form::model($business, ['files' => 'true', 'method' => 'PATCH', 'route' => ['hotel.business.update', $business->id]]) }}
+				{{ Form::model($menu, ['files' => 'true', 'method' => 'PATCH', 'route' => ['hotel.business.menu.update', $menu->id]]) }}
 					
 					<div class="form-group offset">
 						<div>
@@ -27,27 +27,24 @@
 					<div class="form-group">
                         <label class="control-label">{{trans('main.service')}}</label>
                         <div>
-                            {{ Form::select('service_id', $services, null, ['class' => 'form-control selectpicker', 'data-size'=>'10', 'data-live-search'=>'true', 'autocomplete'=>'off']) }}
+                            {{ Form::select('business_id', $business, null, ['class' => 'form-control selectpicker', 'data-size'=>'10', 'data-live-search'=>'true', 'autocomplete'=>'off']) }}
                             {{ errors_for('service_id', $errors) }}
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label class="control-label">{{trans('main.phone')}}</label>
+                        <label class="control-label">{{trans('main.price')}}</label>
                         <div>
-                            {{ Form::text('phone', null, ['class' => 'form-control', 'autocomplete'=>'off']) }}
-                            {{ errors_for('phone', $errors) }}
+                            {{ Form::text('price', null, ['class' => 'form-control', 'autocomplete'=>'off']) }}
+                            {{ errors_for('price', $errors) }}
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label class="control-label">{{trans('main.horarios')}}</label>
-                        <div>
-                            <div class="col-md-6" style='padding-left: 0px;'>{{ Form::text('since', null, ['class' => 'form-control timepicker', 'autocomplete'=>'off', 'placeholder'=>trans('main.since')]) }}
-                            {{ errors_for('since', $errors) }}</div>
 
-                            <div class="col-md-6"  style='padding-right: 0px;'>{{ Form::text('until', null, ['class' => 'form-control timepicker', 'autocomplete'=>'off', 'placeholder'=>trans('main.until')]) }}
-                            {{ errors_for('until', $errors) }}</div>
-                            
+                    <div class="form-group">
+                        <label class="control-label">{{trans('main.code')}}</label>
+                        <div>
+                            {{ Form::text('code', null, ['class' => 'form-control', 'autocomplete'=>'off']) }}
+                            {{ errors_for('code', $errors) }}
                         </div>
                     </div>
 
@@ -57,7 +54,7 @@
 							<div class="fileinput fileinput-exists" data-provides="fileinput">
 								<input type="hidden" value="" name="">
 								<div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 200px; height: 150px; line-height: 150px;">
-									<img src="{{$business->picture}}" />
+									<img src="{{$menu->picture}}" />
 								</div>
 							<div>
 								<span class="btn btn-default btn-file">
@@ -78,20 +75,20 @@
 					<?php $x=0; ?>
 					@foreach($langs as $lang_)
 					    <?php
-                            $businessLang = BusinessLang::where('business_id', $business->id)->where('language_id', $lang_->language_id)->first();
+                            $menuLang = MenuLang::where('menu_id', $menu->id)->where('language_id', $lang_->language_id)->first();
 					    ?>
-					    @if($businessLang)
+					    @if($menuLang)
 					        @if($lang_->main==1)
 					        <label class="control-label">{{trans('main.Nombre en')}} {{$lang_->language->language}} ({{trans('main.lang')}})</label>
 					        <div class="form-group">
 					        	<div>
-					        		{{ Form::text($lang_->language->language, $businessLang->name, ['class' => 'form-control', 'placeholder'=>$lang_->language->language, 'autocomplete'=>'off', 'required'=>'required']) }}
+					        		{{ Form::text($lang_->language->language, $menuLang->name, ['class' => 'form-control', 'placeholder'=>$lang_->language->language, 'autocomplete'=>'off', 'required'=>'required']) }}
                                     {{ errors_for($lang_->language->language, $errors) }}
 					        	</div>
 					        </div>
 					        <div class="form-group">
 					        	<div>
-					        		{{ Form::textarea('descrption_'.$lang_->language->language, $businessLang->description, ['class' => 'form-control', 'style'=>'height: 75px;','placeholder'=>trans('main.descrpcion en').' '.$lang_->language->language, 'autocomplete'=>'off']) }}
+					        		{{ Form::textarea('descrption_'.$lang_->language->language, $menuLang->description, ['class' => 'form-control', 'style'=>'height: 75px;','placeholder'=>trans('main.descrpcion en').' '.$lang_->language->language, 'autocomplete'=>'off']) }}
                                     {{ errors_for('descrption_'.$lang_->language->language, $errors) }}
 					        	</div>
 					        </div>
@@ -103,13 +100,13 @@
 					            <label class="control-label">{{trans('main.Nombre en')}} {{$lang_->language->language}}</label>
 					            <div class="form-group">
 					            	<div>
-					            		{{ Form::text($lang_->language->language, $businessLang->name, ['class' => 'form-control', 'placeholder'=>$lang_->language->language, 'autocomplete'=>'off']) }}
+					            		{{ Form::text($lang_->language->language, $menuLang->name, ['class' => 'form-control', 'placeholder'=>$lang_->language->language, 'autocomplete'=>'off']) }}
                                         {{ errors_for($lang_->language->language, $errors) }}
 					            	</div>
 					            </div>
 					            <div class="form-group">
 					            	<div>
-					            		{{ Form::textarea('descrption_'.$lang_->language->language, $businessLang->description, ['class' => 'form-control', 'style'=>'height: 75px;','placeholder'=>trans('main.descrpcion en').' '.$lang_->language->language, 'autocomplete'=>'off']) }}
+					            		{{ Form::textarea('descrption_'.$lang_->language->language, $menuLang->description, ['class' => 'form-control', 'style'=>'height: 75px;','placeholder'=>trans('main.descrpcion en').' '.$lang_->language->language, 'autocomplete'=>'off']) }}
                                         {{ errors_for('descrption_'.$lang_->language->language, $errors) }}
 					            	</div>
 					            </div>
