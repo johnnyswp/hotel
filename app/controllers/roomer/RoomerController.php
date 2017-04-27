@@ -669,7 +669,7 @@ class RoomerController extends \BaseController {
 		
 		 
 		#Actividades Repetibles
-		$day=Input::get('day');
+		$day= (int) Input::get('day');
 		
 		
 		$hoy = Carbon::today();		
@@ -679,7 +679,8 @@ class RoomerController extends \BaseController {
 		}else{
 			$type="less";
 		}
-
+		 
+		$positive = abs($day);
 		$myday=$day+1;
 	 
 		if($day=="0"){
@@ -692,7 +693,7 @@ class RoomerController extends \BaseController {
 				$num = $ahoy->dayOfWeek;	
 				$fechita = 	$ahoy->format("d-m-Y");							 
 			 }else{
-				$ahoy = $hoy->subDays($day);
+				$ahoy = $hoy->subDays($positive);
 				$num = $ahoy->dayOfWeek;
 				$fechita = 	$ahoy->format("d-m-Y");							 
 			 }
@@ -751,7 +752,7 @@ class RoomerController extends \BaseController {
 			->withStay($stay)
 			->withLang($lang)
 			->withMyday($myday)
-			#->withMyday2($myday2)
+			->withFechita($fechita)
 			->withVacio($vacio)
 			->withActividades($AllActivities);			
 	}

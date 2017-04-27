@@ -17,9 +17,7 @@
 	    padding: 12px 0px 7px 0px;
 	    display: block;
 	}
-	#welcome .divider{
-		display:none;
-	}
+ 
 	.textP{
 		color:White;    line-height: 1.25;    text-align: left;
 	}

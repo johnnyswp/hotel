@@ -2,9 +2,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>@yield('title') - Easy Room Service</title>
+	<title><?php echo $__env->yieldContent('title'); ?> - Easy Room Service</title>
 	<link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-	<!--Import materialize.css {{$hotel->limit_time}} -->
+	<!--Import materialize.css <?php echo $hotel->limit_time; ?> -->
 	<?php
 		$a = explode(":",$hotel->limit_time);
 		$hour= $a[0];
@@ -12,35 +12,35 @@
 	?>
 	
 
-	<link type="text/css" rel="stylesheet" href="{{ asset('roomers/plugins/materialize/css/materialize.css') }}"  media="screen,projection"/>
-	<link type="text/css" rel="stylesheet" href="{{ asset('roomers/css/style.css') }}"  media="all"/>
-	<link type="text/css" rel="stylesheet" href="{{ asset('roomers/css/theme_1.css') }}"  media="all"/>
-	<link type="text/css" rel="stylesheet" href="{{ asset('roomers/plugins/pickadate/lib/compressed/themes/default.date.css')}}"  media="all"/>
-	<link type="text/css" rel="stylesheet" href="{{ asset('roomers/plugins/pickadate/lib/compressed/themes/default.time.css')}}"  media="all"/>
+	<link type="text/css" rel="stylesheet" href="<?php echo asset('roomers/plugins/materialize/css/materialize.css'); ?>"  media="screen,projection"/>
+	<link type="text/css" rel="stylesheet" href="<?php echo asset('roomers/css/style.css'); ?>"  media="all"/>
+	<link type="text/css" rel="stylesheet" href="<?php echo asset('roomers/css/theme_1.css'); ?>"  media="all"/>
+	<link type="text/css" rel="stylesheet" href="<?php echo asset('roomers/plugins/pickadate/lib/compressed/themes/default.date.css'); ?>"  media="all"/>
+	<link type="text/css" rel="stylesheet" href="<?php echo asset('roomers/plugins/pickadate/lib/compressed/themes/default.time.css'); ?>"  media="all"/>
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-	<script type="text/javascript" src="{{ asset('roomers/plugins/jquery/jquery-2.1.1.min.js')}}"></script>
-	<script type="text/javascript" src="{{ asset('roomers/plugins/materialize/js/bin/materialize.min.js')}}"></script>
-	<script type="text/javascript" src="{{ asset('roomers/plugins/nicescroll/jquery.nicescroll.min.js')}}"></script>
-	<script type="text/javascript" src="{{ asset('roomers/plugins/pickadate/lib/compressed/legacy.js')}}"></script>
-	<script type="text/javascript" src="{{ asset('roomers/plugins/pickadate/lib/compressed/picker.date.js')}}"></script>
-	<script type="text/javascript" src="{{ asset('roomers/plugins/pickadate/lib/compressed/picker.time.js')}}"></script>
+	<script type="text/javascript" src="<?php echo asset('roomers/plugins/jquery/jquery-2.1.1.min.js'); ?>"></script>
+	<script type="text/javascript" src="<?php echo asset('roomers/plugins/materialize/js/bin/materialize.min.js'); ?>"></script>
+	<script type="text/javascript" src="<?php echo asset('roomers/plugins/nicescroll/jquery.nicescroll.min.js'); ?>"></script>
+	<script type="text/javascript" src="<?php echo asset('roomers/plugins/pickadate/lib/compressed/legacy.js'); ?>"></script>
+	<script type="text/javascript" src="<?php echo asset('roomers/plugins/pickadate/lib/compressed/picker.date.js'); ?>"></script>
+	<script type="text/javascript" src="<?php echo asset('roomers/plugins/pickadate/lib/compressed/picker.time.js'); ?>"></script>
 
-	<script type="text/javascript" src="{{ asset('roomers/plugins/nicescroll/jquery.nicescroll.min.js')}}"></script>
-	<script type="text/javascript" src="{{url('assets/plugins/moment/moment.js')}}"></script>
-	<script type="text/javascript" src="{{ asset('roomers/plugins/store/store.min.js')}}"></script>
-	<script type="text/javascript" src="{{ asset('roomers/js/roomers.js')}}"></script>
+	<script type="text/javascript" src="<?php echo asset('roomers/plugins/nicescroll/jquery.nicescroll.min.js'); ?>"></script>
+	<script type="text/javascript" src="<?php echo url('assets/plugins/moment/moment.js'); ?>"></script>
+	<script type="text/javascript" src="<?php echo asset('roomers/plugins/store/store.min.js'); ?>"></script>
+	<script type="text/javascript" src="<?php echo asset('roomers/js/roomers.js'); ?>"></script>
 
 	<script type="text/javascript">
 		/*if(window.location.pathname=="/roomer"){
 			window.onbeforeunload = function(e) {
-			  return '{{trans("main.mensaj_roomer_inicio")}}';
+			  return '<?php echo trans("main.mensaj_roomer_inicio"); ?>';
 			};			
 			
 		}*/
 
 		if(window.location.hash=="#mgs"){
-			Materialize.toast("{{$lang->txt_message_pedido_ok}}",3000);
+			Materialize.toast("<?php echo $lang->txt_message_pedido_ok; ?>",3000);
 		}
 		
 		 
@@ -61,13 +61,13 @@
 	</script>
 	<!--Let browser know website is optimized for mobile-->
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no"/>
-	@yield('link')
-	@yield('style')
+	<?php echo $__env->yieldContent('link'); ?>
+	<?php echo $__env->yieldContent('style'); ?>
 </head>
 
 <body class="">
-	<div class="row">@yield("container")</div>
-	@yield("script")
+	<div class="row"><?php echo $__env->yieldContent("container"); ?></div>
+	<?php echo $__env->yieldContent("script"); ?>
 	<script type="text/javascript" charset="utf-8" async defer>
 		(function($){
 			$(function(){
@@ -81,12 +81,12 @@
 					cursorwidth:"9px"});
 				 
 
-				@yield("jquery")
+				<?php echo $__env->yieldContent("jquery"); ?>
 				$('#lang').on('change', function(event) {
 					event.preventDefault();
 					/* Act on the event */
 					window.onbeforeunload = false;
-					window.location.href="{{url('roomers/lang/')}}/"+$(this).val();
+					window.location.href="<?php echo url('roomers/lang/'); ?>/"+$(this).val();
 				});
 				$('.modal-trigger').leanModal();
 			});
@@ -119,7 +119,7 @@
 		
 		var $input =  $('#bt_pg').pickadate({
 			min: true,
-			max: {{$max}},
+			max: <?php echo $max; ?>,
             //formatSubmit: 'yyyy/mm/dd',
             format: 'dd-mm-yyyy',
             today: '',
@@ -130,7 +130,7 @@
             onStart: function (){
             	console.log('Star');
             	/*$.post(shopcar.url+'/roomer/stay-date-max-checkout', 
-					{stay_id: "{{$stay->id}}"},
+					{stay_id: "<?php echo $stay->id; ?>"},
 		        	function(data, textStatus, xhr) {
 						if(data.success)
 						{
@@ -153,7 +153,7 @@
             		
                     var timer = $time.pickatime('picker');
                     	var date = picker.get('select', 'mm/dd/yyyy');
-                    	  $.post(shopcar.url+'/roomer/stay-date-max', {stay_id: '{{$stay->id}}', 'date':date}, function(data, textStatus, xhr) {
+                    	  $.post(shopcar.url+'/roomer/stay-date-max', {stay_id: '<?php echo $stay->id; ?>', 'date':date}, function(data, textStatus, xhr) {
 	                    	if(data.tipo=="date_checkin_today")
 	                    	{
 	                    		console.log("entro 123");
@@ -219,7 +219,7 @@
 		});
 	</script>  
 	<script>
-		store.set('lang',{{$lang->id}});
+		store.set('lang',<?php echo $lang->id; ?>);
 		<?php
 		$orders_ = Order::where('stay_id',$stay->id)
 			->whereIn('state',array('programmed','just_now','ready','delivered','finalized'))->get();
@@ -238,7 +238,7 @@
 			}
 		}
 		?>
-		shopcar.setOrders("{{$a}}");
+		shopcar.setOrders("<?php echo $a; ?>");
 	</script>
 </body>
 </html>

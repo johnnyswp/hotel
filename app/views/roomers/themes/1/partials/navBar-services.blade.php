@@ -13,7 +13,9 @@
 	   	<a class="waves-effect waves-light btn modal-trigger right btn-ico" href="/roomer/seleccion">
 			<i class="material-icons">home</i>
 		</a>
-         
+         <a class="waves-effect waves-light btn modal-trigger right btn-ico" href="#modal1" onclick="return window.onbeforeunload = false;">
+		<i class="material-icons">language</i>
+	</a>
 		<a class="waves-effect waves-light btn modal-trigger right btn-ico" href="#"  onclick="history.go(-1);" >
 			<i class="material-icons">undo</i>
 		</a>
