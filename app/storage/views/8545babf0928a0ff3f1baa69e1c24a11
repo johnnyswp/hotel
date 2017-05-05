@@ -4,6 +4,7 @@
 <head>
 	<title><?php echo $__env->yieldContent('title'); ?> - Easy Room Service</title>
 	<link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<!--Import materialize.css <?php echo $hotel->limit_time; ?> -->
 	<?php
 		$a = explode(":",$hotel->limit_time);
@@ -17,8 +18,6 @@
 	<link type="text/css" rel="stylesheet" href="<?php echo asset('roomers/css/theme_1.css'); ?>"  media="all"/>
 	<link type="text/css" rel="stylesheet" href="<?php echo asset('roomers/plugins/pickadate/lib/compressed/themes/default.date.css'); ?>"  media="all"/>
 	<link type="text/css" rel="stylesheet" href="<?php echo asset('roomers/plugins/pickadate/lib/compressed/themes/default.time.css'); ?>"  media="all"/>
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
 	<script type="text/javascript" src="<?php echo asset('roomers/plugins/jquery/jquery-2.1.1.min.js'); ?>"></script>
 	<script type="text/javascript" src="<?php echo asset('roomers/plugins/materialize/js/bin/materialize.min.js'); ?>"></script>
 	<script type="text/javascript" src="<?php echo asset('roomers/plugins/nicescroll/jquery.nicescroll.min.js'); ?>"></script>
@@ -32,12 +31,12 @@
 	<script type="text/javascript" src="<?php echo asset('roomers/js/roomers.js'); ?>"></script>
 
 	<script type="text/javascript">
-		/*if(window.location.pathname=="/roomer"){
+		if(window.location.pathname=="/roomer"){
 			window.onbeforeunload = function(e) {
 			  return '<?php echo trans("main.mensaj_roomer_inicio"); ?>';
 			};			
 			
-		}*/
+		}
 
 		if(window.location.hash=="#mgs"){
 			Materialize.toast("<?php echo $lang->txt_message_pedido_ok; ?>",3000);
@@ -116,78 +115,7 @@
 				}
 			}
 		});
-		
-		var $input =  $('#bt_pg').pickadate({
-			min: true,
-			max: <?php echo $max; ?>,
-            //formatSubmit: 'yyyy/mm/dd',
-            format: 'dd-mm-yyyy',
-            today: '',
-            clear: '',
-            hiddenPrefix: 'prefix__',
-            hiddenSuffix: '__suffix',
-            closeOnSelect: true,
-            onStart: function (){
-            	console.log('Star');
-            	/*$.post(shopcar.url+'/roomer/stay-date-max-checkout', 
-					{stay_id: "<?php echo $stay->id; ?>"},
-		        	function(data, textStatus, xhr) {
-						if(data.success)
-						{
 
-							var stat = data.max;
-							var dda = $input.pickadate('picker');
-							dda.set('max', stat);
-							 
-						}
-		        	}
-		        );*/
-            },
-            onSet: function(context) {
-            	var picker = $input.pickadate('picker');
-            	picker.close();
-
-            	var hoy = picker.get('select', 'mm/dd/yyyy');
-            	var today = moment().format('L');
-                    //console.log('hoy '+hoy+' today: '+today);
-            		
-                    var timer = $time.pickatime('picker');
-                    	var date = picker.get('select', 'mm/dd/yyyy');
-                    	  $.post(shopcar.url+'/roomer/stay-date-max', {stay_id: '<?php echo $stay->id; ?>', 'date':date}, function(data, textStatus, xhr) {
-	                    	if(data.tipo=="date_checkin_today")
-	                    	{
-	                    		console.log("entro 123");
-	                    		timer.set('max', [data.hour,data.min]);	
-	                    		if(data.hoy){
-	                    			console.log("es hoy");	                    			                    			
-	                    			timer.set('min', true);	      
-	                    		}else{
-	                    			console.log("no es hoy");	                    			                    				                    			
-	                    			timer.set('min', false);
-	                    		}
-	                    	}else if(data.tipo=="date_today")
-	                    	{
-	                    		console.log("entro 789");
-	                    		//timer.set('max', [data.hour,data.min]);	
-	                    		if(data.hoy){
-	                    			timer.set('min', true);	      
-	                    		} 
-	                    	}
-	                    	else if(data.tipo=="date_normal" || data.tipo=="date_menor"){
-	                    		console.log("entro 456");	                    		                    		
-	                    		timer.set('min', false);
-	                    	}else if(data.tipo=="date_mayor"){
-	                    		console.log("entro 897");	                    		
-	                    		timer.set('disable',true);
-	                    	}	                    
-                    		timer.render();
-                    		timer.open();
-						});
-                $('#asd').val(hoy);
-                $('#okC').attr('date',hoy);
-
-            }
-        });
 
 		
 
@@ -218,27 +146,6 @@
 			}
 		});
 	</script>  
-	<script>
-		store.set('lang',<?php echo $lang->id; ?>);
-		<?php
-		$orders_ = Order::where('stay_id',$stay->id)
-			->whereIn('state',array('programmed','just_now','ready','delivered','finalized'))->get();
 
-		$a="";
-
-		foreach($orders_ as $or){
-			if($a==""){
-				if($orders_->count() > 1){
-					$a=$or->id;
-				}else{
-					$a=$or->id;
-				}
-			}else{
-				$a=$a.",".$or->id;
-			}
-		}
-		?>
-		shopcar.setOrders("<?php echo $a; ?>");
-	</script>
 </body>
 </html>

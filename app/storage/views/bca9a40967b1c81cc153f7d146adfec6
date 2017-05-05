@@ -17,9 +17,7 @@
 	    padding: 12px 0px 7px 0px;
 	    display: block;
 	}
-	#welcome .divider{
-		display:none;
-	}
+	 
 	.text-catg{
 		color:White;    border: 1px solid;line-height: 1;    text-align: center;
 	}

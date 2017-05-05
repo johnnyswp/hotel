@@ -1,0 +1,303 @@
+ 
+
+<?php $__env->startSection('title', trans('main.panel de control')); ?>
+
+<?php $__env->startSection('content'); ?>
+<div id="content">
+	<div class="row">
+		<div class="col-lg-8 col-lg-offset-2">
+		<section class="panel corner-flip">
+			<header class="panel-heading sm" data-color="theme-inverse">
+				<h2><strong><?php echo trans('main.hotel data'); ?></strong></h2>
+				<?php if(Session::has('flash_message')): ?>
+                <label class="color" style="color: white;background-color: rgba(0, 204, 23, 0.29);"><?php echo Session::get('flash_message'); ?></label>
+                <?php endif; ?>
+			</header>
+			<div class="panel-body">
+				<?php echo Form::model($hotel, ['files' => 'true', 'method' => 'PATCH', 'action'=>'HotelController@anyUpdate']); ?>
+
+					<div class="form-group">
+						<label class="control-label"><?php echo trans('main.hotel name'); ?></label>
+						<div>
+						    <?php echo Form::text('name', NULL, ['class' => 'form-control']); ?>
+
+						    <?php echo errors_for('name', $errors); ?>
+
+						</div>
+					</div>
+
+<!--					<div class="form-group">
+						<label class="control-label">Estado</label>
+						<div>
+							<div class="row">
+								<div class="col-sm-4 iSwitch flat-switch">
+									<div class="switch">
+									    <?php echo Form::checkbox('state', 1); ?>
+
+									</div>
+								</div>
+								<?php echo errors_for('state', $errors); ?>
+
+
+							</div>
+						</div>
+					</div> -->
+
+					<div class="form-group">
+                        <label class="control-label"><?php echo trans('main.country'); ?></label>
+                        <div>
+                            <?php echo Form::select('country_id', $countries, NULL, ['id'=>'country','class' => 'form-control selectpicker', 'data-size'=>'10', 'data-live-search'=>'true', 'autocomplete'=>'off']); ?>
+
+                            <?php echo errors_for('country_id', $errors); ?>
+
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label"><?php echo trans('main.city'); ?></label>
+                        <div id="ccity">
+                            <?php echo Form::text('city', NULL, ['class' => 'form-control', 'autocomplete'=>'off']); ?>
+
+                            <?php echo errors_for('city', $errors); ?>
+
+                        </div>
+                    </div>
+
+					<div class="form-group">
+						<label class="control-label"><?php echo trans('main.address'); ?></label>
+						<div>
+						    <?php echo Form::text('address', NULL, ['class' => 'form-control', 'autocomplete'=>'off']); ?>
+
+						    <?php echo errors_for('address', $errors); ?>
+
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="control-label"><?php echo trans('main.email publico'); ?></label>
+						<div>
+							<?php echo Form::text('infoemail', NULL, ['class' => 'form-control', 'autocomplete'=>'off']); ?>
+
+						    <?php echo errors_for('infoemail', $errors); ?>
+
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="control-label"><?php echo trans('main.web site'); ?></label>
+						<div>
+							<?php echo Form::text('web', NULL, ['class' => 'form-control', 'autocomplete'=>'off']); ?>
+
+						    <?php echo errors_for('web', $errors); ?>
+
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="control-label"><?php echo trans('main.lang'); ?></label>
+						<div>
+						    <?php echo Form::select('language_id', $langs, $langmain->language_id, ['id'=>'lang','class' => 'form-control selectpicker', 'data-size'=>'10', 'data-live-search'=>'true', 'autocomplete'=>'off']); ?>
+
+                            <?php echo errors_for('language_id', $errors); ?>
+
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="control-label"><?php echo trans('main.divisa de precios'); ?></label>
+						<div>
+							<?php echo Form::select('exchange_id', $exchanges, NULL, ['id'=>'exchange','class' => 'form-control selectpicker', 'data-size'=>'10', 'data-live-search'=>'true', 'autocomplete'=>'off']); ?>
+
+                            <?php echo errors_for('exchange_id', $errors); ?>
+
+						</div>
+					</div>
+
+					<!--<div class="form-group">
+						<label class="control-label"><?php echo trans('main.lista de horarios segun'); ?></label>
+						<div>
+							<?php echo Form::select('list_times_as', array('0'=>trans('main.horario de entrega'), '1'=>trans('main.horario de solicitud')), NULL, ['id'=>'country','class' => 'form-control selectpicker', 'data-size'=>'10', 'data-live-search'=>'false', 'autocomplete'=>'off']); ?>
+
+                            <?php echo errors_for('list_times_as', $errors); ?>
+
+						</div>
+					</div>-->
+					<div class="form-group">
+						<label class="control-label"><?php echo trans('main.tipo de login'); ?></label>
+						<div>
+							<?php echo Form::select('type_login', array('0'=>trans('main.con token'), '1'=>trans('main.con username')), NULL, ['id'=>'country','class' => 'form-control selectpicker', 'data-size'=>'10', 'data-live-search'=>'false', 'autocomplete'=>'off']); ?>
+
+                            <?php echo errors_for('type_login', $errors); ?>
+
+						</div>
+					</div>
+					
+					<div class="form-group">
+						<label class="control-label"><?php echo trans('main.Seleccion de Plantilla'); ?></label>
+						<div>
+							<?php echo Form::select('theme', array('1'=>trans('main.tema 1'), '2'=>trans('main.tema 2'), '3'=>trans('main.tema 3')), NULL, ['id'=>'theme','class' => 'form-control selectpicker', 'data-size'=>'10', 'data-live-search'=>'false', 'autocomplete'=>'off']); ?>
+
+                            <?php echo errors_for('theme', $errors); ?>
+
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="control-label"><?php echo trans('main.Hora limite'); ?></label>
+						<div>
+						    <?php echo Form::text('limit_time', NULL, ['class' => 'form-control timepicker']); ?>
+
+						    <?php echo errors_for('limit_time', $errors); ?>
+
+						</div>
+					</div>
+
+					<!--<div class="form-group">
+						<label class="control-label"><?php echo trans('main.Informar check in por email'); ?></label>
+						<div>
+							<div class="row">
+								<div class="col-sm-4 iSwitch flat-switch">
+									<div class="switch">
+									    <?php echo Form::checkbox('inform_email', 1); ?>
+
+									</div>
+								</div>
+								<?php echo errors_for('inform_email', $errors); ?>
+
+
+							</div>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="control-label"><?php echo trans('main.Informar check in por sms'); ?></label>
+						<div>
+							<div class="row">
+								<div class="col-sm-4 iSwitch flat-switch">
+									<div class="switch">
+									    <?php echo Form::checkbox('inform_sms', 1); ?>
+
+									</div>
+								</div>
+								<?php echo errors_for('inform_sms', $errors); ?>
+
+
+							</div> 
+						</div>
+					</div>-->
+
+					<div class="form-group">
+						<label class="control-label"><?php echo trans('main.logo'); ?></label><br>
+						<div>
+							<div class="fileinput fileinput-exists" data-provides="fileinput">
+								<input type="hidden" value="" name="">
+								<div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 200px; height: 150px; line-height: 150px;">
+									<img src="<?php if($hotel->logo): ?> <?php echo $hotel->logo; ?> <?php else: ?> http://www.ngondopages.cm/media/com_jbusinessdirectory/pictures/categories/Hotel-1429249035.png <?php endif; ?>" />
+								</div>
+							<div>
+								<span class="btn btn-default btn-file">
+									<span class="fileinput-new"><?php echo trans('main.select image'); ?></span><span class="fileinput-exists"><?php echo trans('main.change'); ?></span>
+									<input type="file" name="logo">
+								</span>
+							<a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput"><?php echo trans('main.delete'); ?></a>
+							</div>
+						</div>
+						<br>
+						<?php echo errors_for('logo', $errors); ?>
+
+						<span class="label label-danger "><?php echo trans('main.note'); ?></span>
+						<span><?php echo trans('main.you must select single files of'); ?></span>
+						</div>
+					</div>
+
+					<div class="form-group offset">
+						<div>
+							<?php echo Form::submit(trans('main.save'), ['class' => 'btn btn-primary']); ?>
+
+                            <?php echo Form::reset(trans('main.cancel'), ['class' => 'btn btn-default']); ?>
+
+						</div>
+					</div>
+				<?php echo Form::close(); ?>
+
+			</div>
+		</section>
+		</div>
+	</div>
+</div>
+<?php $__env->stopSection(); ?>
+<?php $__env->startSection('js-script'); ?>
+$('.selectpicker').selectpicker();
+
+$('.timepicker').timepicker({
+    minuteStep: 1,
+    template: 'modal',
+    appendWidgetTo: 'body',
+    showSeconds: true,
+    showMeridian: false,
+    defaultTime: false
+});
+//////////////////Filtros de city, province///////////////////
+function dependencia_ciudades()
+{
+    var code = $("#provinces").val();
+    if(code){
+        $.get("<?php echo url('filter-citys'); ?>"+"?", { code: code }, function(resultado){
+            if(resultado == false)
+            {
+              $('#city').val('');
+              $('#city').prop('disabled',true);
+              $('#city').selectpicker('refresh');
+            }
+            else
+            {
+                document.getElementById("city").options.length=1;
+                $('#city').append(resultado);
+                $('#city').val('');
+                $('#city').prop('disabled',false);
+                $('#city').selectpicker('refresh');
+            }
+        });
+    }
+}
+
+function dependencia_provinces()
+{
+    var code = $("#country").val();
+    if(code){
+        $.get("<?php echo url('filter-provinces'); ?>"+"?", { code: code }, function(resultado){
+            if(resultado == false)
+            {
+                $('#provinces').val('');
+                $('#city').val('');
+                $('#provinces').prop('disabled',true);
+                $('#city').prop('disabled',true);
+                $('#provinces').selectpicker('refresh'); 
+                $('#city').selectpicker('refresh'); 
+            }
+            else
+            {
+                document.getElementById("provinces").options.length=1;
+                $('#provinces').append(resultado);
+                $('#provinces').val('');
+                $('#city').val('');
+                $('#provinces').prop('disabled',false);
+                $('#city').prop('disabled',true);
+                $('#provinces').selectpicker('refresh');
+                $('#city').selectpicker('refresh');     
+            }
+        }); 
+    }
+}
+
+$('#country').on('change',function(){            
+    var country_id = $(this).val();
+    dependencia_provinces(country_id);
+});
+
+$('#provinces').on('change',function(){
+    var province_id = $(this).val();
+    dependencia_ciudades(province_id);
+});
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('hotel.master', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

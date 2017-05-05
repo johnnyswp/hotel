@@ -27,12 +27,13 @@
 
     .textP{
 		color:White;    line-height: 1.25;    text-align: left;
+		margin-left: 15px;
 	}
 	.textP span{
 		font-size:18px;
 	}	
 	.textP i.fa {
-		margin-right: 15px;
+		margin-right: 10px;
 	}
 </style>
 <div id="welcome" class="col s12 m8 offset-m2">
@@ -45,12 +46,11 @@
         <div class="row">
             <div class=" col s12 m12">
             <?php $myday2 = Input::get('day') - 1; ?>
-                <a href="/roomer/actividades?day={{$myday2}}" class="waves-effect waves-light btn modal-trigger left btn-ico" >
+                <a href="/roomer/actividades?day={{$myday2}}" class="waves-effect waves-light btn modal-trigger left btn-ico" style="padding: 0 10px;">
 			      <i class="material-icons">keyboard_arrow_left</i>
 		        </a>
-		        <a style=" text-align: center;width: 64%;display: block; float: left; font-size: 1.7em;color: white;
-">{{$fechita}}</a>
-                <a href="/roomer/actividades?day={{$myday}}" class="waves-effect waves-light btn modal-trigger right btn-ico"  >
+		        <a style="margin-top: 9px;text-align: center;width: 49%;display: block; float: left; font-size: 1em;color: white;">{{$fechita}}</a>
+                <a href="/roomer/actividades?day={{$myday}}" class="waves-effect waves-light btn modal-trigger right btn-ico"  style="padding: 0 10px;">
 			      <i class="material-icons">keyboard_arrow_right</i>
 		        </a>
             </div>
@@ -60,41 +60,42 @@
 		</div>-->
 		 
 		<div class="row">
-        @if($vacio)
-            <a style="margin: 10px 0;" href="" class="col s12 m12 waves-effect waves-white">
-				<div class="card-image z-depth-2">
-					 <h5 class="textP">No hay Actividades</h5>
-				</div>
-			</a>
-        @endif
-			 @foreach($actividades as $cat)
-			<a style="margin: 10px 0;" href="{{url('roomer/servicio-item/')}}/{{$cat->id}}" class="col s12 m12 waves-effect waves-white">
+	        
+	        @if($vacio)
+	        <div class="card teal">
+	            <a style="margin: 10px 0;" href="" class="waves-effect waves-white">
+					<div class="card-image z-depth-2">
+						 <h5 class="textP">No hay Actividades</h5>
+					</div>
+				</a>
+			</div>
+	        @endif
+
+			@foreach($actividades as $cat)
+			<div class="card teal">
+			<a style="margin: 5px 0;" href="{{url('roomer/actividad-item/')}}/{{$cat->id}}" class="col s12 m12  waves-effect waves-white">
 				<span style="font-size: 1.2rem; display: block; color: white; position: relative; background: rgba(38, 166, 154, 0.82); width: 100%; padding: 0 5px; top: 0; z-index: 2;" class="card-title truncate">{{ActivityLang::where('activity_id',$cat->id)->where('language_id',$lang->id)->first()->name}} </span>
-				<div class="card-image z-depth-2">
+				<div class="card-image">
 					<img src="{{$cat->picture}}">
 				</div>
 			</a>
 
-            <a style="margin-bottom: 30px;"  class="col s12 m12 waves-effect waves-white textP">
+            <a style="margin-bottom: 2px;"  class="waves-effect waves-white textP">
 				<i class="fa fa-phone" aria-hidden="true"></i> 
 				<span> {{$cat->since}}  - {{$cat->until}}</span>
 			</a>
 
-
-            <a style="margin-bottom: 30px;"  class="col s12 m12 waves-effect waves-white textP">
-				<i class="fa fa-phone" aria-hidden="true"></i> 
-				<span> {{ActivityLang::where('activity_id',$cat->id)->where('language_id',$lang->id)->first()->description}}</span>
-			</a>
-
-            <a style="margin-bottom: 30px;"  class="col s12 m12 waves-effect waves-white textP">
+            <a style="margin-bottom: 2px;"  class="waves-effect waves-white textP">
 				<i class="fa fa-phone" aria-hidden="true"></i> 
 				<span> {{ActivityLang::where('activity_id',$cat->id)->where('language_id',$lang->id)->first()->public}}</span>
 			</a>
 
-            <a style="margin-bottom: 30px;"  class="col s12 m12 waves-effect waves-white textP">
+            <a style="margin-bottom: 2px;"  class="waves-effect waves-white textP">
 				<i class="fa fa-phone" aria-hidden="true"></i> 
 				<span> {{ActivityLang::where('activity_id',$cat->id)->where('language_id',$lang->id)->first()->zone}}</span>
 			</a>
+			</div>	
+
 			@endforeach	
 		</div>	
 		 

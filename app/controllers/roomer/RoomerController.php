@@ -87,9 +87,9 @@ class RoomerController extends \BaseController {
 					Session::put('hotel_id', $stay->hotel_id);
 					Session::put('token_stay', $stay->id);
 				$hotel = Hotel::find($stay->hotel_id);
-				  return Redirect::to('roomer/')
-				->withHotel($hotel)
-				->withStay($stay);
+				   return Redirect::to('roomer/seleccion')
+						->withHotel($hotel)
+						->withStay($stay);
 			}else{
 				Session::flash('mgspass', Language::find($lang)->txt_token_invalido);
 				return Redirect::back();
@@ -105,6 +105,7 @@ class RoomerController extends \BaseController {
 	            return View::make('error'); 
         }
         $hotel = Hotel::where('link',$link)->first();
+
         if(!$hotel)
         {
         	return   View::make('404');
@@ -402,7 +403,6 @@ class RoomerController extends \BaseController {
 		
 		$hotel = Hotel::find($stay->hotel_id);
 		$lang = Language::find($lang_id);
-		 
 		$categories = DB::table('category_menu')
 				   	->Join('names_category_menu', 'names_category_menu.category_menu_id', '=', 'category_menu.id')
 				   	->where('hotel_id','=',$stay->hotel_id)
@@ -497,7 +497,7 @@ class RoomerController extends \BaseController {
 		}
 		 
 
-		$business = Business::where('hotel_id',$stay->hotel_id)->where('service_id',$service_id)->orderBy('businessOrder','ASC')->get();
+		$business = Business::where('hotel_id',$stay->hotel_id)->where('state',1)->where('service_id',$service_id)->orderBy('businessOrder','ASC')->get();
 		 
 		$template = $hotel->theme; 
 		
@@ -739,7 +739,7 @@ class RoomerController extends \BaseController {
 			$max = 1;	
 		}
 		 
-		$services = Service::where('hotel_id',$stay->hotel_id)->orderBy('Serviceorder','ASC')->get();
+		$services = Service::where('hotel_id',$stay->hotel_id)->where('state',1)->orderBy('Serviceorder','ASC')->get();
 	 
 		$template = $hotel->theme; 
 		
@@ -755,6 +755,111 @@ class RoomerController extends \BaseController {
 			->withFechita($fechita)
 			->withVacio($vacio)
 			->withActividades($AllActivities);			
+	}
+
+	public function getActividadItem($id)
+	{
+		$stay = Stay::find(Session::get('token_stay'));
+
+		#$lang_id = LanguageHotel::find(Session::get('lang_id'))->language_id;
+		$lang_id = Session::get('lang_id');
+		
+		$hotel = Hotel::find($stay->hotel_id);
+		$lang = Language::find($lang_id);
+		 
+		$categories = DB::table('category_menu')
+				   	->Join('names_category_menu', 'names_category_menu.category_menu_id', '=', 'category_menu.id')
+				   	->where('hotel_id','=',$stay->hotel_id)
+				   	->where('category_menu.state','=',1)
+				   	->where('language_id','=',$lang_id)
+				   	->select('category_menu.id as category_id',
+					   		'names_category_menu.name as category_name',
+					   		'category_menu.picture as category_picture')
+ 					->orderBy('category_menu.order','ASC')
+				   	->get();
+		$exchange = Exchanges::find($hotel->exchange_id)->symbol;
+		
+		$phones =  DB::table('phones')
+				   	->Join('name_phones', 'name_phones.phone_id', '=', 'phones.id')
+				   	->where('phones.hotel_id','=',$stay->hotel_id)
+				   	->where('name_phones.language_id','=',$lang_id)
+				   	->where('phones.state','=',1)
+				   	->select('name_phones.id as phones_id',
+					   		'name_phones.name as phones_name',
+					   		'phones.number as phones_number')
+ 					->orderBy('phones.order','ASC')
+				   	->get();
+		
+		 
+		#Actividades Repetibles
+		$day= (int) Input::get('day');
+		
+		
+		$hoy = Carbon::today();		
+		if ($day > 0)
+		{
+		 $type="more";
+		}else{
+			$type="less";
+		}
+		 
+		$positive = abs($day);
+		$myday=$day+1;
+	 
+		if($day=="0"){
+		   	$num = 		$hoy->dayOfWeek;
+			$fechita = 	$hoy->format("d-m-Y");
+			   
+		}else{
+			 if($type=="more"){
+				$ahoy = $hoy->addDays($day);
+				$num = $ahoy->dayOfWeek;	
+				$fechita = 	$ahoy->format("d-m-Y");							 
+			 }else{
+				$ahoy = $hoy->subDays($positive);
+				$num = $ahoy->dayOfWeek;
+				$fechita = 	$ahoy->format("d-m-Y");							 
+			 }
+		}
+
+		
+		 
+        
+		#Actividades NO Repetibles		
+		$AllActivities = DB::table('activity')
+            ->where('hotel_id', '=',$hotel->id)
+            ->where('state', '=',1)      
+            ->where('id', '=',$id)			      
+			->first();
+ 
+		#dd($fechita,$num,$allArray,$rauls);
+
+		 
+		$today = Carbon::today();
+		
+		$stay_token = Carbon::parse($stay->closing_date);		 
+	 
+		if($stay_token == $today){			
+			$max = "true";
+		}else{
+			$max = 1;	
+		}
+		 
+		$services = Service::where('hotel_id',$stay->hotel_id)->orderBy('Serviceorder','ASC')->get();
+	 
+		$template = $hotel->theme; 
+
+		return View::make("roomers.themes.$template.item_actividades")
+			->withHotel($hotel)
+			 ->withExchange($exchange)
+			->withCategories($categories)
+			->withPhones($phones)
+			->withMax($max) 
+			->withStay($stay)
+			->withLang($lang)
+			->withMyday($myday)
+			->withFechita($fechita)
+			->withCat($AllActivities);			
 	}
 
 
@@ -801,7 +906,7 @@ class RoomerController extends \BaseController {
 		}
 		 
 
-		$services = InfoPlace::where('hotel_id',$stay->hotel_id)->orderBy('infoOrder','ASC')->get();
+		$services = InfoPlace::where('hotel_id',$stay->hotel_id)->where('state',1)->orderBy('infoOrder','ASC')->get();
 	 
 		$template = $hotel->theme; 
 		
