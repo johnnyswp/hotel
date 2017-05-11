@@ -25,10 +25,10 @@
 
         {{ Form::open(array('action' => 'HotelBusinessMenusController@index', 'files'=>true, 'id'=>'form-service', 'method'=>'GET'))}}
 					<div class="form-group">
-             <label class="control-label">{{trans('main.business')}}</label>
+             <label class="control-label">{{trans('main.category')}}</label>
              <div>
-                 {{ Form::select('business', $business, $first_business, ['id'=>'service','class' => 'form-control selectpicker', 'data-size'=>'10', 'data-live-search'=>'true', 'autocomplete'=>'off']) }}
-                 {{ errors_for('business', $errors) }}
+                 {{ Form::select('category', $cats, $first_cat, ['id'=>'service','class' => 'form-control selectpicker', 'data-size'=>'10', 'data-live-search'=>'true', 'autocomplete'=>'off']) }}
+                 {{ errors_for('category', $errors) }}
              </div>
          </div>
 				{{ Form::close() }}

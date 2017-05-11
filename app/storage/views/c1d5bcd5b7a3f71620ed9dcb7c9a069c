@@ -15,7 +15,7 @@
                 <?php endif; ?>
 			</header>
 			<div class="panel-body">
-				<?php echo Form::model($menu, ['files' => 'true', 'method' => 'PATCH', 'route' => ['hotel.business.menu.update', $menu->id]]); ?>
+				<?php echo Form::model($category, ['files' => 'true', 'method' => 'PATCH', 'route' => ['hotel.business.category.update', $category->id]]); ?>
 
 					
 					<div class="form-group offset">
@@ -28,21 +28,11 @@
 					</div>
 
 					<div class="form-group">
-                        <label class="control-label"><?php echo trans('main.service'); ?></label>
+                        <label class="control-label"><?php echo trans('main.business'); ?></label>
                         <div>
-                            <?php echo Form::select('category_id', $cats, null, ['class' => 'form-control selectpicker', 'data-size'=>'10', 'data-live-search'=>'true', 'autocomplete'=>'off']); ?>
+                            <?php echo Form::select('business_id', $business, null, ['class' => 'form-control selectpicker', 'data-size'=>'10', 'data-live-search'=>'true', 'autocomplete'=>'off']); ?>
 
-                            <?php echo errors_for('category_id', $errors); ?>
-
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="control-label"><?php echo trans('main.price'); ?></label>
-                        <div>
-                            <?php echo Form::text('price', null, ['class' => 'form-control', 'autocomplete'=>'off']); ?>
-
-                            <?php echo errors_for('price', $errors); ?>
+                            <?php echo errors_for('service_id', $errors); ?>
 
                         </div>
                     </div>
@@ -53,7 +43,7 @@
 							<div class="fileinput fileinput-exists" data-provides="fileinput">
 								<input type="hidden" value="" name="">
 								<div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 200px; height: 150px; line-height: 150px;">
-									<img src="<?php echo $menu->picture; ?>" />
+									<img src="<?php echo $category->picture; ?>" />
 								</div>
 							<div>
 								<span class="btn btn-default btn-file">
@@ -74,24 +64,16 @@
 					<?php $x=0; ?>
 					<?php foreach($langs as $lang_): ?>
 					    <?php
-                            $menuLang = MenuLang::where('menu_id', $menu->id)->where('language_id', $lang_->language_id)->first();
+                            $categoryLang = CategoryLang::where('category_id', $category->id)->where('language_id', $lang_->language_id)->first();
 					    ?>
-					    <?php if($menuLang): ?>
+					    <?php if($categoryLang): ?>
 					        <?php if($lang_->main==1): ?>
 					        <label class="control-label"><?php echo trans('main.Nombre en'); ?> <?php echo $lang_->language->language; ?> (<?php echo trans('main.lang'); ?>)</label>
 					        <div class="form-group">
 					        	<div>
-					        		<?php echo Form::text($lang_->language->language, $menuLang->name, ['class' => 'form-control', 'placeholder'=>$lang_->language->language, 'autocomplete'=>'off', 'required'=>'required']); ?>
+					        		<?php echo Form::text($lang_->language->language, $categoryLang->name, ['class' => 'form-control', 'placeholder'=>$lang_->language->language, 'autocomplete'=>'off', 'required'=>'required']); ?>
 
                                     <?php echo errors_for($lang_->language->language, $errors); ?>
-
-					        	</div>
-					        </div>
-					        <div class="form-group">
-					        	<div>
-					        		<?php echo Form::textarea('descrption_'.$lang_->language->language, $menuLang->description, ['class' => 'form-control', 'style'=>'height: 75px;','placeholder'=>trans('main.descrpcion en').' '.$lang_->language->language, 'autocomplete'=>'off']); ?>
-
-                                    <?php echo errors_for('descrption_'.$lang_->language->language, $errors); ?>
 
 					        	</div>
 					        </div>
@@ -103,17 +85,9 @@
 					            <label class="control-label"><?php echo trans('main.Nombre en'); ?> <?php echo $lang_->language->language; ?></label>
 					            <div class="form-group">
 					            	<div>
-					            		<?php echo Form::text($lang_->language->language, $menuLang->name, ['class' => 'form-control', 'placeholder'=>$lang_->language->language, 'autocomplete'=>'off']); ?>
+					            		<?php echo Form::text($lang_->language->language, $categoryLang->name, ['class' => 'form-control', 'placeholder'=>$lang_->language->language, 'autocomplete'=>'off']); ?>
 
                                         <?php echo errors_for($lang_->language->language, $errors); ?>
-
-					            	</div>
-					            </div>
-					            <div class="form-group">
-					            	<div>
-					            		<?php echo Form::textarea('descrption_'.$lang_->language->language, $menuLang->description, ['class' => 'form-control', 'style'=>'height: 75px;','placeholder'=>trans('main.descrpcion en').' '.$lang_->language->language, 'autocomplete'=>'off']); ?>
-
-                                        <?php echo errors_for('descrption_'.$lang_->language->language, $errors); ?>
 
 					            	</div>
 					            </div>
@@ -129,14 +103,6 @@
 					        		<?php echo Form::text($lang_->language->language, NULL, ['class' => 'form-control', 'placeholder'=>$lang_->language->language, 'autocomplete'=>'off']); ?>
 
                                     <?php echo errors_for($lang_->language->language, $errors); ?>
-
-					        	</div>
-					        </div>
-					        <div class="form-group">
-					        	<div>
-					        		<?php echo Form::textarea('descrption_'.$lang_->language->language, NULL, ['class' => 'form-control', 'style'=>'height: 75px;','placeholder'=>trans('main.descrpcion en').' '.$lang_->language->language, 'autocomplete'=>'off']); ?>
-
-                                    <?php echo errors_for('descrption_'.$lang_->language->language, $errors); ?>
 
 					        	</div>
 					        </div>

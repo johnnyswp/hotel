@@ -17,26 +17,26 @@ class HotelBusinessMenusController extends \BaseController {
         
         $lang = LanguageHotel::where('main', 1)->where('hotel_id', $hotel->id)->first();
         
-        $business = array(''=>trans('main.Seleccione un business'));
-        $businessAll = Business::where('hotel_id', $hotel->id)->orderBy('businessOrder', 'ASC');
-        foreach($businessAll->get() as $busines)
+        $cat = array(''=>trans('main.Seleccione un category'));
+        $catAll = Category::where('hotel_id', $hotel->id)->orderBy('categoryOrder', 'ASC');
+        foreach($catAll->get() as $category)
         {
-            $businessLang = BusinessLang::where('business_id', $busines->id)->where('language_id', $lang->language_id)->first();
-            $business[$busines->id] = $businessLang->name;
+            $catLang = CategoryLang::where('category_id', $category->id)->where('language_id', $lang->language_id)->first();
+            $cat[$category->id] = $catLang->name;
         }
 
-        if(Input::has('business')){
-            $first_business = Input::get('business');
+        if(Input::has('category')){
+            $first_cat = Input::get('category');
         }else{
-            $first_business = Business::where('hotel_id', $hotel->id)->orderBy('businessOrder', 'ASC')->first();
-            if($first_business)
-                $first_business = $first_business->id;
+            $first_cat = Category::where('hotel_id', $hotel->id)->orderBy('categoryOrder', 'ASC')->first();
+            if($first_cat)
+                $first_cat = $first_cat->id;
             else
-                $first_business ='';
+                $first_cat ='';
         }
         
-        $menus = Menu::where('business_id', $first_business)->orderBy('menuOrder', 'ASC')->get();
-		return View::make('hotel.pages.menus_business')->with(array('menus'=>$menus, 'lang'=>$lang, 'business'=>$business, 'first_business'=>$first_business));
+        $menus = Menu::where('category_id', $first_cat)->orderBy('menuOrder', 'ASC')->get();
+		return View::make('hotel.pages.menus_business')->with(array('menus'=>$menus, 'lang'=>$lang, 'cats'=>$cat, 'first_cat'=>$first_cat));
 	}
 
     /**
@@ -53,15 +53,15 @@ class HotelBusinessMenusController extends \BaseController {
         $hotel = Hotel::where('user_id', Sentry::getUser()->id)->first();
         $lang_active = LanguageHotel::where('hotel_id', $hotel->id)->orderBy('main', 'DESC')->orderBy('state', 'DESC');
         $lang = LanguageHotel::where('main', 1)->where('hotel_id', $hotel->id)->first();
-        $business = array(''=>trans('main.Seleccione un business'));
-        $businessAll = Business::where('hotel_id', $hotel->id)->orderBy('businessOrder', 'ASC');
-        foreach($businessAll->get() as $busines)
+        $cat = array(''=>trans('main.Seleccione un category'));
+        $catAll = Category::where('hotel_id', $hotel->id)->orderBy('categoryOrder', 'ASC');
+        foreach($catAll->get() as $busines)
         {
-            $businessLang = BusinessLang::where('business_id', $busines->id)->where('language_id', $lang->language_id)->first();
-            $business[$busines->id] = $businessLang->name;
+            $catLang = CategoryLang::where('category_id', $busines->id)->where('language_id', $lang->language_id)->first();
+            $cat[$busines->id] = $catLang->name;
         }
 
-        return View::make('hotel.pages.alta_menu_business')->withHotel($hotel)->withBusiness($business)
+        return View::make('hotel.pages.alta_menu_business')->withHotel($hotel)->withCats($cat)
                                                        ->withLangs($lang_active->get());
     }
 
@@ -82,9 +82,8 @@ class HotelBusinessMenusController extends \BaseController {
             $langs = Language::whereNotIn('id', $lang_active->lists('language_id'))->where('state', 1)->get();
 
         $data = array(
-            "business_id"   =>  Input::get("business_id"),
+            "category_id"   =>  Input::get("category_id"),
             "price"   =>  Input::get("price"),
-            "code"   =>  Input::get("code"),
             "picture" =>  Input::file("picture")
         );
 
@@ -92,9 +91,8 @@ class HotelBusinessMenusController extends \BaseController {
 
         $rules = array(
             "picture" =>  'mimes:jpeg,gif,png',
-            "business_id" => 'required|min:1|max:255',
+            "category_id" => 'required|min:1|max:255',
             "price" => 'required|min:1|max:255',
-            "code" => 'min:1|max:255'
         );
         
         $rules[$lang_main->language->language]  = 'required|min:1|max:255';
@@ -111,8 +109,7 @@ class HotelBusinessMenusController extends \BaseController {
             $hotel = Hotel::where('user_id', Sentry::getUser()->id)->first();
             $menu = new Menu;
             $menu->hotel_id = $hotel->id;
-            $menu->business_id = Input::get("business_id");
-            $menu->code = Input::get("code");
+            $menu->category_id = Input::get("category_id");
             $menu->price = Input::get("price");
 
             if(Input::file('picture')!=NULL)
@@ -163,7 +160,7 @@ class HotelBusinessMenusController extends \BaseController {
                     }
                 }
 
-                return Redirect::to('hotel/business/menu?business='.$menu->business_id)->withFlash_message(trans('main.Guardado Exitosamente'));
+                return Redirect::to('hotel/business/menu?category='.$menu->category_id)->withFlash_message(trans('main.Guardado Exitosamente'));
             }else{
                 return Redirect::back()->withErrors("Error")->withInput();
             }
@@ -187,12 +184,12 @@ class HotelBusinessMenusController extends \BaseController {
         if($menu)
         {
             $lang_main = LanguageHotel::where('main', 1)->where('hotel_id', $hotel->id)->first();
-            $business = array(''=>'Seleccione una categoria');
-            $businessAll = Business::where('hotel_id', $hotel->id)->orderBy('businessOrder', 'ASC')->get();
-            foreach($businessAll as $busin)
+            $cat = array(''=>'Seleccione una categoria');
+            $catAll = Category::where('hotel_id', $hotel->id)->orderBy('categoryOrder', 'ASC')->get();
+            foreach($catAll as $category)
             {
-                $businessLang = BusinessLang::where('business_id', $busin->id)->where('language_id', $lang_main->language_id)->first();
-                $business[$busin->id] = $businessLang->name;
+                $catLang = CategoryLang::where('category_id', $category->id)->where('language_id', $lang_main->language_id)->first();
+                $cat[$category->id] = $catLang->name;
             }
 
             $lang_active = LanguageHotel::where('hotel_id', $hotel->id)->orderBy('main', 'DESC')->orderBy('state', 'DESC');
@@ -200,7 +197,7 @@ class HotelBusinessMenusController extends \BaseController {
             return View::make('hotel.pages.edit_menu_business')->withMenu($menu)
                                                            ->withHotel($hotel)
                                                            ->withLangs($lang_active->get())
-                                                           ->withBusiness($business);
+                                                           ->withCats($cat);
         }else{
             return View::make('404');
         }
@@ -223,9 +220,8 @@ class HotelBusinessMenusController extends \BaseController {
             $langs = Language::whereNotIn('id', $lang_active->lists('language_id'))->where('state', 1)->get();
 
         $data = array(
-            "business_id"   =>  Input::get("business_id"),
+            "category_id"   =>  Input::get("category_id"),
             "price"   =>  Input::get("price"),
-            "code"   =>  Input::get("code"),
             "picture" =>  Input::file("picture")
         );
 
@@ -233,9 +229,8 @@ class HotelBusinessMenusController extends \BaseController {
 
         $rules = array(
             "picture" =>  'mimes:jpeg,gif,png',
-            "business_id" => 'required|min:1|max:255',
+            "category_id" => 'required|min:1|max:255',
             "price" => 'required|min:1|max:255',
-            "code" => 'min:1|max:255'
         );
         
         $rules[$lang_main->language->language]  = 'required|min:1|max:255';
@@ -251,8 +246,7 @@ class HotelBusinessMenusController extends \BaseController {
         }else{
             $hotel = Hotel::where('user_id', Sentry::getUser()->id)->first();
             $menu = Menu::where('id', $id)->where('hotel_id', $hotel->id)->first();
-            $menu->business_id = Input::get("business_id");
-            $menu->code = Input::get("code");
+            $menu->category_id = Input::get("category_id");
             $menu->price = Input::get("price");
 
             if(Input::file('picture')!=NULL)
@@ -306,7 +300,7 @@ class HotelBusinessMenusController extends \BaseController {
                     }
                 }
 
-                return Redirect::to('hotel/business/menu?business='.$menu->business_id)->withFlash_message(trans('main.Guardado Exitosamente'));
+                return Redirect::to('hotel/business/menu?category='.$menu->category_id)->withFlash_message(trans('main.Guardado Exitosamente'));
             }else{
                 return Redirect::back()->withErrors("Error")->withInput();
             }

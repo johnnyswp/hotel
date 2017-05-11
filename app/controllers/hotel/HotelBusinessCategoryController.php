@@ -83,8 +83,6 @@ class HotelBusinessCategoryController extends \BaseController {
 
         $data = array(
             "business_id"   =>  Input::get("business_id"),
-            "price"   =>  Input::get("price"),
-            "code"   =>  Input::get("code"),
             "picture" =>  Input::file("picture")
         );
 
@@ -93,8 +91,6 @@ class HotelBusinessCategoryController extends \BaseController {
         $rules = array(
             "picture" =>  'mimes:jpeg,gif,png',
             "business_id" => 'required|min:1|max:255',
-            "price" => 'required|min:1|max:255',
-            "code" => 'min:1|max:255'
         );
         
         $rules[$lang_main->language->language]  = 'required|min:1|max:255';
@@ -109,11 +105,9 @@ class HotelBusinessCategoryController extends \BaseController {
             return Redirect::back()->withErrors($validation)->withInput();
         }else{
             $hotel = Hotel::where('user_id', Sentry::getUser()->id)->first();
-            $menu = new Menu;
-            $menu->hotel_id = $hotel->id;
-            $menu->business_id = Input::get("business_id");
-            $menu->code = Input::get("code");
-            $menu->price = Input::get("price");
+            $cat = new Category;
+            $cat->hotel_id = $hotel->id;
+            $cat->business_id = Input::get("business_id");
 
             if(Input::file('picture')!=NULL)
             {
@@ -124,13 +118,13 @@ class HotelBusinessCategoryController extends \BaseController {
                 $picture=$hotel->id.$nameIMG.'.'.$ext;
                 $picname = $picture;
                 $picture= url().'/assets/pictures_hotels/services/PIC'.$picture;
-                $menu->picture = $picture;
+                $cat->picture = $picture;
             }else{
-                $menu->picture = url().'/assets/img/no-image.png';
+                $cat->picture = url().'/assets/img/no-image.png';
 
             }
 
-            if($menu->save()){
+            if($cat->save()){
                 if(Input::file('picture')!=NULL)
                 {
                     $file_picture->move("assets/pictures_hotels/services/",$picture); 
@@ -142,28 +136,26 @@ class HotelBusinessCategoryController extends \BaseController {
 
                 foreach($lang_active->get() as $lang_)
                 {
-                   $menuLang = new MenuLang;
-                   $menuLang->name = Input::get($lang_->language->language);
-                   $menuLang->description = Input::get('descrption_'.$lang_->language->language);
-                   $menuLang->menu_id = $menu->id;
-                   $menuLang->language_id = $lang_->language->id;
-                   $menuLang->save();
+                   $catLang = new CategoryLang;
+                   $catLang->name = Input::get($lang_->language->language);
+                   $catLang->category_id = $cat->id;
+                   $catLang->language_id = $lang_->language->id;
+                   $catLang->save();
                 }
 
                 foreach($langs as $lang)
                 {
                     if(Input::has($lang->language))
                     {
-                        $menuLang = new MenuLang;
-                        $menuLang->name = Input::get($lang->language);
-                        $menuLang->description = Input::get('descrption_'.$lang->language);
-                        $menuLang->menu_id = $menu->id;
-                        $menuLang->language_id = $lang->id;
-                        $menuLang->save();
+                        $catLang = new CategoryLang;
+                        $catLang->name = Input::get($lang->language);
+                        $catLang->category_id = $cat->id;
+                        $catLang->language_id = $lang->id;
+                        $catLang->save();
                     }
                 }
 
-                return Redirect::to('hotel/business/business_category?business='.$menu->business_id)->withFlash_message(trans('main.Guardado Exitosamente'));
+                return Redirect::to('hotel/business/category?business='.$cat->business_id)->withFlash_message(trans('main.Guardado Exitosamente'));
             }else{
                 return Redirect::back()->withErrors("Error")->withInput();
             }
@@ -183,11 +175,11 @@ class HotelBusinessCategoryController extends \BaseController {
            return View::make('hotel.Payment.renews-payment');
         $hotel = Hotel::where('user_id', Sentry::getUser()->id)->first();
 
-        $menu = Menu::where('id', $id)->where('hotel_id', $hotel->id)->first();
-        if($menu)
+        $category = Category::where('id', $id)->where('hotel_id', $hotel->id)->first();
+        if($category)
         {
             $lang_main = LanguageHotel::where('main', 1)->where('hotel_id', $hotel->id)->first();
-            $business = array(''=>'Seleccione una categoria');
+            $business = array(''=>'Seleccione una business');
             $businessAll = Business::where('hotel_id', $hotel->id)->orderBy('businessOrder', 'ASC')->get();
             foreach($businessAll as $busin)
             {
@@ -197,7 +189,7 @@ class HotelBusinessCategoryController extends \BaseController {
 
             $lang_active = LanguageHotel::where('hotel_id', $hotel->id)->orderBy('main', 'DESC')->orderBy('state', 'DESC');
 
-            return View::make('hotel.pages.edit_business_category')->withMenu($menu)
+            return View::make('hotel.pages.edit_business_category')->withCategory($category)
                                                            ->withHotel($hotel)
                                                            ->withLangs($lang_active->get())
                                                            ->withBusiness($business);
@@ -224,8 +216,6 @@ class HotelBusinessCategoryController extends \BaseController {
 
         $data = array(
             "business_id"   =>  Input::get("business_id"),
-            "price"   =>  Input::get("price"),
-            "code"   =>  Input::get("code"),
             "picture" =>  Input::file("picture")
         );
 
@@ -234,8 +224,6 @@ class HotelBusinessCategoryController extends \BaseController {
         $rules = array(
             "picture" =>  'mimes:jpeg,gif,png',
             "business_id" => 'required|min:1|max:255',
-            "price" => 'required|min:1|max:255',
-            "code" => 'min:1|max:255'
         );
         
         $rules[$lang_main->language->language]  = 'required|min:1|max:255';
@@ -250,10 +238,8 @@ class HotelBusinessCategoryController extends \BaseController {
             return Redirect::back()->withErrors($validation)->withInput();
         }else{
             $hotel = Hotel::where('user_id', Sentry::getUser()->id)->first();
-            $menu = Menu::where('id', $id)->where('hotel_id', $hotel->id)->first();
-            $menu->business_id = Input::get("business_id");
-            $menu->code = Input::get("code");
-            $menu->price = Input::get("price");
+            $cat = Category::where('id', $id)->where('hotel_id', $hotel->id)->first();
+            $cat->business_id = Input::get("business_id");
 
             if(Input::file('picture')!=NULL)
             {
@@ -264,10 +250,10 @@ class HotelBusinessCategoryController extends \BaseController {
                 $picture=$hotel->id.$nameIMG.'.'.$ext;
                 $picname = $picture;
                 $picture= url().'/assets/pictures_hotels/services/PIC'.$picture;
-                $menu->picture = $picture;
+                $cat->picture = $picture;
             }
 
-            if($menu->save()){
+            if($cat->save()){
                 if(Input::file('picture')!=NULL)
                 {
                     $file_picture->move("assets/pictures_hotels/services/",$picture);
@@ -280,33 +266,31 @@ class HotelBusinessCategoryController extends \BaseController {
                 foreach($lang_active->get() as $lang_)
                 {
 
-                    $menuLang = MenuLang::where('menu_id', $menu->id)->where('language_id', $lang_->language_id)->first();
-                    if(!$menuLang)
-                        $menuLang = new MenuLang;
+                    $categoryLang = CategoryLang::where('category_id', $cat->id)->where('language_id', $lang_->language_id)->first();
+                    if(!$categoryLang)
+                        $categoryLang = new CategoryLang;
 
-                    $menuLang->name = Input::get($lang_->language->language);
-                    $menuLang->description = Input::get('descrption_'.$lang_->language->language);
-                    $menuLang->menu_id = $menu->id;
-                    $menuLang->language_id = $lang_->language->id;
-                    $menuLang->save();
+                    $categoryLang->name = Input::get($lang_->language->language);
+                    $categoryLang->category_id = $cat->id;
+                    $categoryLang->language_id = $lang_->language->id;
+                    $categoryLang->save();
                 }
 
                 foreach($langs as $lang)
                 {
                     if(Input::has($lang->language))
                     {
-                        $menuLang = MenuLang::where('menu_id', $menu->id)->where('language_id', $lang->id)->first();
-                        if(!$menuLang)
-                            $menuLang = new MenuLang;
-                        $menuLang->name = Input::get($lang->language);
-                        $menuLang->description = Input::get('descrption_'.$lang->language);
-                        $menuLang->menu_id = $menu->id;
-                        $menuLang->language_id = $lang->id;
-                        $menuLang->save();
+                        $categoryLang = CategoryLang::where('category_id', $cat->id)->where('language_id', $lang->id)->first();
+                        if(!$categoryLang)
+                            $categoryLang = new CategoryLang;
+                        $categoryLang->name = Input::get($lang->language);
+                        $categoryLang->category_id = $cat->id;
+                        $categoryLang->language_id = $lang->id;
+                        $categoryLang->save();
                     }
                 }
 
-                return Redirect::to('hotel/business/business_category?business='.$menu->business_id)->withFlash_message(trans('main.Guardado Exitosamente'));
+                return Redirect::to('hotel/business/category?business='.$cat->business_id)->withFlash_message(trans('main.Guardado Exitosamente'));
             }else{
                 return Redirect::back()->withErrors("Error")->withInput();
             }
@@ -321,13 +305,13 @@ class HotelBusinessCategoryController extends \BaseController {
            return View::make('hotel.Payment.renews-payment');
 
        $hotel = Hotel::where('user_id', Sentry::getUser()->id)->first();
-       $menu = Menu::where('id', $id)->where('hotel_id', $hotel->id)->first();
-       if($menu){
-          $menuLang = MenuLang::where('menu_id', $menu->id)->get();
-          foreach ($menuLang as $menuLang) {
-              $menuLang->delete();
+       $cat = Category::where('id', $id)->where('hotel_id', $hotel->id)->first();
+       if($cat){
+          $categoryLang = CategoryLang::where('category_id', $cat->id)->get();
+          foreach ($categoryLang as $categoryLang) {
+              $categoryLang->delete();
           }
-          $menu->delete();
+          $cat->delete();
           return Redirect::back()->withFlash_message(trans('main.Eliminado Exitosamente'));
         }else{
           return Redirect::back()->withError(trans('main.Error'));

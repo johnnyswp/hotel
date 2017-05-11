@@ -27,8 +27,8 @@
 					<div class="form-group">
                         <label class="control-label">{{trans('main.service')}}</label>
                         <div>
-                            {{ Form::select('business_id', $business, null, ['class' => 'form-control selectpicker', 'data-size'=>'10', 'data-live-search'=>'true', 'autocomplete'=>'off']) }}
-                            {{ errors_for('service_id', $errors) }}
+                            {{ Form::select('category_id', $cats, null, ['class' => 'form-control selectpicker', 'data-size'=>'10', 'data-live-search'=>'true', 'autocomplete'=>'off']) }}
+                            {{ errors_for('category_id', $errors) }}
                         </div>
                     </div>
 
@@ -37,14 +37,6 @@
                         <div>
                             {{ Form::text('price', null, ['class' => 'form-control', 'autocomplete'=>'off']) }}
                             {{ errors_for('price', $errors) }}
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="control-label">{{trans('main.code')}}</label>
-                        <div>
-                            {{ Form::text('code', null, ['class' => 'form-control', 'autocomplete'=>'off']) }}
-                            {{ errors_for('code', $errors) }}
                         </div>
                     </div>
 

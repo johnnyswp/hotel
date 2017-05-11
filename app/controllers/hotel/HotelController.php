@@ -348,6 +348,21 @@ class HotelController extends \BaseController {
         ));
     }
 
+    public function anyCatPosition()   
+    {
+        $array = Input::get('listItem');
+        foreach ($array as $position => $item)
+        {
+            $category = Category::find($item);
+            $category->categoryOrder = $position;
+            $category->save();  
+        }
+
+        return Response::json(array(
+              'success'  => true
+        ));
+    }
+
     public function anyPromotionPosition()   
     {
         $array = Input::get('listItem');
@@ -770,6 +785,31 @@ class HotelController extends \BaseController {
             }
 
             if($menu->save()){
+               return Response::json(array('success' => true, 'message'=>$message)); 
+            }else{
+              return Response::json(array(
+                    'success'  => false
+              ));
+            } 
+        }
+    }
+
+    public function anyCatState()
+    {
+        if(Request::ajax()){
+            $hotel = Hotel::where('user_id', Sentry::getUser()->id)->first();
+            $category = Category::where('id', Input::get('id'))->first();
+
+            if($category->state==1){
+               $category->state = 0;
+               $message = trans('main.your category this disabled');
+            }else{
+
+                $category->state = 1;
+                $message = trans('main.your item this enabled');
+            }
+
+            if($category->save()){
                return Response::json(array('success' => true, 'message'=>$message)); 
             }else{
               return Response::json(array(
