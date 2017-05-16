@@ -261,7 +261,7 @@ class HotelCategoryInfoPlaceController extends \BaseController {
            return View::make('hotel.Payment.renews-payment');
 
        $hotel = Hotel::where('user_id', Sentry::getUser()->id)->first();
-       $cat = Service::where('id', $id)->where('hotel_id', $hotel->id)->first();
+       $cat = CategoryInfo::where('id', $id)->where('hotel_id', $hotel->id)->first();
        if($cat){
           $names = CategoryInfoLang::where('category_id', $cat->id)->get();
           foreach ($names as $catLang) {

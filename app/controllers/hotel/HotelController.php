@@ -363,6 +363,21 @@ class HotelController extends \BaseController {
         ));
     }
 
+    public function anyCategoryInfoPosition()   
+    {
+        $array = Input::get('listItem');
+        foreach ($array as $position => $item)
+        {
+            $category = CategoryInfo::find($item);
+            $category->categoryOrder = $position;
+            $category->save();  
+        }
+
+        return Response::json(array(
+              'success'  => true
+        ));
+    }
+
     public function anyPromotionPosition()   
     {
         $array = Input::get('listItem');
@@ -636,6 +651,37 @@ class HotelController extends \BaseController {
             }
 
             if($service->save()){
+               return Response::json(array('success' => true, 'message'=>$message)); 
+            }else{
+              return Response::json(array(
+                    'success'  => false
+              ));
+            } 
+        }
+    }
+
+    public function anyCategoryInfoState()
+    {
+        if(Request::ajax()){
+            $hotel = Hotel::where('user_id', Sentry::getUser()->id)->first();
+            $category = CategoryInfo::where('id', Input::get('id'))->where('hotel_id', $hotel->id)->first();
+
+            if($category->state==1){
+               $category->state = 0;
+               $message = trans('main.your category this disabled');
+            }else{
+                if(CategoryInfo::state(Input::get('id'))!=true)
+                {
+                    return Response::json(array(
+                          'success'  => false, 'message'=>trans('main.No puede activar este servicio ya que no tiene en algunos lenguajes activos')
+                    ));
+                }
+
+                $category->state = 1;
+                $message = trans('main.your category this enabled');
+            }
+
+            if($category->save()){
                return Response::json(array('success' => true, 'message'=>$message)); 
             }else{
               return Response::json(array(

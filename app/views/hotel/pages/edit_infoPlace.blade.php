@@ -23,7 +23,13 @@
                             {{ Form::reset(trans('main.cancel'), ['class' => 'btn btn-default']) }}
 						</div>
 					</div>
-
+                    <div class="form-group">
+                        <label class="control-label">{{trans('main.category')}}</label>
+                        <div>
+                            {{ Form::select('category_id', $category, null, ['class' => 'form-control selectpicker', 'data-size'=>'10', 'data-live-search'=>'true', 'autocomplete'=>'off']) }}
+                            {{ errors_for('category_id', $errors) }}
+                        </div>
+                    </div>
 					<div class="form-group">
 						<label class="control-label">{{trans('main.select a Picture')}}</label><br>
 						<div>

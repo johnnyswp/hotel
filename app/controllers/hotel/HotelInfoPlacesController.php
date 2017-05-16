@@ -32,9 +32,16 @@ class HotelInfoPlacesController extends \BaseController {
            return View::make('hotel.Payment.renews-payment');
         $hotel = Hotel::where('user_id', Sentry::getUser()->id)->first();
         $lang_active = LanguageHotel::where('hotel_id', $hotel->id)->orderBy('main', 'DESC')->orderBy('state', 'DESC');
-
+        $lang = LanguageHotel::where('main', 1)->where('hotel_id', $hotel->id)->first();
+        $cat = array(''=>trans('main.Seleccione un category'));
+        $catAll = CategoryInfo::where('hotel_id', $hotel->id)->orderBy('categoryOrder', 'ASC');
+        foreach($catAll->get() as $c)
+        {
+            $catLang = CategoryInfoLang::where('category_id', $c->id)->where('language_id', $lang->language_id)->first();
+            $cat[$c->id] = $catLang->name;
+        }
         return View::make('hotel.pages.alta_infoPlace')->withHotel($hotel)
-                                                       ->withLangs($lang_active->get());
+                                                       ->withLangs($lang_active->get())->with('category',$cat);
     }
 
     public function store()
@@ -54,13 +61,14 @@ class HotelInfoPlacesController extends \BaseController {
             $langs = Language::whereNotIn('id', $lang_active->lists('language_id'))->where('state', 1)->get();
 
         $data = array(
-            "state"   =>  Input::get("state"),
+            "category_id"   =>  Input::get("category_id"),
             "picture" =>  Input::file("picture")
         );
 
         $data[$lang_main->language->language] = Input::get($lang_main->language->language);
 
         $rules = array(
+            "category_id" =>  'required|min:1|max:255',
             "picture" =>  'mimes:jpeg,gif,png'
         );
         
@@ -78,6 +86,7 @@ class HotelInfoPlacesController extends \BaseController {
             $hotel = Hotel::where('user_id', Sentry::getUser()->id)->first();
             $infoPlace = new InfoPlace;
             $infoPlace->hotel_id = $hotel->id;
+            $infoPlace->category_id = Input::get("category_id");
             $infoPlace->state = 0;
 
             if(Input::file('picture')!=NULL)
@@ -147,7 +156,14 @@ class HotelInfoPlacesController extends \BaseController {
         if(Payment::DisabledPayment()==false)
            return View::make('hotel.Payment.renews-payment');
         $hotel = Hotel::where('user_id', Sentry::getUser()->id)->first();
-
+        $lang = LanguageHotel::where('main', 1)->where('hotel_id', $hotel->id)->first();
+        $cat = array(''=>trans('main.Seleccione un category'));
+        $catAll = CategoryInfo::where('hotel_id', $hotel->id)->orderBy('categoryOrder', 'ASC');
+        foreach($catAll->get() as $c)
+        {
+            $catLang = CategoryInfoLang::where('category_id', $c->id)->where('language_id', $lang->language_id)->first();
+            $cat[$c->id] = $catLang->name;
+        }
         $infoPlace = InfoPlace::where('id', $id)->where('hotel_id', $hotel->id)->first();
         if($infoPlace)
         {
@@ -155,7 +171,7 @@ class HotelInfoPlacesController extends \BaseController {
 
             return View::make('hotel.pages.edit_infoPlace')->withInfo($infoPlace)
                                                            ->withHotel($hotel)
-                                                           ->withLangActive($lang_active->get());
+                                                           ->withLangActive($lang_active->get())->with('category',$cat);
         }else{
             return View::make('404');
         }
@@ -178,12 +194,14 @@ class HotelInfoPlacesController extends \BaseController {
             $langs = Language::whereNotIn('id', $lang_active->lists('language_id'))->where('state', 1)->get();
 
         $data = array(
+            "category_id"   =>  Input::get("category_id"),
             "picture" =>  Input::file("picture")
         );
 
         $data[$lang_main->language->language] = Input::get($lang_main->language->language);
 
         $rules = array(
+            "category_id" =>  'required|min:1|max:255',
             "picture" =>  'mimes:jpeg,gif,png'
         );
         
@@ -200,7 +218,7 @@ class HotelInfoPlacesController extends \BaseController {
         }else{
             $hotel = Hotel::where('user_id', Sentry::getUser()->id)->first();
             $infoPlace = InfoPlace::where('id', $id)->where('hotel_id', $hotel->id)->first();
-
+            $infoPlace->category_id = Input::get("category_id");
             if(Input::file('picture')!=NULL)
             {
                 //agrega imagen de picture

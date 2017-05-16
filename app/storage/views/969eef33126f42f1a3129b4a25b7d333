@@ -26,7 +26,15 @@
 
 						</div>
 					</div>
+                    <div class="form-group">
+                        <label class="control-label"><?php echo trans('main.category'); ?></label>
+                        <div>
+                            <?php echo Form::select('category_id', $category, null, ['class' => 'form-control selectpicker', 'data-size'=>'10', 'data-live-search'=>'true', 'autocomplete'=>'off']); ?>
 
+                            <?php echo errors_for('category_id', $errors); ?>
+
+                        </div>
+                    </div>
 					<div class="form-group">
 						<label class="control-label"><?php echo trans('main.select a Picture'); ?></label><br>
 						<div>
