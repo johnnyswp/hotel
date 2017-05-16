@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.6.6
+-- version 4.6.4
 -- https://www.phpmyadmin.net/
 --
--- Servidor: localhost:3306
--- Tiempo de generación: 12-03-2017 a las 15:13:21
--- Versión del servidor: 5.5.47-MariaDB
--- Versión de PHP: 5.6.14
+-- Servidor: 127.0.0.1
+-- Tiempo de generación: 16-05-2017 a las 16:18:17
+-- Versión del servidor: 5.7.14
+-- Versión de PHP: 7.0.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -17,8 +17,64 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `ezresto`
+-- Base de datos: `aesyroom`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `activity`
+--
+
+CREATE TABLE `activity` (
+  `id` int(11) NOT NULL,
+  `hotel_id` int(11) NOT NULL,
+  `type` tinyint(4) NOT NULL,
+  `picture` text NOT NULL,
+  `since` time NOT NULL,
+  `until` varchar(10) NOT NULL,
+  `daysActivity` varchar(255) NOT NULL,
+  `activityOrder` int(11) NOT NULL DEFAULT '0',
+  `state` tinyint(4) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `activity`
+--
+
+INSERT INTO `activity` (`id`, `hotel_id`, `type`, `picture`, `since`, `until`, `daysActivity`, `activityOrder`, `state`, `created_at`, `updated_at`) VALUES
+(4, 7, 1, 'http://aesyroom.dev/assets/pictures_hotels/item/PIC720170419174140.png', '19:00:00', '23:30:00', '0,3,5', 0, 1, '2017-04-20 22:17:03', '2017-04-19 23:41:47'),
+(5, 7, 0, 'http://aesyroom.dev/assets/pictures_hotels/item/PIC720170419174116.png', '12:00:00', '22:00:00', '21-04-2017', 1, 1, '2017-04-20 22:41:54', '2017-04-19 23:41:47'),
+(6, 7, 1, 'http://aesyroom.dev/assets/pictures_hotels/item/PIC720170420232150.jpg', '22:00:00', '23:00:00', '0,1,2,3', 0, 1, '2017-04-20 22:28:42', '2017-04-21 05:22:04');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `activitylang`
+--
+
+CREATE TABLE `activitylang` (
+  `id` int(11) NOT NULL,
+  `activity_id` int(11) NOT NULL,
+  `language_id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `description` text NOT NULL,
+  `public` varchar(200) NOT NULL,
+  `zone` varchar(200) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `activitylang`
+--
+
+INSERT INTO `activitylang` (`id`, `activity_id`, `language_id`, `name`, `description`, `public`, `zone`, `created_at`, `updated_at`) VALUES
+(2, 4, 1, 'baile en la pisina', 'baile con musica en vivo y orgesta', 'todo tipo de publico', 'pisina de terrasa', '2017-04-17 05:59:24', '2017-04-17 05:59:24'),
+(3, 5, 1, 'Cena con music en vivo', 'cena con musicaa en vivo con jose jose', 'para todo publico', 'restaurante la rosa roja', '2017-04-19 23:41:16', '2017-04-19 23:41:16'),
+(4, 6, 1, 'Nadar Genial', 'NAda', 'Publico Todo', 'En el Cobertizo', '2017-04-21 05:21:51', '2017-04-21 05:21:51');
 
 -- --------------------------------------------------------
 
@@ -56,6 +112,159 @@ INSERT INTO `available` (`id`, `item_id`, `weekday`, `desde_1`, `hasta_1`, `desd
 (13, 6, 5, '11:30:00', '15:00:00', '19:30:00', '23:58:00'),
 (14, 6, 6, '02:00:00', '16:00:00', '19:30:00', '23:00:00'),
 (15, 8, 5, '08:00:00', '23:59:00', '00:00:00', '00:00:00');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `business`
+--
+
+CREATE TABLE `business` (
+  `id` int(11) NOT NULL,
+  `service_id` int(11) NOT NULL,
+  `hotel_id` int(11) NOT NULL,
+  `picture` text NOT NULL,
+  `phone` varchar(20) NOT NULL,
+  `since` varchar(20) NOT NULL,
+  `until` varchar(20) NOT NULL,
+  `state` tinyint(4) NOT NULL,
+  `businessOrder` tinyint(4) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `business`
+--
+
+INSERT INTO `business` (`id`, `service_id`, `hotel_id`, `picture`, `phone`, `since`, `until`, `state`, `businessOrder`, `created_at`, `updated_at`) VALUES
+(3, 1, 7, 'http://localhost:8080/hotel/assets/pictures_hotels/item/PIC720170416031535.png', '65067980983', '12:00:00', '23:00:00', 0, 0, '2017-04-19 15:32:01', '2017-04-19 23:32:01'),
+(4, 1, 7, 'http://localhost:8080/hotel/assets/pictures_hotels/item/PIC720170416055452.png', '2634090', '1:00:00', '10:00:00', 1, 1, '2017-04-19 15:32:01', '2017-04-19 23:32:01'),
+(5, 2, 7, 'http://aesyroom.dev/assets/pictures_hotels/item/PIC720170419172913.png', '777889833', '12:00:00', '18:00:00', 1, 0, '2017-04-19 15:31:37', '2017-04-19 23:31:37'),
+(6, 2, 7, 'http://aesyroom.dev/assets/img/no-image.png', '7778752', '20:00:00', '22:00:00', 1, 1, '2017-04-19 15:31:37', '2017-04-19 23:31:37'),
+(7, 2, 7, 'http://aesyroom.dev/assets/pictures_hotels/item/PIC720170425225730.png', '44444565', '12:00:00', '16:00:00', 1, NULL, '2017-04-25 21:06:21', '2017-04-26 05:06:21');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `businesslang`
+--
+
+CREATE TABLE `businesslang` (
+  `id` int(11) NOT NULL,
+  `name` varchar(100) NOT NULL,
+  `description` text,
+  `business_id` int(11) NOT NULL,
+  `language_id` int(11) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `businesslang`
+--
+
+INSERT INTO `businesslang` (`id`, `name`, `description`, `business_id`, `language_id`, `created_at`, `updated_at`) VALUES
+(2, 'masajes terapeuticos', 'con aceite de balsamo relajante', 3, 1, '2017-04-16 09:15:35', '2017-04-16 09:15:35'),
+(3, 'clases de baile benito lara', 'clases de salsa con un maestro de musica salsa', 4, 1, '2017-04-16 03:54:52', '2017-04-16 11:54:52'),
+(4, 'hola mundo', 'hola mundo nuevo ggg', 5, 1, '2017-04-19 15:28:55', '2017-04-19 23:28:55'),
+(5, 'hola 1', 'hola 2', 6, 1, '2017-04-19 23:31:25', '2017-04-19 23:31:25'),
+(6, 'busiess11', 'busidness 11', 7, 1, '2017-04-25 21:06:01', '2017-04-26 05:06:01');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `cartegory`
+--
+
+CREATE TABLE `cartegory` (
+  `id` int(11) NOT NULL,
+  `hotel_id` int(11) NOT NULL,
+  `business_id` int(11) NOT NULL,
+  `picture` text NOT NULL,
+  `state` tinyint(4) NOT NULL DEFAULT '0',
+  `categoryOrder` tinyint(4) NOT NULL DEFAULT '0',
+  `created_at` datetime NOT NULL,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `cartegory`
+--
+
+INSERT INTO `cartegory` (`id`, `hotel_id`, `business_id`, `picture`, `state`, `categoryOrder`, `created_at`, `updated_at`) VALUES
+(1, 7, 5, 'http://aesyroom.dev/assets/pictures_hotels/services/PIC720170512005339.png', 1, 1, '2017-05-11 16:21:56', '2017-05-12 07:03:32'),
+(2, 7, 3, 'http://aesyroom.dev/assets/pictures_hotels/services/PIC720170511210320.png', 0, 0, '2017-05-11 21:03:20', '2017-05-12 03:03:20');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `categoryinfoplace`
+--
+
+CREATE TABLE `categoryinfoplace` (
+  `id` int(11) NOT NULL,
+  `hotel_id` int(11) NOT NULL,
+  `picture` text NOT NULL,
+  `state` tinyint(4) NOT NULL DEFAULT '0',
+  `categoryOrder` tinyint(4) NOT NULL DEFAULT '0',
+  `created_at` datetime NOT NULL,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `categoryinfoplace`
+--
+
+INSERT INTO `categoryinfoplace` (`id`, `hotel_id`, `picture`, `state`, `categoryOrder`, `created_at`, `updated_at`) VALUES
+(3, 7, 'http://aesyroom.dev/assets/pictures_hotels/services/PIC720170512171309.png', 0, 0, '2017-05-12 16:41:24', '2017-05-12 23:13:09'),
+(4, 7, 'http://aesyroom.dev/assets/pictures_hotels/services/PIC720170512164722.png', 0, 0, '2017-05-12 16:47:22', '2017-05-12 22:47:22');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `categoryinfoplacelang`
+--
+
+CREATE TABLE `categoryinfoplacelang` (
+  `id` int(11) NOT NULL,
+  `category_id` int(11) NOT NULL,
+  `language_id` int(11) NOT NULL,
+  `name` varchar(200) NOT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `categoryinfoplacelang`
+--
+
+INSERT INTO `categoryinfoplacelang` (`id`, `category_id`, `language_id`, `name`, `created_at`, `updated_at`) VALUES
+(1, 3, 1, 'cat 11', '2017-05-12 16:41:24', '2017-05-12 23:13:09'),
+(2, 4, 1, 'cat 2', '2017-05-12 16:47:22', '2017-05-12 22:47:22');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `categorylang`
+--
+
+CREATE TABLE `categorylang` (
+  `id` int(11) NOT NULL,
+  `category_id` int(11) NOT NULL,
+  `language_id` int(11) NOT NULL,
+  `name` varchar(200) NOT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `categorylang`
+--
+
+INSERT INTO `categorylang` (`id`, `category_id`, `language_id`, `name`, `created_at`, `updated_at`) VALUES
+(2, 1, 1, 'Categoria 11', '2017-05-11 16:21:57', '2017-05-12 06:53:39'),
+(3, 2, 1, 'category 2', '2017-05-11 21:03:20', '2017-05-12 03:03:20');
 
 -- --------------------------------------------------------
 
@@ -8648,6 +8857,56 @@ INSERT INTO `hotels` (`id`, `link`, `type_login`, `country_id`, `city`, `user_id
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `info_places`
+--
+
+CREATE TABLE `info_places` (
+  `id` int(11) NOT NULL,
+  `hotel_id` int(11) NOT NULL,
+  `picture` text NOT NULL,
+  `state` tinyint(4) NOT NULL,
+  `infoOrder` tinyint(4) NOT NULL DEFAULT '0',
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `info_places`
+--
+
+INSERT INTO `info_places` (`id`, `hotel_id`, `picture`, `state`, `infoOrder`, `created_at`, `updated_at`) VALUES
+(1, 7, 'http://localhost:8080/hotel/assets/pictures_hotels/info_places/PIC720170413235846.jpg', 1, 2, '2017-04-19 14:59:50', '2017-04-19 22:59:50'),
+(2, 7, 'http://localhost:8080/hotel/assets/pictures_hotels/info_places/PIC720170417154458.png', 1, 1, '2017-04-19 14:59:51', '2017-04-19 22:59:51'),
+(4, 7, 'http://aesyroom.dev/assets/pictures_hotels/services/PIC720170419171348.png', 1, 0, '2017-04-19 15:13:48', '2017-04-19 23:13:48');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `info_placeslang`
+--
+
+CREATE TABLE `info_placeslang` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `description` text,
+  `info_place_id` int(11) NOT NULL,
+  `language_id` int(11) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `info_placeslang`
+--
+
+INSERT INTO `info_placeslang` (`id`, `name`, `description`, `info_place_id`, `language_id`, `created_at`, `updated_at`) VALUES
+(1, 'spa', 'masages de alta calidad por espacialistas calificados', 1, 1, '2017-04-13 14:05:37', '2017-04-13 14:05:37'),
+(2, 'clases de baile', 'Exclucivo para adultos mayores', 2, 1, '2017-04-14 06:04:18', '2017-04-14 06:04:18'),
+(3, 'Cataratas gigantes ', 'cataratas sobre piedras de apeoximadamente 20 metros de alto ', 4, 1, '2017-04-19 15:14:01', '2017-04-19 23:14:01');
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `items_name`
 --
 
@@ -8688,7 +8947,7 @@ INSERT INTO `items_name` (`id`, `hotel_id`, `category_id`, `promotion_id`, `pric
 (14, 1, 6, 0, '8.00', 1, 15, NULL, 0, 0, 'http://panel.easyroomservice.com/assets/pictures_hotels/item/PIC120160404122916.jpg', '2016-04-04 10:29:16', '2016-04-04 10:30:26'),
 (15, 1, 6, 0, '9.00', 1, 15, NULL, 0, 0, 'http://panel.easyroomservice.com/assets/pictures_hotels/item/PIC120160404123021.jpg', '2016-04-04 10:30:21', '2016-04-04 10:30:28'),
 (16, 4, 12, 0, '12.00', 1, 10, NULL, 0, 0, 'http://panel.easyroomservice.com/assets/pictures_hotels/item/PIC420160414100521.jpg', '2016-04-14 08:05:21', '2016-04-14 08:05:50'),
-(18, 7, 14, 0, '2.30', 1, 5, NULL, 0, 0, 'http://panel.easyroomservice.com/assets/pictures_hotels/item/PIC720160418235211.jpg', '2016-04-18 21:51:57', '2016-04-18 21:52:11'),
+(18, 7, 14, 0, '2.30', 1, 5, NULL, 0, 0, 'http://panel.easyroomservice.com/assets/pictures_hotels/item/PIC720160418235211.jpg', '2016-04-18 21:51:57', '2017-04-20 06:28:13'),
 (19, 1, 9, 0, '10.00', 0, 30, '', 0, 0, 'http://panel.easyroomservice.com/assets/pictures_hotels/item/PIC120160423060558.jpg', '2016-04-23 04:05:58', '2016-09-05 15:58:12');
 
 -- --------------------------------------------------------
@@ -8861,27 +9120,31 @@ CREATE TABLE `languages` (
   `txt_username` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `txt_datos_invalidos` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `txt_token_invalido` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
+  `txt_informacion_de_servicio` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `txt_programa_de_actividades` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `txt_de_servicios_de_habitaciones` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `txt_informacion_de_alrededores` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Volcado de datos para la tabla `languages`
 --
 
-INSERT INTO `languages` (`id`, `flag`, `sufijo`, `language`, `available`, `state`, `txt_hotel`, `txt_direccion`, `txt_catalogo`, `txt_delayed`, `txt_categoria`, `txt_habitacion`, `txt_descripcion`, `txt_total`, `txt_tiempo`, `txt_inicio`, `txt_enviar_pedido`, `txt_horario_de_entrega`, `txt_entrega_inmediata`, `txt_entrega_programa`, `txt_cancelar_pedido`, `txt_carrito_compra`, `txt_pedido_inmediato`, `txt_pedido_programado`, `txt_continuar_comprando`, `txt_telefonos`, `txt_lenguajes`, `txt_enviar`, `txt_aceptar`, `txt_order`, `txt_orders`, `txt_estado`, `txt_pass`, `txt_date`, `txt_time`, `txt_si`, `txt_no`, `txt_volver_enviar_pedido`, `txt_promociones`, `txt_fecha_entrega`, `txt_programmed`, `txt_just_now`, `txt_ready`, `txt_delivered`, `txt_finalized`, `txt_domingo`, `txt_lunes`, `txt_martes`, `txt_miercoles`, `txt_jueves`, `txt_viernes`, `txt_sabado`, `txt_horario_disponible`, `txt_message_pedido_ok`, `txt_message_no_datos`, `txt_message_selec_horario`, `txt_message_no_horario`, `txt_message_ingresar_contrasena`, `txt_message_eliminar_pedido`, `txt_mgs_entrega_programada`, `txt_no_vailable`, `txt_username`, `txt_datos_invalidos`, `txt_token_invalido`, `created_at`, `updated_at`) VALUES
-(1, 'http://panel.easyroomservice.com/assets/img/flags/PIC20160328215738.png', 'es', 'Español-Spanish', '', 1, 'Hotel', 'Dirección', 'Servicio de Habitaciones', 'Tiempo de Entrega', 'Categoría', 'Habitación', 'Descripción', 'Total', 'Tiempo', 'Inicio', 'Enviar Pedido', 'Horario de Entrega', 'Entrega Inmediata', 'Entrega Programada', 'Cancelar Pedido', 'Carro de Compras', 'Pedido Inmediato', 'Pedido Programado', 'Continuar Comprando', 'Teléfonos', 'Seleccione un Idioma', 'Enviar', 'Aceptar', 'Pedido', 'Pedidos', 'Estado', 'Contraseña', 'Fecha', 'Tiempo', 'Si', 'No', 'Volver Enviar el pedido.', 'Promociones', 'Fecha de Entrega', 'Programado', 'Inmediato', 'En preparación', 'Entregado', 'Finalizado', 'Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Horarios', 'Pedido Realizado Correctamente', 'No hay Datos', 'Por favor seleccione una Horario de entrega', 'Algunos productos que estaban disponibles en el horario que inició el pedido dejaron de estarlo a la hora actual. Los hemos quitado de su carro de compra. Siga comprando o vuelva a enviar el pedido', 'Favor ingrese su contraseña para ingresar al menú del servicio de habitaciones', '¿Esta seguro de Cancelar esta pedido?', 'Se entregará luego del tiempo de prepración si para la hora programada falta menos que este', 'No disponible por horario', 'Usuario', 'Usuario no invalido', 'Password no invalido', '0000-00-00 00:00:00', '2016-08-18 17:01:02'),
-(2, 'http://panel.easyroomservice.com/assets/img/flags/PIC20160406161707.png', 'en', 'English-English', '', 1, 'Hotel', 'Address', 'Room Service', 'Delivery Time', 'Category', 'Room', 'Description', 'Total', 'Delivery time', 'Home', 'Send the order', 'Delivery time', 'Immediate delivery', 'Scheduled Delivery', 'Cancel order', 'Shopping cart', 'Immediate order', 'Scheduled order', 'Continue Shopping', 'Phones', 'Select a Language', 'Send', 'OK', 'Order', 'Orders', 'Status', 'Password', 'Date', 'Time', 'Yes', 'No', 'Back Send Order.', 'Promotions', 'delivery date', 'Programmed', 'Immediate', 'In preparation', 'Delivered', 'Finalized', 'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Timetable', 'Order successfully placed', 'There is no data', 'Please select a delivery time', 'Some products that were available when you initiated the order, stopped being available at the current time. We\'ve removed from your cart. Continue shopping or resend the order', 'Please enter your password to enter the room service menu.', 'Are you sure you want to Cancel this order?', 'He then delivered the preparation time for the scheduled time if needed unless this', 'Not available at this hour', 'Username', 'Username invalido', 'Password invalido', '0000-00-00 00:00:00', '2016-08-17 21:02:17'),
-(12, 'http://panel.easyroomservice.com/assets/img/flags/PIC20160406154652.png', 'it', 'Italiano-Italian', '', 1, 'Hotel', 'Indirizzo', 'Servizio in Camera', 'Tempo per la Consegna', 'Categoria', 'Camera', 'Descrizione', 'Totale', 'Tempo', 'Inizio', 'Inviare l\'Ordine', 'Ora di Consegna', 'Consegna Immediata', 'Consegna Programmata', 'Cancellare l\'ordine', 'Carrello della spesa', 'Ordine Immediato', 'Ordine Programmato', 'Continuare la Compra', 'Telefoni', 'Selezioni una lingua', 'Inviare', 'Accettare', 'Ordine', 'Ordini', 'Stato', 'Password', 'Data', 'Tempo', 'Si', 'No', '', 'Promozioni', 'Data di Consegna', 'Programmato', 'Immediato', 'In preparazione', 'Consegnato', 'Finalizzato', 'Domenica', 'Lunedi', 'Martedi', 'Mercoedi', 'Giovedi', 'Venerdi', 'Sabato', 'Orari', 'Ordine Realizzato Correttamente', 'Non ci sono Dati', 'Per favore selezioni un Orario per la consegna', 'Alcuni dei prodotti che erano disponibili all\'ora in cui iniziò l\'ordine non sono più disponibili a quest\'ora. Li abbiamo eliminati dal suo carrello della spesa. Continui a comprare o invii di nuovo l', 'Per favore inserisca la sua password per accedere al menù del servizio in camera.', 'È sicuro di voler Cancellare quest\'ordine?', '', 'Non disponible in quest\'orario', 'username', 'Username invalido', 'Password invalido', '2016-04-06 13:46:52', '2016-04-23 13:12:04'),
-(14, 'http://panel.easyroomservice.com/assets/img/flags/PIC20160407000407.png', 'de', 'Deutsch-German', '', 1, 'Hotel', 'Adresse', 'Zimmerservice', 'Lieferzeit', 'Kategorie', 'Zimmer', 'Beschreibung', 'Insgesamt', 'Lieferzeit', 'Anfangsseite', 'Bestellung senden', 'Zustellungszeit', 'Sofortige Lieferung', 'Programmierte Lieferung', 'Bestellung stornieren', 'Einkaufswagen', 'Sofortige Bestellung', 'Programmierte Bestellung', 'Weiter einkaufen', 'Telefonnummern', 'Wählen Sie eine Sprache aus', 'Senden', 'Akzeptieren', 'Bestellung', 'Bestellungen', 'Status', 'Passwort', 'Datum', 'Lieferzeit', 'Ja', 'Nein', '', 'Werbeaktionen', 'Lieferungsdatum', 'Programmiert', 'Sofort', 'In Vorbereitung', 'Zugestellt', 'Beendet', 'Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag', 'Zeitpläne', 'Bestellung richtig ausgeführt', 'Keine Daten vorhanden', 'Bitte wählen Sie eine Zustellungsuhrzeit aus', 'Einige Produkte, die am Anfang Ihrer Bestellung vorhanden waren, sind nicht mehr zum jetzigen Zeitpunkt verfügbar. Wir haben sie aus Ihrem Einkaufswagen entfernt. Setzen Sie den Einkauf fort oder schi', 'Bitte geben Sie Ihr Passwort ein, um ins Zimmerservice-Menü zu gelangen.', 'Sind Sie sicher, dass Sie Ihre Bestellung löschen möchten?', '', 'Wegen der Uhrzeit nicht verfügbar', 'username', 'Username invalido', 'Password invalido', '2016-04-06 22:04:07', '2016-04-23 13:12:12'),
-(15, 'http://panel.easyroomservice.com/assets/img/flags/PIC20160407000426.png', 'fr', 'Français-French', '', 1, 'Hôtel', 'Adresse', 'Service de chambre', 'Délai de livraison', 'Catégories', 'Chambre', 'Description', 'Total', 'Délai de livraison', 'Accueil', 'Envoyer la commande', 'Horaire de livraison', 'Livraison immédiate', 'Livraison programmée', 'Annuler la commande', 'Panier', 'Commande immédiate', 'Commande programmée', 'Poursuivre l\'achat', 'Numéros de Téléphone', 'Choisir la langue', 'Envoyer', 'Valider', 'Commande', 'Des commandes', 'État de la commande', 'Mot de passe', 'Date', 'Temps', 'Oui', 'Non', '', 'Promotions', 'Date de Livraison', 'Programmée', 'Immédiate', 'En préparation', 'Livrée', 'Finalisée', 'Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Horaires', 'Commande bien effectuée ', 'Aucun donnée', 'Merci d\'choisir un horaire de livraison', 'Certains produits qui étaient disponibles l\'heure de démarrage de la commande, ont cessé de l\'être à l\'heure actuelle. On l\'a supprimé de votre panier. Poursuivez les achats ou renvoyez l\'ordre', 'S\'il vous plaît, entrez votre mot de passe pour entrer dans le menu de service en chambre.', 'Etes-vous sûr d\'annuler cette commande?', '', 'Pas disponible à cette heure', 'username', 'Username invalido', 'Password invalido', '2016-04-06 22:04:26', '2016-04-23 13:12:18'),
-(16, 'http://panel.easyroomservice.com/assets/img/flags/PIC20160411002012.png', 'pt', 'Português-Portuguese', '', 1, 'Hotel', 'Endereço', 'Serviço de quartos', 'Tempo de entrega', 'Categoria', 'Quarto', 'Descrição', 'Total', 'Tempo', 'Início', 'Enviar Pedido', 'Horário de entrega', 'Entrega imediata', 'Entrega programada', 'Cancelar Pedido', 'Carrinho de Compras', 'Pedido imediato', 'Pedido programado', 'Continuar a comprar', 'Telefones', 'Selecione um idioma', 'Enviar', 'Aceitar', 'Pedido', 'Pedidos', 'Estado', 'Senha', 'Data', 'Tempo', 'Se', 'Não', '', 'Promoções', 'Data de entrega', 'Programado', 'Imediato', 'Em preparação', 'Entregue', 'Finalizado', 'Domingo', 'Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado', 'Horários', 'Pedido realizado com sucesso', 'Não há dados', 'Por favor selecione um horário de entrega', 'Alguns produtos que estavam disponíveis no horário que iniciou o pedido deixaram de estar na hora atual. Foi removido do seu carrinho. Continue a comprar ou reenvie o pedido.', 'Por favor digite a sua senha para entrar no menu do serviço de quartos.', 'Tem a certeza que deseja Cancelar este pedido?', '', 'Nenhum horário disponível', 'username', 'Username invalido', 'Password invalido', '2016-04-10 22:20:12', '2016-04-23 13:12:27'),
-(17, 'http://panel.easyroomservice.com/assets/img/flags/PIC20160412205225.png', 'ru', 'русский-Russian', '', 1, 'Отель', 'Адрес', 'Обслуживание номеров', 'Срок доставки', 'Категория', 'Номер', 'Описание', 'общий', 'Срок', 'На главную', 'Доставить заказ', 'График доставки', 'Немедленная доставка', 'Запланированная доставка', 'Отменить заказ', 'Корзина', 'Срочный заказ', 'Отложенный заказ', 'Продолжить покупки', 'Телефоны', 'Выберите язык', 'Доставить', 'Принять', 'Заказ', 'Заказ', 'Состояние', 'Пароль', 'Дата', 'Время', 'Да', 'Нет', '', 'Акции', 'Дата доставки', 'Запланировано', 'Срочный', 'Готовится', 'Доставлено', 'Готово', 'Воскресенье', 'Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота', 'Графики', 'Успешно сделанный заказ', 'Нет данных', 'Пожалуйста, выберите время доставки', 'Некоторые продукты, которые были доступны во время заказа, сейчас недоступны. Мы удалили их из вашей корзины. Продолжите покупки или перейдите к доставке заказа', 'Пожалуйста, введите пароль для входа в меню обслуживания номеров', 'Уверены, что хотите отменить заказ?', '', 'Недоступно для доставки', 'username', 'Username invalido', 'Password invalido', '2016-04-12 18:52:25', '2016-04-23 13:12:38'),
-(18, 'http://panel.easyroomservice.com/assets/img/flags/PIC20160413144705.png', 'sv', 'Svenska-Swedish', '', 1, 'Hotelt', 'Adress', 'Rumservice', 'Tidsplan för leveransen', 'Kategori', 'Rum', 'Beskrivning', 'Totalt', 'Tid', 'Start', 'Skicka Beställning', 'Leveranstid', 'Omedelbar Leverans', 'Planerad Leverans', 'Avboka Beställning', 'Varukorg', 'Omedelbar Beställning', 'Planerad Beställning', 'Fortsätta att Köpa', 'Telefonnummer', 'Välj ett språk', 'Skicka', 'Acceptera', 'Beställning', 'Beställningar', 'Status', 'Lösenord', 'Datum', 'Tid', 'Ja', 'Nej', '', 'Erbjudanden', 'Leveransdatum', 'Programmerad', 'Omedelbar', 'Under tillagning ', 'Levererat', 'Slutfört', 'Söndag', 'Måndag', 'Tisdag', 'Onsdag', 'Törsdag', 'Fredag', 'Lördag', 'Tidsplaner', 'Korrekt Utförd Beställning', 'Det finns inga data', 'Välj en leveranstid', 'Vissa produkter som var disponibla i tiden när beställning initierade, är inte det på aktuella tiden. Vi har tagit bort de från din varukorg. Fortsätter att köpa eller skicka tillbaka beställningen', 'Ange ditt lösenord för att komma in i rumservice menyn ', 'Är du säker på att avboka din beställning?', '', 'Inte tillgänglig i tidsplan', 'username', 'Username invalido', 'Password invalido', '2016-04-13 12:47:05', '2016-04-23 13:12:49'),
-(19, 'http://panel.easyroomservice.com/assets/img/flags/PIC20160415100340.png', 'ar', 'عربية-Arab', '', 1, 'فندق', 'العنوان', 'خدمة الغرف', 'موعد التسليم', 'الفئة', 'الغرفة', 'مواصفات', 'المجموع', 'موعد التسليم', 'الصفحة الرئيسية', 'إرسال الطلب', 'موعد التسليم', 'تسليم فوري', 'تسليم مجدول', 'إلغاء الطلب', 'بطاقة التسوق', 'طلب فوري', 'طلب مجدول', 'تابع الشراء', 'الهواتف', 'إختر لغة', 'إرسال', 'قبول', 'طلب', 'طلبات', 'الحالة', 'كلمة المرور', 'التاريخ', 'التوقيت', 'نعم', 'لا', '', 'ترويجات', 'تاريخ التسليم', 'مبرمج', 'فوري', 'في طور التجهيز', 'تم التسليم', 'كامل', 'الأحد', 'الإثنين', 'الثلاثاء', 'الأربعاء', 'الخميس', 'الجمعة', 'السبت', 'جدول المواقيت', 'تم تقديم الطلب بنجاح', 'لا توجد أي بيانات', 'يرجى تحديد وقت التسليم', 'بعض الطلبات التي كانت متوفرة عندما بدأت الطلب،ليست متوفرة في الوقت الحالي. لقد أزلنا من بطاقتك.تابع التسوق أو إرسل الطلب من جديد', 'يرجى إدخال كلمة المرور للدخول الى قائمة خدمات الغرف', 'هل تريد حقا إلغاء هذا الطلب؟', '', 'غير متوفر في هذه الساعة', 'username', 'Username invalido', 'Password invalido', '2016-04-15 08:03:40', '2016-04-23 13:13:00'),
-(20, 'http://panel.easyroomservice.com/assets/img/flags/PIC20160418085346.png', 'nl', 'Nederlands-Dutch', '', 1, 'Hotel', 'Adres', 'Room Service', 'Bezorgtijd', 'Categorie', 'Kamer', 'Omschrijving', 'Totaal', 'Bezorgtijd', 'Home', 'Verzend de bestelling', 'Bezorgtijd', 'Onmiddellijke bezorging', 'Geplande bezorging', 'Geannuleerde order', 'Winkelwagen', 'Onmiddellijke bestelling', 'Geplande bestelling', 'Ga door met kopen', 'Telefoons', 'Selecteer een taal', 'Verzenden', 'Accepteren', 'Bestelling', 'Bestellingen', 'Status', 'Wachtwoord', 'Datum', 'Tijd', 'Ja', 'Nee', '', 'Promoties', 'Bezorgdatum', 'Geprogrammeerd', 'Onmiddellijk', 'In voorbereiding', 'Bezorgd', 'Afgerond', 'Zondag', 'Maandag', 'Dinsdag', 'Woensdag', 'Donderdag', 'Vrijdag', 'Zaterdag', 'Tijdschema', 'Order succesvol geplaatst', 'Er is geen data', 'Selecteer een bezorgtijd', 'Sommige producten die beschikbaar waren wanneer u was begonnen met de bestelling zijn op dit moment niet beschikbaar.  Wij hebben deze van uw winkelwagen verwijderd. Ga door met shoppen of verzend de ', 'Voor uw wachtwoord in om het room service menu te bekijken', 'Weet u zeker dat u deze order wilt annuleren?', '', 'Op dit moment niet beschikbaar', 'username', 'Username invalido', 'Password invalido', '2016-04-18 06:53:46', '2016-04-23 13:13:10'),
-(21, 'http://panel.easyroomservice.com/assets/img/flags/PIC20160418110549.png', 'ch', 'Chinese', '', 1, '酒店', '地址', '房间服务', '配送时间', '目录', '房间服务', '介绍', '合计', '配送时间', '酒店主页', '发送订单', '配送时间', '立即配送', '定时配送', '取消订单', '购物车', '立即订购', '定时订购', '继续购买', '电话号码', '选择一种语言', '发送订单', '接收', '订单', '订单', '状况', '密码', '日期', '时间', '是', '否', '', '升级', '配送日期', '程序', '即时', '正在准备中', '已配送', '确定', '星期天', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六', '时间表', '订单成功生效', '无相关数据', '请选择一个配送时间', '有些产品在您开始下房间服务订单的时候可以购买，但现在已经售罄了 我们已经清空了您的购物车。继续购物或重发订单。', '请输入密码', '请问您确定需要取消订单吗', '', '在这一个小时内都无法转备好', 'username', 'Username invalido', 'Password invalido', '2016-04-18 09:05:49', '2016-04-26 23:10:21'),
-(22, 'http://panel.easyroomservice.com/assets/img/flags/PIC20160418112852.png', 'th', 'Türk-Turkish', '', 1, 'Otel', 'Adres', 'Oda Servisi', 'Teslimat zamanı', 'Kategori', 'Oda', 'Açıklama', 'Toplam', 'Teslimat zamanı', 'Anasayfa', 'Siparişi gönder', 'Teslimat zamanı', 'Anında teslimat', 'Planlanmış teslimat', 'Siparişi iptal et', 'Alışveriş sepeti', 'Anında sipariş', 'Planlanmış sipariş', 'Satın almaya devam et', 'Telefonlar', 'Dil Seçin', 'Gönder', 'Kabul Et', 'Sipariş', 'Siparişler', 'Durum', 'Şifre', 'Tarih', 'Zaman', 'Evet', 'Hayır', '', 'promosyonlar', 'Teslimat Tarihi', 'Programlanmış', 'Anında', 'Hazırlanıyor', 'Teslim edildi', 'Tamamlanmış', 'Pazar', 'Pazartesi', 'Salı', 'Çarşamba', 'Perşembe', 'Cuma', 'Cumartesi', 'Zaman çizelgesi', 'Sipariş başarıyla verildi', 'Veri bulunmamakta', 'Teslimat zamanını seçin', 'Siparişi başlattığınızda uygun durumda bulunan bazı ürünler şimdi uygun durumda değil. Alışveriş sepetinizden çıkarttık. Satın almaya devam edin veya siparişi tekrar gönderin', 'Oda servisi menüsüne girebilmek için şifrenizi girin', 'Bu siparişi iptal etmek istediğinizden emin misiniz?', '', 'Bu saat için uygun değil', 'username', 'Username invalido', 'Password invalido', '2016-04-18 09:28:52', '2016-04-23 13:13:37');
+INSERT INTO `languages` (`id`, `flag`, `sufijo`, `language`, `available`, `state`, `txt_hotel`, `txt_direccion`, `txt_catalogo`, `txt_delayed`, `txt_categoria`, `txt_habitacion`, `txt_descripcion`, `txt_total`, `txt_tiempo`, `txt_inicio`, `txt_enviar_pedido`, `txt_horario_de_entrega`, `txt_entrega_inmediata`, `txt_entrega_programa`, `txt_cancelar_pedido`, `txt_carrito_compra`, `txt_pedido_inmediato`, `txt_pedido_programado`, `txt_continuar_comprando`, `txt_telefonos`, `txt_lenguajes`, `txt_enviar`, `txt_aceptar`, `txt_order`, `txt_orders`, `txt_estado`, `txt_pass`, `txt_date`, `txt_time`, `txt_si`, `txt_no`, `txt_volver_enviar_pedido`, `txt_promociones`, `txt_fecha_entrega`, `txt_programmed`, `txt_just_now`, `txt_ready`, `txt_delivered`, `txt_finalized`, `txt_domingo`, `txt_lunes`, `txt_martes`, `txt_miercoles`, `txt_jueves`, `txt_viernes`, `txt_sabado`, `txt_horario_disponible`, `txt_message_pedido_ok`, `txt_message_no_datos`, `txt_message_selec_horario`, `txt_message_no_horario`, `txt_message_ingresar_contrasena`, `txt_message_eliminar_pedido`, `txt_mgs_entrega_programada`, `txt_no_vailable`, `txt_username`, `txt_datos_invalidos`, `txt_token_invalido`, `txt_informacion_de_servicio`, `txt_programa_de_actividades`, `txt_de_servicios_de_habitaciones`, `txt_informacion_de_alrededores`, `created_at`, `updated_at`) VALUES
+(1, 'http://panel.easyroomservice.com/assets/img/flags/PIC20160328215738.png', 'es', 'Español-Spanish', '', 1, 'Hotel', 'Dirección', 'Servicio de Habitaciones', 'Tiempo de Entrega', 'Categoría', 'Habitación', 'Descripción', 'Total', 'Tiempo', 'Inicio', 'Enviar Pedido', 'Horario de Entrega', 'Entrega Inmediata', 'Entrega Programada', 'Cancelar Pedido', 'Carro de Compras', 'Pedido Inmediato', 'Pedido Programado', 'Continuar Comprando', 'Teléfonos', 'Seleccione un Idioma', 'Enviar', 'Aceptar', 'Pedido', 'Pedidos', 'Estado', 'Contraseña', 'Fecha', 'Tiempo', 'Si', 'No', 'Volver Enviar el pedido.', 'Promociones', 'Fecha de Entrega', 'Programado', 'Inmediato', 'En preparación', 'Entregado', 'Finalizado', 'Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Horarios', 'Pedido Realizado Correctamente', 'No hay Datos', 'Por favor seleccione una Horario de entrega', 'Algunos productos que estaban disponibles en el horario que inició el pedido dejaron de estarlo a la hora actual. Los hemos quitado de su carro de compra. Siga comprando o vuelva a enviar el pedido', 'Favor ingrese su contraseña para ingresar al menú del servicio de habitaciones', '¿Esta seguro de Cancelar esta pedido?', 'Se entregará luego del tiempo de prepración si para la hora programada falta menos que este', 'No disponible por horario', 'Usuario', 'Usuario no invalido', 'Password no invalido', 'Informacion de servicio', 'Programa de actividades', 'Menu de servicios de habitaciones', 'informacion de alrededores', '0000-00-00 00:00:00', '2016-08-18 17:01:02'),
+(2, 'http://panel.easyroomservice.com/assets/img/flags/PIC20160406161707.png', 'en', 'English-English', '', 1, 'Hotel', 'Address', 'Room Service', 'Delivery Time', 'Category', 'Room', 'Description', 'Total', 'Delivery time', 'Home', 'Send the order', 'Delivery time', 'Immediate delivery', 'Scheduled Delivery', 'Cancel order', 'Shopping cart', 'Immediate order', 'Scheduled order', 'Continue Shopping', 'Phones', 'Select a Language', 'Send', 'OK', 'Order', 'Orders', 'Status', 'Password', 'Date', 'Time', 'Yes', 'No', 'Back Send Order.', 'Promotions', 'delivery date', 'Programmed', 'Immediate', 'In preparation', 'Delivered', 'Finalized', 'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Timetable', 'Order successfully placed', 'There is no data', 'Please select a delivery time', 'Some products that were available when you initiated the order, stopped being available at the current time. We\'ve removed from your cart. Continue shopping or resend the order', 'Please enter your password to enter the room service menu.', 'Are you sure you want to Cancel this order?', 'He then delivered the preparation time for the scheduled time if needed unless this', 'Not available at this hour', 'Username', 'Username invalido', 'Password invalido', '', '', '', '', '0000-00-00 00:00:00', '2016-08-17 21:02:17'),
+(12, 'http://panel.easyroomservice.com/assets/img/flags/PIC20160406154652.png', 'it', 'Italiano-Italian', '', 1, 'Hotel', 'Indirizzo', 'Servizio in Camera', 'Tempo per la Consegna', 'Categoria', 'Camera', 'Descrizione', 'Totale', 'Tempo', 'Inizio', 'Inviare l\'Ordine', 'Ora di Consegna', 'Consegna Immediata', 'Consegna Programmata', 'Cancellare l\'ordine', 'Carrello della spesa', 'Ordine Immediato', 'Ordine Programmato', 'Continuare la Compra', 'Telefoni', 'Selezioni una lingua', 'Inviare', 'Accettare', 'Ordine', 'Ordini', 'Stato', 'Password', 'Data', 'Tempo', 'Si', 'No', '', 'Promozioni', 'Data di Consegna', 'Programmato', 'Immediato', 'In preparazione', 'Consegnato', 'Finalizzato', 'Domenica', 'Lunedi', 'Martedi', 'Mercoedi', 'Giovedi', 'Venerdi', 'Sabato', 'Orari', 'Ordine Realizzato Correttamente', 'Non ci sono Dati', 'Per favore selezioni un Orario per la consegna', 'Alcuni dei prodotti che erano disponibili all\'ora in cui iniziò l\'ordine non sono più disponibili a quest\'ora. Li abbiamo eliminati dal suo carrello della spesa. Continui a comprare o invii di nuovo l', 'Per favore inserisca la sua password per accedere al menù del servizio in camera.', 'È sicuro di voler Cancellare quest\'ordine?', '', 'Non disponible in quest\'orario', 'username', 'Username invalido', 'Password invalido', '', '', '', '', '2016-04-06 13:46:52', '2016-04-23 13:12:04'),
+(14, 'http://panel.easyroomservice.com/assets/img/flags/PIC20160407000407.png', 'de', 'Deutsch-German', '', 1, 'Hotel', 'Adresse', 'Zimmerservice', 'Lieferzeit', 'Kategorie', 'Zimmer', 'Beschreibung', 'Insgesamt', 'Lieferzeit', 'Anfangsseite', 'Bestellung senden', 'Zustellungszeit', 'Sofortige Lieferung', 'Programmierte Lieferung', 'Bestellung stornieren', 'Einkaufswagen', 'Sofortige Bestellung', 'Programmierte Bestellung', 'Weiter einkaufen', 'Telefonnummern', 'Wählen Sie eine Sprache aus', 'Senden', 'Akzeptieren', 'Bestellung', 'Bestellungen', 'Status', 'Passwort', 'Datum', 'Lieferzeit', 'Ja', 'Nein', '', 'Werbeaktionen', 'Lieferungsdatum', 'Programmiert', 'Sofort', 'In Vorbereitung', 'Zugestellt', 'Beendet', 'Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag', 'Zeitpläne', 'Bestellung richtig ausgeführt', 'Keine Daten vorhanden', 'Bitte wählen Sie eine Zustellungsuhrzeit aus', 'Einige Produkte, die am Anfang Ihrer Bestellung vorhanden waren, sind nicht mehr zum jetzigen Zeitpunkt verfügbar. Wir haben sie aus Ihrem Einkaufswagen entfernt. Setzen Sie den Einkauf fort oder schi', 'Bitte geben Sie Ihr Passwort ein, um ins Zimmerservice-Menü zu gelangen.', 'Sind Sie sicher, dass Sie Ihre Bestellung löschen möchten?', '', 'Wegen der Uhrzeit nicht verfügbar', 'username', 'Username invalido', 'Password invalido', '', '', '', '', '2016-04-06 22:04:07', '2016-04-23 13:12:12'),
+(15, 'http://panel.easyroomservice.com/assets/img/flags/PIC20160407000426.png', 'fr', 'Français-French', '', 1, 'Hôtel', 'Adresse', 'Service de chambre', 'Délai de livraison', 'Catégories', 'Chambre', 'Description', 'Total', 'Délai de livraison', 'Accueil', 'Envoyer la commande', 'Horaire de livraison', 'Livraison immédiate', 'Livraison programmée', 'Annuler la commande', 'Panier', 'Commande immédiate', 'Commande programmée', 'Poursuivre l\'achat', 'Numéros de Téléphone', 'Choisir la langue', 'Envoyer', 'Valider', 'Commande', 'Des commandes', 'État de la commande', 'Mot de passe', 'Date', 'Temps', 'Oui', 'Non', '', 'Promotions', 'Date de Livraison', 'Programmée', 'Immédiate', 'En préparation', 'Livrée', 'Finalisée', 'Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Horaires', 'Commande bien effectuée ', 'Aucun donnée', 'Merci d\'choisir un horaire de livraison', 'Certains produits qui étaient disponibles l\'heure de démarrage de la commande, ont cessé de l\'être à l\'heure actuelle. On l\'a supprimé de votre panier. Poursuivez les achats ou renvoyez l\'ordre', 'S\'il vous plaît, entrez votre mot de passe pour entrer dans le menu de service en chambre.', 'Etes-vous sûr d\'annuler cette commande?', '', 'Pas disponible à cette heure', 'username', 'Username invalido', 'Password invalido', '', '', '', '', '2016-04-06 22:04:26', '2016-04-23 13:12:18'),
+(16, 'http://panel.easyroomservice.com/assets/img/flags/PIC20160411002012.png', 'pt', 'Português-Portuguese', '', 1, 'Hotel', 'Endereço', 'Serviço de quartos', 'Tempo de entrega', 'Categoria', 'Quarto', 'Descrição', 'Total', 'Tempo', 'Início', 'Enviar Pedido', 'Horário de entrega', 'Entrega imediata', 'Entrega programada', 'Cancelar Pedido', 'Carrinho de Compras', 'Pedido imediato', 'Pedido programado', 'Continuar a comprar', 'Telefones', 'Selecione um idioma', 'Enviar', 'Aceitar', 'Pedido', 'Pedidos', 'Estado', 'Senha', 'Data', 'Tempo', 'Se', 'Não', '', 'Promoções', 'Data de entrega', 'Programado', 'Imediato', 'Em preparação', 'Entregue', 'Finalizado', 'Domingo', 'Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado', 'Horários', 'Pedido realizado com sucesso', 'Não há dados', 'Por favor selecione um horário de entrega', 'Alguns produtos que estavam disponíveis no horário que iniciou o pedido deixaram de estar na hora atual. Foi removido do seu carrinho. Continue a comprar ou reenvie o pedido.', 'Por favor digite a sua senha para entrar no menu do serviço de quartos.', 'Tem a certeza que deseja Cancelar este pedido?', '', 'Nenhum horário disponível', 'username', 'Username invalido', 'Password invalido', '', '', '', '', '2016-04-10 22:20:12', '2016-04-23 13:12:27'),
+(17, 'http://panel.easyroomservice.com/assets/img/flags/PIC20160412205225.png', 'ru', 'русский-Russian', '', 1, 'Отель', 'Адрес', 'Обслуживание номеров', 'Срок доставки', 'Категория', 'Номер', 'Описание', 'общий', 'Срок', 'На главную', 'Доставить заказ', 'График доставки', 'Немедленная доставка', 'Запланированная доставка', 'Отменить заказ', 'Корзина', 'Срочный заказ', 'Отложенный заказ', 'Продолжить покупки', 'Телефоны', 'Выберите язык', 'Доставить', 'Принять', 'Заказ', 'Заказ', 'Состояние', 'Пароль', 'Дата', 'Время', 'Да', 'Нет', '', 'Акции', 'Дата доставки', 'Запланировано', 'Срочный', 'Готовится', 'Доставлено', 'Готово', 'Воскресенье', 'Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота', 'Графики', 'Успешно сделанный заказ', 'Нет данных', 'Пожалуйста, выберите время доставки', 'Некоторые продукты, которые были доступны во время заказа, сейчас недоступны. Мы удалили их из вашей корзины. Продолжите покупки или перейдите к доставке заказа', 'Пожалуйста, введите пароль для входа в меню обслуживания номеров', 'Уверены, что хотите отменить заказ?', '', 'Недоступно для доставки', 'username', 'Username invalido', 'Password invalido', '', '', '', '', '2016-04-12 18:52:25', '2016-04-23 13:12:38'),
+(18, 'http://panel.easyroomservice.com/assets/img/flags/PIC20160413144705.png', 'sv', 'Svenska-Swedish', '', 1, 'Hotelt', 'Adress', 'Rumservice', 'Tidsplan för leveransen', 'Kategori', 'Rum', 'Beskrivning', 'Totalt', 'Tid', 'Start', 'Skicka Beställning', 'Leveranstid', 'Omedelbar Leverans', 'Planerad Leverans', 'Avboka Beställning', 'Varukorg', 'Omedelbar Beställning', 'Planerad Beställning', 'Fortsätta att Köpa', 'Telefonnummer', 'Välj ett språk', 'Skicka', 'Acceptera', 'Beställning', 'Beställningar', 'Status', 'Lösenord', 'Datum', 'Tid', 'Ja', 'Nej', '', 'Erbjudanden', 'Leveransdatum', 'Programmerad', 'Omedelbar', 'Under tillagning ', 'Levererat', 'Slutfört', 'Söndag', 'Måndag', 'Tisdag', 'Onsdag', 'Törsdag', 'Fredag', 'Lördag', 'Tidsplaner', 'Korrekt Utförd Beställning', 'Det finns inga data', 'Välj en leveranstid', 'Vissa produkter som var disponibla i tiden när beställning initierade, är inte det på aktuella tiden. Vi har tagit bort de från din varukorg. Fortsätter att köpa eller skicka tillbaka beställningen', 'Ange ditt lösenord för att komma in i rumservice menyn ', 'Är du säker på att avboka din beställning?', '', 'Inte tillgänglig i tidsplan', 'username', 'Username invalido', 'Password invalido', '', '', '', '', '2016-04-13 12:47:05', '2016-04-23 13:12:49'),
+(19, 'http://panel.easyroomservice.com/assets/img/flags/PIC20160415100340.png', 'ar', 'عربية-Arab', '', 1, 'فندق', 'العنوان', 'خدمة الغرف', 'موعد التسليم', 'الفئة', 'الغرفة', 'مواصفات', 'المجموع', 'موعد التسليم', 'الصفحة الرئيسية', 'إرسال الطلب', 'موعد التسليم', 'تسليم فوري', 'تسليم مجدول', 'إلغاء الطلب', 'بطاقة التسوق', 'طلب فوري', 'طلب مجدول', 'تابع الشراء', 'الهواتف', 'إختر لغة', 'إرسال', 'قبول', 'طلب', 'طلبات', 'الحالة', 'كلمة المرور', 'التاريخ', 'التوقيت', 'نعم', 'لا', '', 'ترويجات', 'تاريخ التسليم', 'مبرمج', 'فوري', 'في طور التجهيز', 'تم التسليم', 'كامل', 'الأحد', 'الإثنين', 'الثلاثاء', 'الأربعاء', 'الخميس', 'الجمعة', 'السبت', 'جدول المواقيت', 'تم تقديم الطلب بنجاح', 'لا توجد أي بيانات', 'يرجى تحديد وقت التسليم', 'بعض الطلبات التي كانت متوفرة عندما بدأت الطلب،ليست متوفرة في الوقت الحالي. لقد أزلنا من بطاقتك.تابع التسوق أو إرسل الطلب من جديد', 'يرجى إدخال كلمة المرور للدخول الى قائمة خدمات الغرف', 'هل تريد حقا إلغاء هذا الطلب؟', '', 'غير متوفر في هذه الساعة', 'username', 'Username invalido', 'Password invalido', '', '', '', '', '2016-04-15 08:03:40', '2016-04-23 13:13:00'),
+(20, 'http://panel.easyroomservice.com/assets/img/flags/PIC20160418085346.png', 'nl', 'Nederlands-Dutch', '', 1, 'Hotel', 'Adres', 'Room Service', 'Bezorgtijd', 'Categorie', 'Kamer', 'Omschrijving', 'Totaal', 'Bezorgtijd', 'Home', 'Verzend de bestelling', 'Bezorgtijd', 'Onmiddellijke bezorging', 'Geplande bezorging', 'Geannuleerde order', 'Winkelwagen', 'Onmiddellijke bestelling', 'Geplande bestelling', 'Ga door met kopen', 'Telefoons', 'Selecteer een taal', 'Verzenden', 'Accepteren', 'Bestelling', 'Bestellingen', 'Status', 'Wachtwoord', 'Datum', 'Tijd', 'Ja', 'Nee', '', 'Promoties', 'Bezorgdatum', 'Geprogrammeerd', 'Onmiddellijk', 'In voorbereiding', 'Bezorgd', 'Afgerond', 'Zondag', 'Maandag', 'Dinsdag', 'Woensdag', 'Donderdag', 'Vrijdag', 'Zaterdag', 'Tijdschema', 'Order succesvol geplaatst', 'Er is geen data', 'Selecteer een bezorgtijd', 'Sommige producten die beschikbaar waren wanneer u was begonnen met de bestelling zijn op dit moment niet beschikbaar.  Wij hebben deze van uw winkelwagen verwijderd. Ga door met shoppen of verzend de ', 'Voor uw wachtwoord in om het room service menu te bekijken', 'Weet u zeker dat u deze order wilt annuleren?', '', 'Op dit moment niet beschikbaar', 'username', 'Username invalido', 'Password invalido', '', '', '', '', '2016-04-18 06:53:46', '2016-04-23 13:13:10'),
+(21, 'http://panel.easyroomservice.com/assets/img/flags/PIC20160418110549.png', 'ch', 'Chinese', '', 1, '酒店', '地址', '房间服务', '配送时间', '目录', '房间服务', '介绍', '合计', '配送时间', '酒店主页', '发送订单', '配送时间', '立即配送', '定时配送', '取消订单', '购物车', '立即订购', '定时订购', '继续购买', '电话号码', '选择一种语言', '发送订单', '接收', '订单', '订单', '状况', '密码', '日期', '时间', '是', '否', '', '升级', '配送日期', '程序', '即时', '正在准备中', '已配送', '确定', '星期天', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六', '时间表', '订单成功生效', '无相关数据', '请选择一个配送时间', '有些产品在您开始下房间服务订单的时候可以购买，但现在已经售罄了 我们已经清空了您的购物车。继续购物或重发订单。', '请输入密码', '请问您确定需要取消订单吗', '', '在这一个小时内都无法转备好', 'username', 'Username invalido', 'Password invalido', '', '', '', '', '2016-04-18 09:05:49', '2016-04-26 23:10:21'),
+(22, 'http://panel.easyroomservice.com/assets/img/flags/PIC20160418112852.png', 'th', 'Türk-Turkish', '', 1, 'Otel', 'Adres', 'Oda Servisi', 'Teslimat zamanı', 'Kategori', 'Oda', 'Açıklama', 'Toplam', 'Teslimat zamanı', 'Anasayfa', 'Siparişi gönder', 'Teslimat zamanı', 'Anında teslimat', 'Planlanmış teslimat', 'Siparişi iptal et', 'Alışveriş sepeti', 'Anında sipariş', 'Planlanmış sipariş', 'Satın almaya devam et', 'Telefonlar', 'Dil Seçin', 'Gönder', 'Kabul Et', 'Sipariş', 'Siparişler', 'Durum', 'Şifre', 'Tarih', 'Zaman', 'Evet', 'Hayır', '', 'promosyonlar', 'Teslimat Tarihi', 'Programlanmış', 'Anında', 'Hazırlanıyor', 'Teslim edildi', 'Tamamlanmış', 'Pazar', 'Pazartesi', 'Salı', 'Çarşamba', 'Perşembe', 'Cuma', 'Cumartesi', 'Zaman çizelgesi', 'Sipariş başarıyla verildi', 'Veri bulunmamakta', 'Teslimat zamanını seçin', 'Siparişi başlattığınızda uygun durumda bulunan bazı ürünler şimdi uygun durumda değil. Alışveriş sepetinizden çıkarttık. Satın almaya devam edin veya siparişi tekrar gönderin', 'Oda servisi menüsüne girebilmek için şifrenizi girin', 'Bu siparişi iptal etmek istediğinizden emin misiniz?', '', 'Bu saat için uygun değil', 'username', 'Username invalido', 'Password invalido', '', '', '', '', '2016-04-18 09:28:52', '2016-04-23 13:13:37');
 
 -- --------------------------------------------------------
 
@@ -8915,6 +9178,62 @@ INSERT INTO `languages_hotel` (`id`, `language_id`, `hotel_id`, `main`, `state`,
 (14, 1, 6, 1, 1, '2016-04-18 19:32:52', '2016-04-18 19:32:52'),
 (15, 1, 7, 1, 1, '2016-04-18 19:37:57', '2016-04-19 07:41:56'),
 (16, 1, 8, 1, 1, '2016-08-17 20:39:07', '2016-08-17 20:39:07');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `menulang`
+--
+
+CREATE TABLE `menulang` (
+  `id` int(11) NOT NULL,
+  `menu_id` int(11) NOT NULL,
+  `language_id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `description` text NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `menulang`
+--
+
+INSERT INTO `menulang` (`id`, `menu_id`, `language_id`, `name`, `description`, `created_at`, `updated_at`) VALUES
+(1, 2, 1, 'masage con aceites en fauna', 'en fauna con aceiyes de balsamo', '2017-04-20 00:03:15', '2017-04-20 00:03:15'),
+(2, 3, 1, 'KJUIO', 'Nadis', '2017-04-20 06:15:45', '2017-04-20 06:15:45'),
+(3, 4, 1, 'Fueguito', 'Fuego fueguito', '2017-04-20 06:48:53', '2017-04-20 06:48:53'),
+(4, 5, 1, 'zapatillas de cristal', 'bañadas en oro peruano', '2017-05-12 07:28:58', '2017-05-12 07:28:58'),
+(5, 6, 1, 'carne a la plancha', 'carne de cerdo', '2017-05-12 07:30:10', '2017-05-12 07:30:10');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `menus`
+--
+
+CREATE TABLE `menus` (
+  `id` int(11) NOT NULL,
+  `hotel_id` int(11) NOT NULL,
+  `category_id` int(11) NOT NULL,
+  `price` varchar(10) NOT NULL,
+  `picture` text NOT NULL,
+  `state` tinyint(4) NOT NULL DEFAULT '0',
+  `menuOrder` tinyint(4) NOT NULL DEFAULT '0',
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `menus`
+--
+
+INSERT INTO `menus` (`id`, `hotel_id`, `category_id`, `price`, `picture`, `state`, `menuOrder`, `created_at`, `updated_at`) VALUES
+(2, 7, 6, '50', 'http://aesyroom.dev/assets/pictures_hotels/services/PIC720170425231032.png', 0, 0, '2017-04-25 21:11:45', '2017-04-26 05:11:45'),
+(3, 7, 5, '80', 'http://aesyroom.dev/assets/pictures_hotels/services/PIC720170420001545.png', 0, 0, '2017-04-20 06:15:45', '2017-04-20 06:15:45'),
+(4, 7, 5, '100', 'http://aesyroom.dev/assets/pictures_hotels/services/PIC720170420004852.png', 0, 1, '2017-04-19 22:55:07', '2017-04-20 06:48:52'),
+(5, 7, 2, '50', 'http://aesyroom.dev/assets/pictures_hotels/services/PIC720170512012858.png', 1, 0, '2017-05-11 23:40:48', '2017-05-12 07:40:48'),
+(6, 7, 1, '100', 'http://aesyroom.dev/assets/pictures_hotels/services/PIC720170512013010.png', 0, 0, '2017-05-12 07:30:10', '2017-05-12 07:30:10');
 
 -- --------------------------------------------------------
 
@@ -9240,7 +9559,8 @@ INSERT INTO `orders` (`id`, `stay_id`, `hour_order`, `state`, `preparation_time`
 (61, 10, '2016-09-10 01:46:56', 'finalized', 5, '2016-09-10 01:46:56', '2016-09-09 23:46:56', '2016-09-09 23:47:06'),
 (62, 10, '2016-09-10 01:47:08', 'finalized', 5, '2016-09-10 01:47:08', '2016-09-09 23:47:08', '2016-09-09 23:47:19'),
 (63, 11, '2017-02-23 22:36:00', 'cancel', 15, '2017-02-23 22:51:00', '2017-02-23 21:36:31', '2017-02-23 21:47:10'),
-(64, 13, '2017-02-23 22:47:00', 'finalized', 15, '2017-02-23 23:02:00', '2017-02-23 21:46:58', '2017-02-23 21:47:19');
+(64, 13, '2017-02-23 22:47:00', 'finalized', 15, '2017-02-23 23:02:00', '2017-02-23 21:46:58', '2017-02-23 21:47:19'),
+(65, 25, '2017-04-16 19:28:44', 'not-send', 0, '2017-04-16 19:28:44', '2017-04-17 01:19:46', '2017-04-17 01:28:44');
 
 -- --------------------------------------------------------
 
@@ -9289,7 +9609,7 @@ INSERT INTO `payment` (`id`, `paid`, `time`, `user_id`, `plan_id`, `price`, `cre
 (4, 1, 30, 7, 5, 0.00, '2016-04-13 16:14:12', '2016-04-13 16:14:12'),
 (5, 1, 534, 8, 5, 0.00, '2016-08-12 23:57:25', '2016-08-12 23:57:25'),
 (6, 1, 30, 10, 3, 0.00, '2016-04-18 19:32:52', '2016-04-18 19:32:52'),
-(7, 1, 30, 11, 3, 0.00, '2016-04-18 19:37:57', '2016-04-18 19:37:57'),
+(7, 1, 500, 11, 3, 0.00, '2017-04-10 17:02:43', '2017-03-10 19:37:57'),
 (8, 1, 30, 12, 5, 0.00, '2016-08-17 20:39:07', '2016-08-17 20:39:07');
 
 -- --------------------------------------------------------
@@ -9636,13 +9956,13 @@ INSERT INTO `rooms` (`id`, `sector_id`, `hotel_id`, `number_room`, `state`, `con
 (89, 4, 4, '208', 1, 0, '2016-04-13 17:07:00', '2016-04-13 17:07:00'),
 (90, 4, 4, '209', 1, 0, '2016-04-13 17:07:00', '2016-04-13 17:07:00'),
 (91, 4, 4, '210', 1, 0, '2016-04-13 17:07:00', '2016-04-13 17:07:00'),
-(92, 7, 7, '100', 1, 0, '2016-04-18 21:52:31', '2016-04-18 20:24:59'),
-(93, 7, 7, '101', 1, 0, '2016-04-18 21:52:31', '2016-04-18 21:52:31'),
+(92, 7, 7, '100', 1, 1, '2016-04-18 21:52:31', '2017-04-26 05:34:00'),
+(93, 7, 7, '101', 1, 0, '2016-04-18 21:52:31', '2017-04-26 05:30:13'),
 (94, 7, 7, '102', 1, 0, '2016-04-18 21:52:31', '2016-04-18 21:52:31'),
-(95, 7, 7, '103', 1, 0, '2016-04-18 21:52:31', '2016-04-18 21:52:31'),
-(96, 7, 7, '104', 1, 0, '2016-04-18 21:52:31', '2016-04-18 21:54:20'),
-(97, 7, 7, '105', 1, 0, '2016-04-18 21:52:31', '2016-04-19 05:39:32'),
-(98, 7, 7, '106', 1, 0, '2016-04-18 21:52:31', '2016-04-18 21:52:31'),
+(95, 7, 7, '103', 1, 0, '2016-04-18 21:52:31', '2017-04-12 11:24:48'),
+(96, 7, 7, '104', 1, 0, '2016-04-18 21:52:31', '2017-04-12 11:32:38'),
+(97, 7, 7, '105', 1, 0, '2016-04-18 21:52:31', '2017-04-12 10:43:42'),
+(98, 7, 7, '106', 1, 0, '2016-04-18 21:52:31', '2017-04-26 05:30:10'),
 (99, 7, 7, '107', 1, 0, '2016-04-18 21:52:31', '2016-04-18 22:52:05'),
 (100, 7, 7, '108', 1, 0, '2016-04-18 21:52:31', '2016-04-19 07:39:13'),
 (101, 7, 7, '109', 1, 0, '2016-04-18 21:52:31', '2016-04-18 21:52:31'),
@@ -9741,6 +10061,55 @@ INSERT INTO `schedules` (`id`, `hotel_id`, `weekday`, `desde_1`, `hasta_1`, `des
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `services`
+--
+
+CREATE TABLE `services` (
+  `id` int(11) NOT NULL,
+  `hotel_id` int(11) NOT NULL,
+  `picture` text NOT NULL,
+  `type` int(11) NOT NULL,
+  `state` tinyint(4) NOT NULL,
+  `Serviceorder` tinyint(4) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `services`
+--
+
+INSERT INTO `services` (`id`, `hotel_id`, `picture`, `type`, `state`, `Serviceorder`, `created_at`, `updated_at`) VALUES
+(1, 7, 'http://aesyroom.dev/assets/pictures_hotels/services/PIC720170420001429.png', 0, 0, 1, '2017-04-19 22:14:29', '2017-04-20 06:14:29'),
+(2, 7, 'http://aesyroom.dev/assets/pictures_hotels/services/PIC720170420001344.png', 0, 0, 0, '2017-04-19 22:13:44', '2017-04-20 06:13:44');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `serviceslang`
+--
+
+CREATE TABLE `serviceslang` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `description` text,
+  `service_id` int(11) NOT NULL,
+  `language_id` int(11) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `serviceslang`
+--
+
+INSERT INTO `serviceslang` (`id`, `name`, `description`, `service_id`, `language_id`, `created_at`, `updated_at`) VALUES
+(1, 'spa', 'ffffffffffffffffffffff', 1, 1, '2017-04-19 15:22:19', '2017-04-19 23:22:19'),
+(2, 'clases de baile', 'Exclucivo para adultos mayores', 2, 1, '2017-04-14 06:04:18', '2017-04-14 06:04:18');
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `specials_days`
 --
 
@@ -9822,7 +10191,22 @@ INSERT INTO `stays` (`id`, `room_id`, `hotel_id`, `language_id`, `name`, `start`
 (12, 12, 1, 1, 'juan3', '22:43:47', '10:30:00', 'check-out', 'no-reply@easyroomservice.com', NULL, '', 0, 0, '111111', '2016-10-11 10:30:00', '2017-02-23', '2016-10-11', '2017-02-23 21:43:47', '2017-02-23 21:45:18', NULL),
 (13, 12, 1, 1, 'juan3', '22:45:40', '10:30:00', 'check-out', 'no-reply@easyroomservice.com', NULL, '', 0, 0, '111111', '2017-10-03 10:30:00', '2017-02-23', '2017-10-03', '2017-02-23 21:45:40', '2017-02-23 21:51:20', NULL),
 (14, 8, 1, 1, 'Diego', '11:25:00', '10:30:00', 'check-out', 'diegoesteban.serra@gmail.com', 'diego', '', 1, 0, '111111', '2017-03-11 10:30:00', '2017-03-10', '2017-03-11', '2017-03-10 10:26:08', '2017-03-10 10:27:15', NULL),
-(15, 1, 1, 1, 'Diego', '11:27:00', '10:30:00', 'Pending', 'diegoesteban.serra@gmail.com', 'diego', '', 1, 0, '111111', '2017-03-11 10:30:00', '2017-03-10', '2017-03-11', '2017-03-10 10:28:07', '2017-03-10 10:28:07', NULL);
+(15, 1, 1, 1, 'Diego', '11:27:00', '10:30:00', 'Pending', 'diegoesteban.serra@gmail.com', 'diego', '', 1, 0, '111111', '2017-03-11 10:30:00', '2017-03-10', '2017-03-11', '2017-03-10 10:28:07', '2017-03-10 10:28:07', NULL),
+(16, 93, 7, 1, 'jhonny', '19:48:00', '12:00:00', 'check-out', 'ing.johnnymartinez@gmail.com', NULL, '', 1, 0, 'VMNOU', '2017-04-11 12:00:00', '2017-04-10', '2017-04-11', '2017-04-11 09:44:31', '2017-04-11 11:45:33', NULL),
+(17, 96, 7, 1, 'johnny', '21:45:00', '12:00:00', 'check-out', 'ing.johnnymartinez@gmail.com', NULL, '', 1, 0, 'NFQZH', '2017-04-11 12:00:00', '2017-04-10', '2017-04-11', '2017-04-11 09:47:03', '2017-04-11 11:51:56', NULL),
+(18, 97, 7, 1, 'johnnymartinez', '21:52:00', '12:00:00', 'check-out', 'ing.johnnymartinez@gmail.com', NULL, '', 1, 0, 'BU1SO', '2017-04-11 12:00:00', '2017-04-10', '2017-04-11', '2017-04-11 09:52:35', '2017-04-11 11:56:30', NULL),
+(19, 97, 7, 1, 'johnny martinez', '21:56:00', '12:00:00', 'check-out', 'ing.johnnymartinez@gmail.com', NULL, '', 1, 0, 'ODNJ9', '2017-04-11 12:00:00', '2017-04-10', '2017-04-11', '2017-04-11 09:57:39', '2017-04-12 10:43:42', NULL),
+(20, 93, 7, 1, 'johnny', '20:44:00', '12:00:00', 'check-out', 'ing.johnnymartinez@gmail.com', NULL, '', 1, 0, 'RVNWU', '2017-04-12 12:00:00', '2017-04-11', '2017-04-12', '2017-04-12 09:01:08', '2017-04-12 11:03:11', NULL),
+(21, 98, 7, 1, 'johnny', '21:03:00', '12:00:00', 'check-out', 'ing.johnnymartinez@gmail.com', NULL, '', 1, 0, 'V0YOK', '2017-04-12 12:00:00', '2017-04-11', '2017-04-12', '2017-04-12 09:03:44', '2017-04-12 11:22:47', NULL),
+(22, 95, 7, 1, 'johnny', '21:22:00', '12:00:00', 'check-out', 'ing.johnnymartinez@gmail.com', NULL, '', 1, 0, 'TBGLK', '2017-04-12 12:00:00', '2017-04-11', '2017-04-12', '2017-04-12 09:23:26', '2017-04-12 11:24:48', NULL),
+(23, 98, 7, 1, 'johnny', '21:25:00', '12:00:00', 'check-out', 'ing.johnnymartinez@gmail.com', NULL, '', 1, 0, 'RJI76', '2017-04-12 12:00:00', '2017-04-11', '2017-04-12', '2017-04-12 09:26:08', '2017-04-12 11:29:57', NULL),
+(24, 96, 7, 1, 'johnnyomb1989@gmail.com', '21:30:00', '12:00:00', 'check-out', 'ing.johnnymartinez@gmail.com', NULL, '', 1, 0, '4FC1F', '2017-04-12 12:00:00', '2017-04-11', '2017-04-12', '2017-04-12 09:30:49', '2017-04-12 11:32:38', NULL),
+(25, 98, 7, 1, 'johnny', '21:32:00', '12:00:00', 'check-out', 'ing.johnnymartinez@gmail.com', NULL, '', 1, 0, '1I0FE', '2017-04-12 12:00:00', '2017-04-11', '2017-04-12', '2017-04-12 09:33:28', '2017-04-20 04:29:37', NULL),
+(26, 93, 7, 1, 'johnny', '14:29:00', '12:00:00', 'check-out', 'ing.johnnymartinez@gmail.com', NULL, '', 1, 0, '111111', '2017-04-26 12:00:00', '2017-04-19', '2017-04-26', '2017-04-20 02:30:53', '2017-04-26 05:30:13', NULL),
+(27, 98, 7, 1, 'johnny', '14:29:00', '12:00:00', 'check-out', 'ing.johnnymartinez@gmail.com', NULL, '', 1, 0, '111111', '2017-04-20 12:00:00', '2017-04-19', '2017-04-20', '2017-04-20 03:04:39', '2017-04-26 05:30:10', NULL),
+(28, 92, 7, 1, 'Rolando', '16:20:00', '12:00:00', 'check-out', 'rolandarias74@gmail.com', NULL, '', 1, 0, '123123', '2017-05-06 12:00:00', '2017-04-19', '2017-05-06', '2017-04-20 04:20:39', '2017-04-21 04:49:11', NULL),
+(29, 92, 7, 1, 'Rolando', '15:00:00', '12:00:00', 'check-out', 'webmaster.rick74@gmail.com', NULL, '', 1, 0, '123123', '2017-05-05 12:00:00', '2017-04-20', '2017-05-05', '2017-04-21 05:00:30', '2017-04-26 05:30:06', NULL),
+(30, 92, 7, 1, 'Johnny Martinez', '15:30:00', '12:00:00', 'Pending', 'ing.johnnymartinez@gmail.com', NULL, '', 1, 0, '111111', '2017-04-28 12:00:00', '2017-04-25', '2017-04-28', '2017-04-26 05:34:00', '2017-04-26 05:35:59', NULL);
 
 -- --------------------------------------------------------
 
@@ -9960,7 +10344,8 @@ INSERT INTO `throttle` (`id`, `user_id`, `ip_address`, `attempts`, `suspended`, 
 (96, 5, '201.247.52.36', 0, 0, 0, NULL, NULL, NULL),
 (97, 2, '77.228.127.91', 0, 0, 0, NULL, NULL, NULL),
 (98, 1, '77.228.127.91', 0, 0, 0, NULL, NULL, NULL),
-(99, 2, '47.61.182.90', 0, 0, 0, NULL, NULL, NULL);
+(99, 2, '47.61.182.90', 0, 0, 0, NULL, NULL, NULL),
+(100, 11, '::1', 0, 0, 0, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -10030,7 +10415,7 @@ INSERT INTO `users` (`id`, `first_name`, `last_name`, `hotel_id`, `type_user`, `
 (8, 'Diego', 'Serra', 5, 3, 'dieguex@hotmail.com', 'diego', 'Manager', '1993-01-04', 198, '91', NULL, '$2y$10$YWJdGxy22UxyGQ83vuMx7OHF4uO9P0p0aU8.f6KxsEavI0y7poCNK', NULL, 1, NULL, '2016-04-15 09:46:00', '2016-08-17 08:08:01', '$2y$10$f/0o.pixAysYq7uKHhbn6uNflQyE57xV71pVWXWUjMZ8/EsGEK0M.', NULL, '', '2016-04-15 09:43:51', '2016-08-17 08:08:01', NULL),
 (9, 'Diego', 'Esteban', NULL, 3, 'info@easyroomservice.com', 'desteban', 'Administrador', '1993-02-18', 198, '9191', NULL, '$2y$10$TuaQ.PsJMs2IXZpH4FIjDOyO4ieXJt3jcx0TwWzVRF/JMs8yj/MvO', NULL, 0, '0gHpsiYWcFasYc9gs6gXT8Py3mnGVBelLCr70U0rAX', NULL, NULL, NULL, NULL, '', '2016-04-18 19:25:29', '2016-04-18 19:25:29', NULL),
 (10, 'Diego', 'Esteban', 6, 3, 'info@smartdoctorappointments.com', 'esteban21', 'Administrador', '1993-02-18', 198, '9191', NULL, '$2y$10$NbItcA4mpy1nHRgWC9kTi.6K84V0oeM5Vfk.p6iQxrh7fphcWV8Um', NULL, 0, 'JGtBqVmjaKG5cxtPzgCDdZK6w6dcfTgMNa6K4avslD', NULL, NULL, NULL, NULL, '', '2016-04-18 19:32:52', '2016-04-18 19:32:52', NULL),
-(11, 'Diego', 'Esteban', 7, 3, 'diego.serra@smartdoctorappointments.com', 'esteban1', 'Administrador', '1993-02-18', 198, '9191', NULL, '$2y$10$44OeHA7zfLEmK9f6ksOXPuWjPqcxfU3QCDE8AyBVFpspsTV5jPpI.', NULL, 1, NULL, '2016-04-18 21:38:43', '2016-04-19 05:39:04', '$2y$10$Ka1ckV4cu0D/bow.u19VbuEyhMrvzor8Cl9aVQWjdvgTqT3Y5oovS', NULL, '', '2016-04-18 19:37:57', '2016-04-19 05:39:04', NULL),
+(11, 'Diego', 'Esteban', 7, 3, 'diego.serra@smartdoctorappointments.com', 'esteban1', 'Administrador', '1993-02-18', 198, '9191', NULL, '$2y$10$44OeHA7zfLEmK9f6ksOXPuWjPqcxfU3QCDE8AyBVFpspsTV5jPpI.', NULL, 1, NULL, '2016-04-18 21:38:43', '2017-04-26 04:53:29', '$2y$10$OvmhKBBL7JBmveyGx.5hreDsJvw7SPRZAIOHuM/aLxVU37P2OL4hG', NULL, '', '2016-04-18 19:37:57', '2017-04-26 04:53:30', NULL),
 (12, 'Diego', 'XaX', 8, 3, 'no-reply@easyroomservice.com', 'xdiego', 'Manager', '1993-01-06', 198, '91', NULL, '$2y$10$3.y0XcQYZXr9hFua05Lac.YsfyKlqA3d9nrrE.Zq.imIWf49kGTLa', NULL, 1, NULL, '2016-08-17 20:39:25', '2016-08-17 20:39:45', '$2y$10$UWmYbk1F2hJDxnqCeAUFTeZjdZMNi74yojM37tvIgUEhWNEbnWZ2m', NULL, '', '2016-08-17 20:39:07', '2016-08-17 20:39:45', NULL);
 
 -- --------------------------------------------------------
@@ -10164,9 +10549,57 @@ CREATE TABLE `weekdays` (
 --
 
 --
+-- Indices de la tabla `activity`
+--
+ALTER TABLE `activity`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `activitylang`
+--
+ALTER TABLE `activitylang`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indices de la tabla `available`
 --
 ALTER TABLE `available`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `business`
+--
+ALTER TABLE `business`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `businesslang`
+--
+ALTER TABLE `businesslang`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `cartegory`
+--
+ALTER TABLE `cartegory`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `categoryinfoplace`
+--
+ALTER TABLE `categoryinfoplace`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `categoryinfoplacelang`
+--
+ALTER TABLE `categoryinfoplacelang`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `categorylang`
+--
+ALTER TABLE `categorylang`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -10219,6 +10652,18 @@ ALTER TABLE `hotels`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indices de la tabla `info_places`
+--
+ALTER TABLE `info_places`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `info_placeslang`
+--
+ALTER TABLE `info_placeslang`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indices de la tabla `items_name`
 --
 ALTER TABLE `items_name`
@@ -10240,6 +10685,18 @@ ALTER TABLE `languages`
 -- Indices de la tabla `languages_hotel`
 --
 ALTER TABLE `languages_hotel`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `menulang`
+--
+ALTER TABLE `menulang`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `menus`
+--
+ALTER TABLE `menus`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -10365,6 +10822,18 @@ ALTER TABLE `schedules`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indices de la tabla `services`
+--
+ALTER TABLE `services`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `serviceslang`
+--
+ALTER TABLE `serviceslang`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indices de la tabla `specials_days`
 --
 ALTER TABLE `specials_days`
@@ -10436,10 +10905,50 @@ ALTER TABLE `weekdays`
 --
 
 --
+-- AUTO_INCREMENT de la tabla `activity`
+--
+ALTER TABLE `activity`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+--
+-- AUTO_INCREMENT de la tabla `activitylang`
+--
+ALTER TABLE `activitylang`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+--
 -- AUTO_INCREMENT de la tabla `available`
 --
 ALTER TABLE `available`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+--
+-- AUTO_INCREMENT de la tabla `business`
+--
+ALTER TABLE `business`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+--
+-- AUTO_INCREMENT de la tabla `businesslang`
+--
+ALTER TABLE `businesslang`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+--
+-- AUTO_INCREMENT de la tabla `cartegory`
+--
+ALTER TABLE `cartegory`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+--
+-- AUTO_INCREMENT de la tabla `categoryinfoplace`
+--
+ALTER TABLE `categoryinfoplace`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+--
+-- AUTO_INCREMENT de la tabla `categoryinfoplacelang`
+--
+ALTER TABLE `categoryinfoplacelang`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT de la tabla `categorylang`
+--
+ALTER TABLE `categorylang`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT de la tabla `category_menu`
 --
@@ -10481,6 +10990,16 @@ ALTER TABLE `groups`
 ALTER TABLE `hotels`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 --
+-- AUTO_INCREMENT de la tabla `info_places`
+--
+ALTER TABLE `info_places`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+--
+-- AUTO_INCREMENT de la tabla `info_placeslang`
+--
+ALTER TABLE `info_placeslang`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+--
 -- AUTO_INCREMENT de la tabla `items_name`
 --
 ALTER TABLE `items_name`
@@ -10500,6 +11019,16 @@ ALTER TABLE `languages`
 --
 ALTER TABLE `languages_hotel`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+--
+-- AUTO_INCREMENT de la tabla `menulang`
+--
+ALTER TABLE `menulang`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+--
+-- AUTO_INCREMENT de la tabla `menus`
+--
+ALTER TABLE `menus`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT de la tabla `names_category_menu`
 --
@@ -10529,7 +11058,7 @@ ALTER TABLE `options_admin`
 -- AUTO_INCREMENT de la tabla `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=65;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=66;
 --
 -- AUTO_INCREMENT de la tabla `payment`
 --
@@ -10596,6 +11125,16 @@ ALTER TABLE `rooms_sectors`
 ALTER TABLE `schedules`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 --
+-- AUTO_INCREMENT de la tabla `services`
+--
+ALTER TABLE `services`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT de la tabla `serviceslang`
+--
+ALTER TABLE `serviceslang`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+--
 -- AUTO_INCREMENT de la tabla `specials_days`
 --
 ALTER TABLE `specials_days`
@@ -10609,7 +11148,7 @@ ALTER TABLE `standard_times`
 -- AUTO_INCREMENT de la tabla `stays`
 --
 ALTER TABLE `stays`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 --
 -- AUTO_INCREMENT de la tabla `templates_styles`
 --
@@ -10619,7 +11158,7 @@ ALTER TABLE `templates_styles`
 -- AUTO_INCREMENT de la tabla `throttle`
 --
 ALTER TABLE `throttle`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=100;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=101;
 --
 -- AUTO_INCREMENT de la tabla `type_phones`
 --
