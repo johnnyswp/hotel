@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 16-05-2017 a las 16:18:17
+-- Tiempo de generación: 16-05-2017 a las 18:26:00
 -- Versión del servidor: 5.7.14
 -- Versión de PHP: 7.0.10
 
@@ -217,8 +217,8 @@ CREATE TABLE `categoryinfoplace` (
 --
 
 INSERT INTO `categoryinfoplace` (`id`, `hotel_id`, `picture`, `state`, `categoryOrder`, `created_at`, `updated_at`) VALUES
-(3, 7, 'http://aesyroom.dev/assets/pictures_hotels/services/PIC720170512171309.png', 0, 0, '2017-05-12 16:41:24', '2017-05-12 23:13:09'),
-(4, 7, 'http://aesyroom.dev/assets/pictures_hotels/services/PIC720170512164722.png', 0, 0, '2017-05-12 16:47:22', '2017-05-12 22:47:22');
+(5, 7, 'http://aesyroom.dev/assets/pictures_hotels/services/PIC720170516201402.png', 0, 0, '2017-05-16 20:14:02', '2017-05-17 02:14:02'),
+(4, 7, 'http://aesyroom.dev/assets/pictures_hotels/services/PIC720170512164722.png', 0, 1, '2017-05-12 16:47:22', '2017-05-17 00:25:14');
 
 -- --------------------------------------------------------
 
@@ -240,8 +240,8 @@ CREATE TABLE `categoryinfoplacelang` (
 --
 
 INSERT INTO `categoryinfoplacelang` (`id`, `category_id`, `language_id`, `name`, `created_at`, `updated_at`) VALUES
-(1, 3, 1, 'cat 11', '2017-05-12 16:41:24', '2017-05-12 23:13:09'),
-(2, 4, 1, 'cat 2', '2017-05-12 16:47:22', '2017-05-12 22:47:22');
+(2, 4, 1, 'cat 2', '2017-05-12 16:47:22', '2017-05-12 22:47:22'),
+(3, 5, 1, 'cate 2', '2017-05-16 20:14:02', '2017-05-17 02:14:02');
 
 -- --------------------------------------------------------
 
@@ -8863,6 +8863,7 @@ INSERT INTO `hotels` (`id`, `link`, `type_login`, `country_id`, `city`, `user_id
 CREATE TABLE `info_places` (
   `id` int(11) NOT NULL,
   `hotel_id` int(11) NOT NULL,
+  `category_id` int(11) NOT NULL,
   `picture` text NOT NULL,
   `state` tinyint(4) NOT NULL,
   `infoOrder` tinyint(4) NOT NULL DEFAULT '0',
@@ -8874,10 +8875,8 @@ CREATE TABLE `info_places` (
 -- Volcado de datos para la tabla `info_places`
 --
 
-INSERT INTO `info_places` (`id`, `hotel_id`, `picture`, `state`, `infoOrder`, `created_at`, `updated_at`) VALUES
-(1, 7, 'http://localhost:8080/hotel/assets/pictures_hotels/info_places/PIC720170413235846.jpg', 1, 2, '2017-04-19 14:59:50', '2017-04-19 22:59:50'),
-(2, 7, 'http://localhost:8080/hotel/assets/pictures_hotels/info_places/PIC720170417154458.png', 1, 1, '2017-04-19 14:59:51', '2017-04-19 22:59:51'),
-(4, 7, 'http://aesyroom.dev/assets/pictures_hotels/services/PIC720170419171348.png', 1, 0, '2017-04-19 15:13:48', '2017-04-19 23:13:48');
+INSERT INTO `info_places` (`id`, `hotel_id`, `category_id`, `picture`, `state`, `infoOrder`, `created_at`, `updated_at`) VALUES
+(1, 7, 5, 'http://aesyroom.dev/assets/pictures_hotels/services/PIC720170516201304.png', 0, 0, '2017-05-16 18:24:41', '2017-05-17 02:24:41');
 
 -- --------------------------------------------------------
 
@@ -8900,9 +8899,7 @@ CREATE TABLE `info_placeslang` (
 --
 
 INSERT INTO `info_placeslang` (`id`, `name`, `description`, `info_place_id`, `language_id`, `created_at`, `updated_at`) VALUES
-(1, 'spa', 'masages de alta calidad por espacialistas calificados', 1, 1, '2017-04-13 14:05:37', '2017-04-13 14:05:37'),
-(2, 'clases de baile', 'Exclucivo para adultos mayores', 2, 1, '2017-04-14 06:04:18', '2017-04-14 06:04:18'),
-(3, 'Cataratas gigantes ', 'cataratas sobre piedras de apeoximadamente 20 metros de alto ', 4, 1, '2017-04-19 15:14:01', '2017-04-19 23:14:01');
+(1, 'info 1', 'info 1 desc', 1, 1, '2017-05-17 02:13:04', '2017-05-17 02:13:04');
 
 -- --------------------------------------------------------
 
@@ -10938,12 +10935,12 @@ ALTER TABLE `cartegory`
 -- AUTO_INCREMENT de la tabla `categoryinfoplace`
 --
 ALTER TABLE `categoryinfoplace`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT de la tabla `categoryinfoplacelang`
 --
 ALTER TABLE `categoryinfoplacelang`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT de la tabla `categorylang`
 --
@@ -10993,12 +10990,12 @@ ALTER TABLE `hotels`
 -- AUTO_INCREMENT de la tabla `info_places`
 --
 ALTER TABLE `info_places`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT de la tabla `info_placeslang`
 --
 ALTER TABLE `info_placeslang`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT de la tabla `items_name`
 --
