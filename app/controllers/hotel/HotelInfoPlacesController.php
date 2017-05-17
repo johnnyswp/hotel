@@ -14,9 +14,30 @@ class HotelInfoPlacesController extends \BaseController {
            return View::make('hotel.Payment.renews-payment');
 
         $hotel = Hotel::where('user_id', Sentry::getUser()->id)->first();
-        $info = InfoPlace::where('hotel_id', $hotel->id)->orderBy('infoOrder', 'ASC')->get();
         $lang = LanguageHotel::where('main', 1)->where('hotel_id', $hotel->id)->first();
-		return View::make('hotel.pages.info_places')->with(array('infoPlace'=>$info, 'lang'=>$lang));
+
+        $cat = array(''=>trans('main.Seleccione una categoria'));
+        $catAll = CategoryInfo::where('hotel_id', $hotel->id)->orderBy('categoryOrder', 'ASC');
+        foreach($catAll->get() as $service)
+        {
+            $catLang = CategoryInfoLang::where('category_id', $service->id)->where('language_id', $lang->language_id)->first();
+            $cat[$service->id] = $catLang->name;
+        }
+
+        $lang = LanguageHotel::where('main', 1)->where('hotel_id', $hotel->id)->first();
+        if(Input::has('category')){
+            $first_cat = Input::get('category');
+        }else{
+            $first_cat = CategoryInfo::where('hotel_id', $hotel->id)->where('state', 1)->orderBy('categoryOrder', 'ASC')->first();
+            if($first_cat)
+                $first_cat = $first_cat->id;
+            else
+                $first_cat ='';
+        }
+
+        $info = InfoPlace::where('category_id', $first_cat)->where('hotel_id', $hotel->id)->orderBy('infoOrder', 'ASC')->get();
+        
+		return View::make('hotel.pages.info_places')->with(array('infoPlace'=>$info, 'lang'=>$lang, 'first_cat'=>$first_cat, 'cats'=>$cat));
 	}
 
     /**

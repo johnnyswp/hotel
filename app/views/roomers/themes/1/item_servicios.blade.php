@@ -49,7 +49,7 @@
 				</div>
 			</a>
 
-			<a href="/roomer/producto-item/{{$business->id}}" style="margin-bottom: 30px; font-size:14px;"  class="col s6 m6 btn waves-effect waves-white">
+			<a href="/roomer/categoria-producto-item/{{$business->id}}" style="margin-bottom: 30px; font-size:14px;"  class="col s6 m6 btn waves-effect waves-white">
 				<span>Ver Productos</span>
 			</a>
 

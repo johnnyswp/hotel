@@ -25,6 +25,18 @@
 						</div>
 					</div>
 				</form>
+        <?php echo Form::open(array('action' => 'HotelInfoPlacesController@index', 'files'=>true, 'id'=>'form-service', 'method'=>'GET')); ?>
+
+          <div class="form-group">
+             <label class="control-label"><?php echo trans('main.Categoria info'); ?></label>
+             <div>
+                 <?php echo Form::select('category', $cats, $first_cat, ['id'=>'service','class' => 'form-control selectpicker', 'data-size'=>'10', 'data-live-search'=>'true', 'autocomplete'=>'off']); ?>
+
+                 <?php echo errors_for('category', $errors); ?>
+
+             </div>
+         </div>
+        <?php echo Form::close(); ?>
 
 				<div class="panel panel-default">
 				    <div class="panel-body">
@@ -192,6 +204,9 @@ $(function() {
     	}  	   
     });
     $("#sortable").disableSelection();
+});
+$('#service').change(function(){
+    $('#form-service').submit();
 });
 </script>
 <?php $__env->stopSection(); ?>
