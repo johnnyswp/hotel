@@ -558,7 +558,7 @@ class RoomerController extends \BaseController {
 		}
 		 
 
-		$business = Business::find($service_id);
+		$business = Business::where('service_id',$service_id)->where('state',1)->where('hotel_id',$stay->hotel_id)->orderBy('businessOrder','ASC')->get();
 	 
 		$template = $hotel->theme; 
 		
@@ -619,7 +619,7 @@ class RoomerController extends \BaseController {
 		}
 		 
 
-		$business = Menu::where('category_id',$service_id)->orderBy('menuOrder','ASC')->get();
+		$business = Menu::where('category_id',$service_id)->where('hotel_id',$stay->hotel_id)->where('state',1)->orderBy('menuOrder','ASC')->get();
 		 
 		$template = $hotel->theme; 
 		
@@ -680,7 +680,7 @@ class RoomerController extends \BaseController {
 		}
 		 
 
-		$business = Category::where('business_id',$service_id)->orderBy('categoryOrder','ASC')->get();
+		$business = Category::where('business_id',$service_id)->where('hotel_id',$stay->hotel_id)->where('state',1)->orderBy('categoryOrder','ASC')->get();
 		 
 		$template = $hotel->theme; 
 		
@@ -920,11 +920,11 @@ class RoomerController extends \BaseController {
 			->withLang($lang)
 			->withMyday($myday)
 			->withFechita($fechita)
-			->withCat($AllActivities);			
+			->withCat($AllActivities);
 	}
 
 
-	public function getInfoList()
+	public function getCategoryInfoList()
 	{
 		$stay = Stay::find(Session::get('token_stay'));
 
@@ -967,7 +967,65 @@ class RoomerController extends \BaseController {
 		}
 		 
 
-		$services = InfoPlace::where('hotel_id',$stay->hotel_id)->where('state',1)->orderBy('infoOrder','ASC')->get();
+		$services = CategoryInfo::where('hotel_id',$stay->hotel_id)->where('state',1)->orderBy('categoryOrder','ASC')->get();
+	 
+		$template = $hotel->theme; 
+		
+		return View::make("roomers.themes.$template.list_category_info")
+			->withHotel($hotel)
+			 ->withExchange($exchange)
+			->withCategories($categories)
+			->withPhones($phones)
+			->withMax($max) 
+			->withStay($stay)
+			->withLang($lang)
+			->withItems($services);			
+	}	
+
+	public function getInfoList($id)
+	{
+		$stay = Stay::find(Session::get('token_stay'));
+
+		#$lang_id = LanguageHotel::find(Session::get('lang_id'))->language_id;
+		$lang_id = Session::get('lang_id');
+		
+		$hotel = Hotel::find($stay->hotel_id);
+		$lang = Language::find($lang_id);
+		 
+		$categories = DB::table('category_menu')
+				   	->Join('names_category_menu', 'names_category_menu.category_menu_id', '=', 'category_menu.id')
+				   	->where('hotel_id','=',$stay->hotel_id)
+				   	->where('category_menu.state','=',1)
+				   	->where('language_id','=',$lang_id)
+				   	->select('category_menu.id as category_id',
+					   		'names_category_menu.name as category_name',
+					   		'category_menu.picture as category_picture')
+ 					->orderBy('category_menu.order','ASC')
+				   	->get();
+		$exchange = Exchanges::find($hotel->exchange_id)->symbol;
+		
+		$phones =  DB::table('phones')
+				   	->Join('name_phones', 'name_phones.phone_id', '=', 'phones.id')
+				   	->where('phones.hotel_id','=',$stay->hotel_id)
+				   	->where('name_phones.language_id','=',$lang_id)
+				   	->where('phones.state','=',1)
+				   	->select('name_phones.id as phones_id',
+					   		'name_phones.name as phones_name',
+					   		'phones.number as phones_number')
+ 					->orderBy('phones.order','ASC')
+				   	->get();
+		
+		$today = Carbon::today();
+		$stay_token = Carbon::parse($stay->closing_date);		 
+	 
+		if($stay_token == $today){			
+			$max = "true";
+		}else{
+			$max = 1;	
+		}
+		 
+
+		$services = InfoPlace::where('category_id',$id)->where('hotel_id',$stay->hotel_id)->where('state',1)->orderBy('infoOrder','ASC')->get();
 	 
 		$template = $hotel->theme; 
 		
