@@ -106,7 +106,7 @@ class HotelServicesController extends \BaseController {
 
                 foreach($lang_active->get() as $lang_)
                 {
-                   $serviceLang = new serviceLang;
+                   $serviceLang = new ServiceLang;
                    $serviceLang->name = Input::get($lang_->language->language);
                    $serviceLang->description = Input::get('descrption_'.$lang_->language->language);
                    $serviceLang->service_id = $service->id;
@@ -118,7 +118,7 @@ class HotelServicesController extends \BaseController {
                 {
                     if(Input::has($lang->language))
                     {
-                        $serviceLang = new serviceLang;
+                        $serviceLang = new ServiceLang;
                         $serviceLang->name = Input::get($lang->language);
                         $serviceLang->description = Input::get('descrption_'.$lang->language);
                         $serviceLang->service_id = $service->id;
