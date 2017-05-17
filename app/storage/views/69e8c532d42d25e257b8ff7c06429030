@@ -32,12 +32,12 @@
 	<script type="text/javascript" src="<?php echo asset('roomers/js/roomers.js'); ?>"></script>
 
 	<script type="text/javascript">
-		if(window.location.pathname=="/roomer"){
+		/*if(window.location.pathname=="/roomer"){
 			window.onbeforeunload = function(e) {
 			  return '<?php echo trans("main.mensaj_roomer_inicio"); ?>';
 			};			
 			
-		}
+		}*/
 
 		if(window.location.hash=="#mgs"){
 			Materialize.toast("<?php echo $lang->txt_message_pedido_ok; ?>",3000);
