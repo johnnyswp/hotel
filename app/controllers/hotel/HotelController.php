@@ -794,7 +794,7 @@ class HotelController extends \BaseController {
                $business->state = 0;
                $message = trans('main.your business this disabled');
             }else{
-                if(Item::state(Input::get('id'))!=true)
+                if(Business::state(Input::get('id'))!=true)
                 {
                     return Response::json(array(
                           'success'  => false, 'message'=>trans('main.No puede activar este item ya que no tiene en algunos lenguajes activos')
