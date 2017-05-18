@@ -74,28 +74,12 @@
 			@foreach($actividades as $cat)
 			<div class="card teal">
 			<a style="margin: 5px 0;" href="{{url('roomer/actividad-item/')}}/{{$cat->id}}" class="col s12 m12  waves-effect waves-white">
-				<span style="font-size: 1.2rem; display: block; color: white; position: relative; background: rgba(38, 166, 154, 0.82); width: 100%; padding: 0 5px; top: 0; z-index: 2;" class="card-title truncate">{{ActivityLang::where('activity_id',$cat->id)->where('language_id',$lang->id)->first()->name}} </span>
+				<span style="font-size: 1.2rem; display: block; color: white; position: relative; background: rgba(38, 166, 154, 0.82); width: 100%; padding: 0 5px; top: 0; z-index: 2;" class="card-title truncate">{{ActivityLang::where('activity_id',$cat->id)->where('language_id',$lang->id)->first()->name}} <span style="    float: right; font-size: 12px; margin-top: 4px;"> {{$cat->since}}  - {{$cat->until}}</span></span>
 				<div class="card-image">
 					<img src="{{$cat->picture}}">
 				</div>
 			</a>
-
-            <a style="margin-bottom: 2px;"  class="waves-effect waves-white textP">
-				<i class="fa fa-phone" aria-hidden="true"></i> 
-				<span> {{$cat->since}}  - {{$cat->until}}</span>
-			</a>
-
-            <a style="margin-bottom: 2px;"  class="waves-effect waves-white textP">
-				<i class="fa fa-phone" aria-hidden="true"></i> 
-				<span> {{ActivityLang::where('activity_id',$cat->id)->where('language_id',$lang->id)->first()->public}}</span>
-			</a>
-
-            <a style="margin-bottom: 2px;"  class="waves-effect waves-white textP">
-				<i class="fa fa-phone" aria-hidden="true"></i> 
-				<span> {{ActivityLang::where('activity_id',$cat->id)->where('language_id',$lang->id)->first()->zone}}</span>
-			</a>
-			</div>	
-
+			</div>
 			@endforeach	
 		</div>	
 		 

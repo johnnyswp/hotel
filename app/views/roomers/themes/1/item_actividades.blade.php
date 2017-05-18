@@ -51,19 +51,27 @@
 		 
 		<div class="row">
 			<a style="margin: 10px 0;"   class="col s12 m12 waves-effect waves-white">
-				<span style="font-size: 1.2rem; display: block; color: white; position: relative; background: rgba(38, 166, 154, 0.82); width: 100%; padding: 0 5px; top: 0; z-index: 2;" class="card-title truncate">{{ActivityLang::where('activity_id',$cat->id)->where('language_id',$lang->id)->first()->name}} </span>
+				<span style="font-size: 1.2rem; display: block; color: white; position: relative; background: rgba(38, 166, 154, 0.82); width: 100%; padding: 0 5px; top: 0; z-index: 2;" class="card-title truncate">{{ActivityLang::where('activity_id',$cat->id)->where('language_id',$lang->id)->first()->name}} <!--<span style="    float: right; font-size: 12px; margin-top: 4px;"> {{$cat->since}}  - {{$cat->until}}</span>--></span>
 				<div class="card-image z-depth-2">
 					<img src="{{$cat->picture}}">
 				</div>
 			</a>
 
-            <a style="margin-bottom: 30px;"  class="col s12 m12 waves-effect waves-white textP">
-				<i class="fa fa-phone" aria-hidden="true"></i> 
+            <a style="margin: 10px 0; padding-left: 0;"  class="col s12 m12 waves-effect waves-white textP">
+				<img src="{{asset('assets/ico/reloj.png')}}" class="img-responsive" style="width: 20px;"> 
 				<span> {{$cat->since}}  - {{$cat->until}}</span>
+			</a>            
+            <a style="margin: 10px 0; padding-left: 0;"  class="waves-effect waves-white textP">
+				<img src="{{asset('assets/ico/publico.png')}}" class="img-responsive" style="width: 20px;"> 
+				<span> {{ActivityLang::where('activity_id',$cat->id)->where('language_id',$lang->id)->first()->public}}</span>
 			</a>
-
-            <a style="margin-bottom: 30px;"  class="col s12 m12 waves-effect waves-white textP">
-				<i class="fa fa-phone" aria-hidden="true"></i> 
+<br>
+            <a style="margin: 10px 0; padding-left: 0;"  class="waves-effect waves-white textP">
+				<img src="{{asset('assets/ico/lugar.png')}}" class="img-responsive" style="width: 20px;"> 
+				<span> {{ActivityLang::where('activity_id',$cat->id)->where('language_id',$lang->id)->first()->zone}}</span>
+			</a>
+			<a style="margin: 10px 0; padding-left: 0;"  class="col s12 m12 waves-effect waves-white textP">
+				<i class="fa fa-info" aria-hidden="true" style="color:black; font-size: 20px;"></i>
 				<span> {{ActivityLang::where('activity_id',$cat->id)->where('language_id',$lang->id)->first()->description}}</span>
 			</a>
 
