@@ -44,7 +44,7 @@
 			          		<div class="col-md-1" style="text-align: center;">{{trans('main.delete')}}</div>
 			          		<div class="col-md-1" style="text-align: center;">{{trans('main.language')}}</div>
 			          	</li>
-                    </ul>
+              </ul>
 			        <ul id="sortable" class="col-md-12 list">
 			          	@foreach($business as $item)
 			          	<?php 
@@ -57,7 +57,7 @@
 			          			<div class="row" style="display: block; width: 75px; margin: 0 auto;     height: 25px;">
 									<div class="col-sm-4 iSwitch flat-switch">
 										<div class="switch">
-											<input name="state" class="state" value="{{$item->id}}" type="checkbox" @if($item->state==1) checked @endif @if(Item::state($item->id)!=true) disabled @endif>
+											<input name="state" class="state" value="{{$item->id}}" type="checkbox" @if($item->state==1) checked @endif @if(Business::state($item->id)!=true) disabled @endif>
 										</div>
 									</div>
 								</div>
@@ -82,7 +82,7 @@
                                 </div>
 			          		</div>
 			          		<div class="col-md-1">
-			          		     <img src="@if(Item::state($item->id)==true) {{url('assets/img/active.png')}} @else {{url('assets/img/no-active.png')}} @endif" width="35px" height="35px" style="display: block; margin: 0 auto;">
+			          		     <img src="@if(Business::state($item->id)==true) {{url('assets/img/active.png')}} @else {{url('assets/img/no-active.png')}} @endif" width="35px" height="35px" style="display: block; margin: 0 auto;">
 			          		</div>
 			          	</li>
 			          	@endforeach					
