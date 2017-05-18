@@ -35,7 +35,7 @@
 			@include("roomers.themes.$template.partials.header")			
 			
 		<div  class="col s12 m12">
-			<h5 style="padding: 0;margin: 0 0 20px;" class="center">Servicios {{-- $lang->txt_catalogo --}}</h5>
+			<h5 style="padding: 0;margin: 0 0 20px;" class="center">{{ $lang->txt_servicios}}</h5>
 		</div>
 		 
 		<div class="row">
