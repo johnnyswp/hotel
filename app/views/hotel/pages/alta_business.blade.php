@@ -39,17 +39,7 @@
                             {{ errors_for('phone', $errors) }}
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label class="control-label">{{trans('main.horarios')}}</label>
-                        <div>
-                            <div class="col-md-6" style='padding-left: 0px;'>{{ Form::text('since', null, ['class' => 'form-control timepicker', 'autocomplete'=>'off', 'placeholder'=>trans('main.since')]) }}
-                            {{ errors_for('since', $errors) }}</div>
-
-                            <div class="col-md-6"  style='padding-right: 0px;'>{{ Form::text('until', null, ['class' => 'form-control timepicker', 'autocomplete'=>'off', 'placeholder'=>trans('main.until')]) }}
-                            {{ errors_for('until', $errors) }}</div>
-                            
-                        </div>
-                    </div>
+                    
 
 					<div class="form-group">
 						<label class="control-label">{{trans('main.select a Picture')}}</label><br>
@@ -85,6 +75,13 @@
                                 {{ errors_for($lang->language->language, $errors) }}
 					    	</div>
 					    </div>
+					    <label class="control-label">{{trans('main.horario en')}} {{$lang->language->language}}</label>
+					    <div class="form-group">
+					    	<div>
+					    		{{ Form::text('horario_'.$lang->language->language, NULL, ['class' => 'form-control', 'placeholder'=>trans('main.horario en').' '.$lang->language->language, 'autocomplete'=>'off', 'required'=>'required']) }}
+                                {{ errors_for('descrption_'.$lang->language->language, $errors) }}
+					    	</div>
+					    </div>
 					    <label class="control-label">{{trans('main.descripcion en')}} {{$lang->language->language}} ({{trans('main.lang')}})</label>
 					    <div class="form-group">
 					    	<div>
@@ -92,6 +89,7 @@
                                 {{ errors_for('descrption_'.$lang->language->language, $errors) }}
 					    	</div>
 					    </div>
+					    
 
 					    @else
                             @if($lang->state==0 and $x==0)
@@ -105,6 +103,13 @@
                                     {{ errors_for($lang->language->language, $errors) }}
 					        	</div>
 					        </div>
+					        <label class="control-label">{{trans('main.horario en')}} {{$lang->language->language}}</label>
+					        <div class="form-group">
+					        	<div>
+					        		{{ Form::text('horario_'.$lang->language->language, NULL, ['class' => 'form-control', 'placeholder'=>trans('main.horario en').' '.$lang->language->language, 'autocomplete'=>'off']) }}
+                                    {{ errors_for('horario_'.$lang->language->language, $errors) }}
+					        	</div>
+					        </div>
 					        <label class="control-label">{{trans('main.descripcion en')}} {{$lang->language->language}}</label>
 					        <div class="form-group">
 					        	<div>
@@ -112,6 +117,7 @@
                                     {{ errors_for('descrption_'.$lang->language->language, $errors) }}
 					        	</div>
 					        </div>
+					        
 					        
 					    @endif
 					@endforeach

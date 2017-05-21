@@ -40,6 +40,7 @@
 	<div class="card-panel teal box " style="position:relative">
 		<?php 
 			$template = $hotel->theme;
+			$back = "/roomer/seleccion";
 		?>	 
 		@include("roomers.themes.$template.partials.navBar-services")
 		@include("roomers.themes.$template.partials.header")	
@@ -65,7 +66,7 @@
 	        <div class="card teal">
 	            <a style="margin: 10px 0;" href="" class="waves-effect waves-white">
 					<div class="card-image z-depth-2">
-						 <h5 class="textP">No hay Actividades</h5>
+						 <h5 class="textP">{{$lang->txt_no_hay_actividades}}</h5>
 					</div>
 				</a>
 			</div>

@@ -33,6 +33,7 @@
 	<div class="card-panel teal box " style="position:relative">
 		<?php 
 			$template = $hotel->theme;
+			$back = "/roomer/servicio-item/".$busi;
 		?>	 
 		<?php echo $__env->make("roomers.themes.$template.partials.navBar-services", array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
 		<?php echo $__env->make("roomers.themes.$template.partials.header", array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>			

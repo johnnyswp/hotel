@@ -29,13 +29,14 @@
 	<div class="card-panel teal box " style="position:relative">
 		<?php 
 			$template = $hotel->theme;
+			$back = "/roomer/servicios";
 		?>	 			
 			<?php echo $__env->make("roomers.themes.$template.partials.navBar-services", array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
 			
 			<?php echo $__env->make("roomers.themes.$template.partials.header", array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>			
 			
 		<div  class="col s12 m12">
-			<h5 style="padding: 0;margin: 0 0 20px;" class="center">Servicios <?php /* $lang->txt_catalogo */ ?></h5>
+			<h5 style="padding: 0;margin: 0 0 20px;" class="center"><?php echo $lang->txt_servicios; ?></h5>
 		</div>
 		 
 		<div class="row">

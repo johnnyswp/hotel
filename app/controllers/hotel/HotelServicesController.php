@@ -101,8 +101,7 @@ class HotelServicesController extends \BaseController {
                     $path = base_path();
                     $in = $path.'/assets/pictures_hotels/services/PIC'.$picname;
                     $out     = $path.'/assets/pictures_hotels/services/PIC'.$picname;
-                    Img::resize($in , null, 100 , 100 , false , $out , true , false ,100 );
-                }
+                    Img::resize($in , null, 400 , 150 , false , $out , true , false ,100 );                 }
 
                 foreach($lang_active->get() as $lang_)
                 {
@@ -219,7 +218,7 @@ class HotelServicesController extends \BaseController {
                     $path = base_path();
                     $in = $path.'/assets/pictures_hotels/services/PIC'.$picname;
                     $out     = $path.'/assets/pictures_hotels/services/PIC'.$picname;
-                    Img::resize($in , null, 100 , 100 , false , $out , true , false ,100 );
+                    Img::resize($in , null, 400 , 150 , false , $out , true , false ,100 ); 
                 }
 
                 foreach($lang_active->get() as $lang_)

@@ -10,13 +10,13 @@
 ?>
 <div class="col s12 m12 l12 nav">
 
-	   	<a class="waves-effect waves-light btn modal-trigger right btn-ico" href="/roomer/seleccion">
+	   	<a class="waves-effect waves-light btn modal-trigger right btn-ico inicio" href="/roomer/seleccion">
 			<i class="material-icons">home</i>
 		</a>
          <a class="waves-effect waves-light btn modal-trigger right btn-ico" href="#modal1" onclick="return window.onbeforeunload = false;">
 		<i class="material-icons">language</i>
 	</a>
-		<a class="waves-effect waves-light btn modal-trigger right btn-ico" href="#"  onclick="history.go(-1);" >
+		<a class="waves-effect waves-light btn modal-trigger right btn-ico atras" href="<?php echo $back; ?>">
 			<i class="material-icons">undo</i>
 		</a>
 </div>

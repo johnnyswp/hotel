@@ -22,7 +22,8 @@ class HotelBusinessMenusController extends \BaseController {
         foreach($catAll->get() as $category)
         {
             $catLang = CategoryLang::where('category_id', $category->id)->where('language_id', $lang->language_id)->first();
-            $cat[$category->id] = $catLang->name;
+            $businessLang = BusinessLang::where('business_id', $category->business_id)->where('language_id', $lang->language_id)->first();
+            $cat[$category->id] = $catLang->name." - ".$businessLang->name;
         }
 
         if(Input::has('category')){
@@ -35,7 +36,7 @@ class HotelBusinessMenusController extends \BaseController {
                 $first_cat ='';
         }
         
-        $menus = Menu::where('category_id', $first_cat)->orderBy('menuOrder', 'ASC')->get();
+        $menus = Menu::where('category_id', $first_cat)->where('hotel_id', $hotel->id)->orderBy('menuOrder', 'ASC')->get();
 		return View::make('hotel.pages.menus_business')->with(array('menus'=>$menus, 'lang'=>$lang, 'cats'=>$cat, 'first_cat'=>$first_cat));
 	}
 
@@ -55,10 +56,11 @@ class HotelBusinessMenusController extends \BaseController {
         $lang = LanguageHotel::where('main', 1)->where('hotel_id', $hotel->id)->first();
         $cat = array(''=>trans('main.Seleccione un category'));
         $catAll = Category::where('hotel_id', $hotel->id)->orderBy('categoryOrder', 'ASC');
-        foreach($catAll->get() as $busines)
+        foreach($catAll->get() as $category)
         {
-            $catLang = CategoryLang::where('category_id', $busines->id)->where('language_id', $lang->language_id)->first();
-            $cat[$busines->id] = $catLang->name;
+            $catLang = CategoryLang::where('category_id', $category->id)->where('language_id', $lang->language_id)->first();
+            $businessLang = BusinessLang::where('business_id', $category->business_id)->where('language_id', $lang->language_id)->first();
+            $cat[$category->id] = $catLang->name." - ".$businessLang->name;
         }
 
         return View::make('hotel.pages.alta_menu_business')->withHotel($hotel)->withCats($cat)
@@ -188,8 +190,9 @@ class HotelBusinessMenusController extends \BaseController {
             $catAll = Category::where('hotel_id', $hotel->id)->orderBy('categoryOrder', 'ASC')->get();
             foreach($catAll as $category)
             {
-                $catLang = CategoryLang::where('category_id', $category->id)->where('language_id', $lang_main->language_id)->first();
-                $cat[$category->id] = $catLang->name;
+                $catLang = CategoryLang::where('category_id', $category->id)->where('language_id', $lang_main->language_id)->orderBy('name', 'ASC')->first();
+                $businessLang = BusinessLang::where('business_id', $category->business_id)->where('language_id', $lang_main->language_id)->first();
+                $cat[$category->id] = $catLang->name." - ".$businessLang->name;
             }
 
             $lang_active = LanguageHotel::where('hotel_id', $hotel->id)->orderBy('main', 'DESC')->orderBy('state', 'DESC');

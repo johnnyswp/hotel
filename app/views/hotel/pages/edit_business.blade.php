@@ -39,17 +39,6 @@
                             {{ errors_for('phone', $errors) }}
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label class="control-label">{{trans('main.horarios')}}</label>
-                        <div>
-                            <div class="col-md-6" style='padding-left: 0px;'>{{ Form::text('since', null, ['class' => 'form-control timepicker', 'autocomplete'=>'off', 'placeholder'=>trans('main.since')]) }}
-                            {{ errors_for('since', $errors) }}</div>
-
-                            <div class="col-md-6"  style='padding-right: 0px;'>{{ Form::text('until', null, ['class' => 'form-control timepicker', 'autocomplete'=>'off', 'placeholder'=>trans('main.until')]) }}
-                            {{ errors_for('until', $errors) }}</div>
-                            
-                        </div>
-                    </div>
 
 					<div class="form-group">
 						<label class="control-label">{{trans('main.select a Picture')}}</label><br>
@@ -91,10 +80,17 @@
 					        </div>
 					        <div class="form-group">
 					        	<div>
+					        		{{ Form::text('horario_'.$lang_->language->language, $businessLang->horario, ['class' => 'form-control', 'placeholder'=>trans('main.horario en').' '.$lang_->language->language, 'autocomplete'=>'off']) }}
+                                    {{ errors_for('horario_'.$lang_->language->language, $errors) }}
+					        	</div>
+					        </div>
+					        <div class="form-group">
+					        	<div>
 					        		{{ Form::textarea('descrption_'.$lang_->language->language, $businessLang->description, ['class' => 'form-control', 'style'=>'height: 75px;','placeholder'=>trans('main.descrpcion en').' '.$lang_->language->language, 'autocomplete'=>'off']) }}
                                     {{ errors_for('descrption_'.$lang_->language->language, $errors) }}
 					        	</div>
 					        </div>
+					        
 					        @else
 					            @if($lang_->state==0 and $x==0)
                                 <label class="control-label">{{trans('main.Nombre en idiomas no activos')}}</label><br/>
@@ -109,10 +105,17 @@
 					            </div>
 					            <div class="form-group">
 					            	<div>
+					            		{{ Form::text('horario_'.$lang_->language->language, $businessLang->horario, ['class' => 'form-control', 'placeholder'=>trans('main.horario en').' '.$lang_->language->language, 'autocomplete'=>'off']) }}
+                                        {{ errors_for('horario_'.$lang_->language->language, $errors) }}
+					            	</div>
+					            </div>
+					            <div class="form-group">
+					            	<div>
 					            		{{ Form::textarea('descrption_'.$lang_->language->language, $businessLang->description, ['class' => 'form-control', 'style'=>'height: 75px;','placeholder'=>trans('main.descrpcion en').' '.$lang_->language->language, 'autocomplete'=>'off']) }}
                                         {{ errors_for('descrption_'.$lang_->language->language, $errors) }}
 					            	</div>
 					            </div>
+					            
 					        @endif
 					    @else
 					        @if($lang_->state==0 and $x==0)
@@ -125,6 +128,12 @@
 					        		{{ Form::text($lang_->language->language, NULL, ['class' => 'form-control', 'placeholder'=>$lang_->language->language, 'autocomplete'=>'off']) }}
                                     {{ errors_for($lang_->language->language, $errors) }}
 					        	</div>
+					        </div>}
+					        <div class="form-group">
+					        	<div>
+					        		{{ Form::text('horario_'.$lang_->language->language, NULL, ['class' => 'form-control', 'placeholder'=>trans('main.horario en').' '.$lang_->language->language, 'autocomplete'=>'off']) }}
+                                    {{ errors_for('horario_'.$lang_->language->language, $errors) }}
+					        	</div>
 					        </div>
 					        <div class="form-group">
 					        	<div>
@@ -132,6 +141,7 @@
                                     {{ errors_for('descrption_'.$lang_->language->language, $errors) }}
 					        	</div>
 					        </div>
+					        
 					    @endif
 					@endforeach
 

@@ -33,6 +33,7 @@
 	<div class="card-panel teal box " style="position:relative">
 		<?php 
 			$template = $hotel->theme;
+			$back = "/roomer/categoria-producto-item/".$business;
 		?>	 
 		<?php echo $__env->make("roomers.themes.$template.partials.navBar-services", array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
 		<?php echo $__env->make("roomers.themes.$template.partials.header", array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>			
@@ -45,7 +46,7 @@
 					<b> <?php echo MenuLang::where('menu_id',$item->id)->where('language_id',$lang->id)->first()->name; ?> </b> 
 				</span>				
 				<div class="card-image z-depth-2">					
-					<a href="#">
+					<a href="/roomer/item-detalle/<?php echo $item->id; ?>">
 						<img src="<?php echo $item->picture; ?>">
 					</a>
 					<div class="card-action">

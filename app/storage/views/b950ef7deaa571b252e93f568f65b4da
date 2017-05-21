@@ -48,7 +48,7 @@
 			          		<div class="col-md-1" style="text-align: center;"><?php echo trans('main.delete'); ?></div>
 			          		<div class="col-md-1" style="text-align: center;"><?php echo trans('main.language'); ?></div>
 			          	</li>
-                    </ul>
+              </ul>
 			        <ul id="sortable" class="col-md-12 list">
 			          	<?php foreach($business as $item): ?>
 			          	<?php 
@@ -61,7 +61,7 @@
 			          			<div class="row" style="display: block; width: 75px; margin: 0 auto;     height: 25px;">
 									<div class="col-sm-4 iSwitch flat-switch">
 										<div class="switch">
-											<input name="state" class="state" value="<?php echo $item->id; ?>" type="checkbox" <?php if($item->state==1): ?> checked <?php endif; ?> <?php if(Item::state($item->id)!=true): ?> disabled <?php endif; ?>>
+											<input name="state" class="state" value="<?php echo $item->id; ?>" type="checkbox" <?php if($item->state==1): ?> checked <?php endif; ?> <?php if(Business::state($item->id)!=true): ?> disabled <?php endif; ?>>
 										</div>
 									</div>
 								</div>
@@ -89,7 +89,7 @@
                                 </div>
 			          		</div>
 			          		<div class="col-md-1">
-			          		     <img src="<?php if(Item::state($item->id)==true): ?> <?php echo url('assets/img/active.png'); ?> <?php else: ?> <?php echo url('assets/img/no-active.png'); ?> <?php endif; ?>" width="35px" height="35px" style="display: block; margin: 0 auto;">
+			          		     <img src="<?php if(Business::state($item->id)==true): ?> <?php echo url('assets/img/active.png'); ?> <?php else: ?> <?php echo url('assets/img/no-active.png'); ?> <?php endif; ?>" width="35px" height="35px" style="display: block; margin: 0 auto;">
 			          		</div>
 			          	</li>
 			          	<?php endforeach; ?>					

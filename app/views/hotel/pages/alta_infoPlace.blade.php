@@ -30,6 +30,13 @@
                             {{ errors_for('category_id', $errors) }}
                         </div>
                     </div>
+                    <div class="form-group">
+                        <label class="control-label">{{trans('main.linkinfo')}}</label>
+                        <div>
+                            {{ Form::text('link',null, ['class' => 'form-control', 'autocomplete'=>'off']) }}
+                            {{ errors_for('link', $errors) }}
+                        </div>
+                    </div>
 					<div class="form-group">
 						<label class="control-label">{{trans('main.select a Picture')}}</label><br>
 						<div>
@@ -64,6 +71,13 @@
                                 {{ errors_for($lang->language->language, $errors) }}
 					    	</div>
 					    </div>
+					    <label class="control-label">{{trans('main.linkname en')}} {{$lang->language->language}} ({{trans('main.lang')}})</label>
+					    <div class="form-group">
+					    	<div>
+					    		{{ Form::text('linkname_'.$lang->language->language, NULL, ['class' => 'form-control', 'placeholder'=>trans('main.linkname en').' '.$lang->language->language, 'autocomplete'=>'off', 'required'=>'required']) }}
+                                {{ errors_for('linkname_'.$lang->language->language, $errors) }}
+					    	</div>
+					    </div>
 					    <label class="control-label">{{trans('main.descripcion en')}} {{$lang->language->language}} ({{trans('main.lang')}})</label>
 					    <div class="form-group">
 					    	<div>
@@ -82,6 +96,13 @@
 					        	<div>
 					        		{{ Form::text($lang->language->language, NULL, ['class' => 'form-control', 'placeholder'=>$lang->language->language, 'autocomplete'=>'off']) }}
                                     {{ errors_for($lang->language->language, $errors) }}
+					        	</div>
+					        </div>
+					        <label class="control-label">{{trans('main.linkname en')}} {{$lang->language->language}} ({{trans('main.lang')}})</label>
+					        <div class="form-group">
+					        	<div>
+					        		{{ Form::text('linkname_'.$lang->language->language, NULL, ['class' => 'form-control', 'placeholder'=>trans('main.linkname en').' '.$lang->language->language, 'autocomplete'=>'off', 'required'=>'required']) }}
+                                    {{ errors_for('linkname_'.$lang->language->language, $errors) }}
 					        	</div>
 					        </div>
 					        <label class="control-label">{{trans('main.descripcion en')}} {{$lang->language->language}}</label>

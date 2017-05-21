@@ -45,19 +45,7 @@
 
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label class="control-label"><?php echo trans('main.horarios'); ?></label>
-                        <div>
-                            <div class="col-md-6" style='padding-left: 0px;'><?php echo Form::text('since', null, ['class' => 'form-control timepicker', 'autocomplete'=>'off', 'placeholder'=>trans('main.since')]); ?>
-
-                            <?php echo errors_for('since', $errors); ?></div>
-
-                            <div class="col-md-6"  style='padding-right: 0px;'><?php echo Form::text('until', null, ['class' => 'form-control timepicker', 'autocomplete'=>'off', 'placeholder'=>trans('main.until')]); ?>
-
-                            <?php echo errors_for('until', $errors); ?></div>
-                            
-                        </div>
-                    </div>
+                    
 
 					<div class="form-group">
 						<label class="control-label"><?php echo trans('main.select a Picture'); ?></label><br>
@@ -95,6 +83,15 @@
 
 					    	</div>
 					    </div>
+					    <label class="control-label"><?php echo trans('main.horario en'); ?> <?php echo $lang->language->language; ?></label>
+					    <div class="form-group">
+					    	<div>
+					    		<?php echo Form::text('horario_'.$lang->language->language, NULL, ['class' => 'form-control', 'placeholder'=>trans('main.horario en').' '.$lang->language->language, 'autocomplete'=>'off', 'required'=>'required']); ?>
+
+                                <?php echo errors_for('descrption_'.$lang->language->language, $errors); ?>
+
+					    	</div>
+					    </div>
 					    <label class="control-label"><?php echo trans('main.descripcion en'); ?> <?php echo $lang->language->language; ?> (<?php echo trans('main.lang'); ?>)</label>
 					    <div class="form-group">
 					    	<div>
@@ -104,6 +101,7 @@
 
 					    	</div>
 					    </div>
+					    
 
 					    <?php else: ?>
                             <?php if($lang->state==0 and $x==0): ?>
@@ -119,6 +117,15 @@
 
 					        	</div>
 					        </div>
+					        <label class="control-label"><?php echo trans('main.horario en'); ?> <?php echo $lang->language->language; ?></label>
+					        <div class="form-group">
+					        	<div>
+					        		<?php echo Form::text('horario_'.$lang->language->language, NULL, ['class' => 'form-control', 'placeholder'=>trans('main.horario en').' '.$lang->language->language, 'autocomplete'=>'off']); ?>
+
+                                    <?php echo errors_for('horario_'.$lang->language->language, $errors); ?>
+
+					        	</div>
+					        </div>
 					        <label class="control-label"><?php echo trans('main.descripcion en'); ?> <?php echo $lang->language->language; ?></label>
 					        <div class="form-group">
 					        	<div>
@@ -128,6 +135,7 @@
 
 					        	</div>
 					        </div>
+					        
 					        
 					    <?php endif; ?>
 					<?php endforeach; ?>

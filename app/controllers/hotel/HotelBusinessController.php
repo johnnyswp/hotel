@@ -85,24 +85,22 @@ class HotelBusinessController extends \BaseController {
         $data = array(
             "service_id"   =>  Input::get("service_id"),
             "picture"      =>  Input::file("picture"),
-            "phone"        =>  Input::get("phone"),
-            "since"        =>  Input::get("since"),
-            "until"        =>  Input::get("until")
+            "phone"        =>  Input::get("phone")
         );
 
         $data[$lang_main->language->language] = Input::get($lang_main->language->language);
         $data['descrption_'.$lang_main->language->language] = Input::get('descrption_'.$lang_main->language->language);
+        $data['horario_'.$lang_main->language->language] = Input::get('horario_'.$lang_main->language->language);
 
         $rules = array(
             "service_id"   =>  'required|min:1|max:255',
             "phone"        =>  'required|min:1|max:20',
-            "since"        =>  'required|min:1|max:20',
-            "until"        =>  'required|min:1|max:20',
             "picture"      =>  'mimes:jpeg,gif,png'
         );
 
         $rules[$lang_main->language->language]  = 'required|min:1|max:100';
         $rules['descrption_'.$lang_main->language->language]  = 'min:1|max:255';
+        $rules['horario_'.$lang_main->language->language]  = 'required|min:1|max:255';
 
         $messages = array();
 
@@ -118,8 +116,6 @@ class HotelBusinessController extends \BaseController {
             $business->state = 0;
             $business->service_id = Input::get('service_id');
             $business->phone = Input::get('phone');
-            $business->since = Input::get('since');
-            $business->until = Input::get('until');
             $business->hotel_id = $hotel->id;
 
             if(Input::file('picture')!=NULL)
@@ -143,7 +139,7 @@ class HotelBusinessController extends \BaseController {
                     $path = base_path();
                     $in = $path.'/assets/pictures_hotels/item/PIC'.$picname;
                     $out     = $path.'/assets/pictures_hotels/item/PIC'.$picname;
-                    Img::resize($in , null, 100 , 100 , false , $out , true , false ,100 );
+                    Img::resize($in , null, 400 , 150 , false , $out , true , false ,100 ); 
                 }
 
                 foreach($langs->get() as $lang)
@@ -152,6 +148,7 @@ class HotelBusinessController extends \BaseController {
                     {
                         $businessLang = new BusinessLang;
                         $businessLang->name = Input::get($lang->language->language);
+                        $businessLang->horario = Input::get('horario_'.$lang->language->language);
                         $businessLang->description = Input::get('descrption_'.$lang->language->language);
                         $businessLang->business_id = $business->id;
                         $businessLang->language_id = $lang->language->id;
@@ -214,27 +211,25 @@ class HotelBusinessController extends \BaseController {
         else
             $langs = Language::whereNotIn('id', $lang_active->lists('language_id'))->where('state', 1)->get();
 
-        $data = array(
+       $data = array(
             "service_id"   =>  Input::get("service_id"),
-            "phone"        =>  Input::get("phone"),
-            "since"        =>  Input::get("since"),
-            "until"        =>  Input::get("until"),
-            "picture"       =>  Input::file("picture")
+            "picture"      =>  Input::file("picture"),
+            "phone"        =>  Input::get("phone")
         );
 
         $data[$lang_main->language->language] = Input::get($lang_main->language->language);
         $data['descrption_'.$lang_main->language->language] = Input::get('descrption_'.$lang_main->language->language);
+        $data['horario_'.$lang_main->language->language] = Input::get('horario_'.$lang_main->language->language);
 
         $rules = array(
             "service_id"   =>  'required|min:1|max:255',
             "phone"        =>  'required|min:1|max:20',
-            "since"        =>  'required|min:1|max:20',
-            "until"        =>  'required|min:1|max:20',
-            "picture"       =>  'mimes:jpeg,gif,png'
+            "picture"      =>  'mimes:jpeg,gif,png'
         );
 
-        $rules[$lang_main->language->language]  = 'required|min:1|max:255';
+        $rules[$lang_main->language->language]  = 'required|min:1|max:100';
         $rules['descrption_'.$lang_main->language->language]  = 'min:1|max:255';
+        $rules['horario_'.$lang_main->language->language]  = 'required|min:1|max:255';
         
         $messages = array();
     
@@ -249,8 +244,6 @@ class HotelBusinessController extends \BaseController {
             $business = Business::where('id', $id)->where('hotel_id', $hotel->id)->first();
             $business->service_id = Input::get('service_id');
             $business->phone = Input::get('phone');
-            $business->since = Input::get('since');
-            $business->until = Input::get('until');
 
             if(Input::file('picture')!=NULL)
             {
@@ -271,7 +264,7 @@ class HotelBusinessController extends \BaseController {
                     $path = base_path();
                     $in = $path.'/assets/pictures_hotels/item/PIC'.$picname;
                     $out     = $path.'/assets/pictures_hotels/item/PIC'.$picname;
-                    Img::resize($in , null, 500 , 500 , false , $out , true , false ,100 ); 
+                    Img::resize($in , null, 400 , 150 , false , $out , true , false ,100 );  
                 }
 
                 foreach($lang_active->get() as $lang_)
@@ -283,6 +276,7 @@ class HotelBusinessController extends \BaseController {
                             $businessLang = new BusinessLang;
 
                         $businessLang->name = Input::get($lang_->language->language);
+                        $businessLang->horario = Input::get('horario_'.$lang_->language->language);
                         $businessLang->description = Input::get('descrption_'.$lang_->language->language);
                         $businessLang->business_id = $business->id;
                         $businessLang->language_id = $lang_->language->id;
@@ -297,8 +291,9 @@ class HotelBusinessController extends \BaseController {
                         $businessLang = BusinessLang::where('business_id', $business->id)->where('language_id', $lang->id)->first();
                         if(!$businessLang)
                             $businessLang = new BusinessLang;
-                        
+                 
                         $businessLang->name = Input::get($lang->language);
+                        $businessLang->horario = Input::get('horario_'.$lang->language);
                         $businessLang->description = Input::get('descrption_'.$lang->language);
                         $businessLang->business_id = $business->id;
                         $businessLang->language_id = $lang->id;

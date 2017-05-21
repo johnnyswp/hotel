@@ -29,6 +29,7 @@
 	<div class="card-panel teal box " style="position:relative">
 		<?php 
 			$template = $hotel->theme;
+			$back = "/roomer/seleccion";
 		?>	 
 		@include("roomers.themes.$template.partials.navBar-services")
 		@include("roomers.themes.$template.partials.header")			
