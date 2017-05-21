@@ -1,6 +1,7 @@
  
 <style>
-	.lang{height:300px; } .lang_{/* position: absolute; top:5px; right:10px; width:40px;*/ } .shopping_cart{/* position: absolute; top:5px; right:120px;*/ } a.back{padding: 0 10px; color:white; } div.nav{margin: 0; padding: 0; position:relative; } div.nav a.btn-ico{padding: 0 10px; color:white; margin-right:10px; } div.nav a.btn-ico span.badge{position: absolute; right: 0; color: white; padding-left: 18px; }
+	.lang{height:300px; } .btn { color: white !important; } .teal {
+  background-color: white !important; } body { background-color: rgba(66, 90, 179, 0.69); } .lang_{/* position: absolute; top:5px; right:10px; width:40px;*/ } .shopping_cart{/* position: absolute; top:5px; right:120px;*/ } a.back{padding: 0 10px; color:white; } div.nav{margin: 0; padding: 0; position:relative; } div.nav a.btn-ico{padding: 0 10px; color:white; margin-right:10px; } div.nav a.btn-ico span.badge{position: absolute; right: 0; color: white; padding-left: 18px; }
 </style>
 <?php
 		$orders = Order::where('stay_id',$stay->id)->whereIn('state',array('programmed','just_now','ready','delivered','finalized'))->get();
@@ -19,10 +20,6 @@
 	<a id="btnShopCart" class="waves-effect waves-light btn  right btn-ico" href="#modal2">
 		<i class="material-icons medium left ">shopping_cart</i>
 		<span class="badge" id="label_numcar">0</span>
-	</a>
-	<a id="btnOrder" class="waves-effect waves-light btn modal-trigger  right btn-ico" href="#modal4">
-		<i class="material-icons medium left ">receipt</i>
-		<span class="badge" id="label_numorder"><?php echo $countOrder; ?></span>
 	</a>
 		<a class="waves-effect waves-light btn modal-trigger right btn-ico" href="/roomer/seleccion">
 			<i class="material-icons">home</i>

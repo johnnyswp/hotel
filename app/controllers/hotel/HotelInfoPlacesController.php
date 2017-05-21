@@ -92,7 +92,7 @@ class HotelInfoPlacesController extends \BaseController {
 
         $rules = array(
             "category_id" =>  'required|min:1|max:255',
-            "link" =>  'required|min:1|max:255',
+            "link" =>  'required|url|min:1|max:255',
             "picture" =>  'mimes:jpeg,gif,png'
         );
         
@@ -232,7 +232,7 @@ class HotelInfoPlacesController extends \BaseController {
 
         $rules = array(
             "category_id" =>  'required|min:1|max:255',
-            "link" =>  'required|min:1|max:255',
+            "link" =>  'required|url|min:1|max:255',
             "picture" =>  'mimes:jpeg,gif,png'
         );
         

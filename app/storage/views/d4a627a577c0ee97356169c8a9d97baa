@@ -1,6 +1,8 @@
  
 <style>
-	.lang{height:300px; } .lang_{/* position: absolute; top:5px; right:10px; width:40px;*/ } .shopping_cart{/* position: absolute; top:5px; right:120px;*/ } a.back{padding: 0 10px; color:white; } div.nav{margin: 0; padding: 0; position:relative; } div.nav a.btn-ico{padding: 0 10px; color:white; margin-right:10px; } div.nav a.btn-ico span.badge{position: absolute; right: 0; color: white; padding-left: 18px; }
+	.lang{height:300px; } .teal {
+  background-color: white !important; } body { background-color: rgba(66, 90, 179, 0.69); } .lang_{/* position: absolute; top:5px; right:10px; width:40px;*/ } .shopping_cart{/* position: absolute; top:5px; right:120px;*/ } a.back{padding: 0 10px; color:white; } div.nav{margin: 0; padding: 0; position:relative; } div.nav a.btn-ico{padding: 0 10px; color:white; margin-right:10px; } div.nav a.btn-ico span.badge{position: absolute; right: 0; color: white; padding-left: 18px; }
+      h4 { color: blue; }
 </style>
 <?php
 		$orders = Order::where('stay_id',$stay->id)->whereIn('state',array('programmed','just_now','ready','delivered','finalized'))->get();
@@ -13,9 +15,12 @@
 	   	<a class="waves-effect waves-light btn modal-trigger right btn-ico inicio" href="/roomer/seleccion">
 			<i class="material-icons">home</i>
 		</a>
-         <a class="waves-effect waves-light btn modal-trigger right btn-ico" href="#modal1" onclick="return window.onbeforeunload = false;">
-		<i class="material-icons">language</i>
+		<a class="waves-effect waves-light btn modal-trigger right btn-ico" href="#modal3">
+		<i class="material-icons">settings_phone</i>
 	</a>
+         <a class="waves-effect waves-light btn modal-trigger right btn-ico" href="#modal1" onclick="return window.onbeforeunload = false;">
+        	<i class="material-icons">language</i>
+        </a>
 		<a class="waves-effect waves-light btn modal-trigger right btn-ico atras" href="<?php echo $back; ?>">
 			<i class="material-icons">undo</i>
 		</a>

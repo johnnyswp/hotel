@@ -1,6 +1,6 @@
 <?php $template = $hotel->theme; ?>
 
-@extends("roomers.themes.$template.master_roomers")
+@extends("roomers.themes.$template.master_services")
 
 @section('title', trans('main.catalog'))
 
@@ -19,7 +19,7 @@
 	}
 	 
 	.text-catg{
-		color:White;    border: 1px solid;line-height: 1;    text-align: center;
+		color:blue;  line-height: 1;    text-align: center;
 	}
 	.text-catg span{
 		font-size:12px;

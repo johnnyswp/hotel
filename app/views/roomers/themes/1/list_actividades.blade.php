@@ -1,6 +1,6 @@
 <?php $template = $hotel->theme; ?>
 
-@extends("roomers.themes.$template.master_roomers")
+@extends("roomers.themes.$template.master_services")
 
 @section('title', trans('main.catalog'))
 
@@ -50,8 +50,8 @@
                 <a href="/roomer/actividades?day={{$myday2}}" class="waves-effect waves-light btn modal-trigger left btn-ico" style="padding: 0 10px;">
 			      <i class="material-icons">keyboard_arrow_left</i>
 		        </a>
-		        <a style="margin-top: 9px;text-align: center;width: 49%;display: block; float: left; font-size: 1em;color: white;">{{$fechita}}</a>
-                <a href="/roomer/actividades?day={{$myday}}" class="waves-effect waves-light btn modal-trigger right btn-ico"  style="padding: 0 10px;">
+		        <a style="margin: 0 auto; text-align: center;width: 49%;display: block;  font-size: 1em;color: blue;">{{$fechita}}</a>
+                <a href="/roomer/actividades?day={{$myday}}" class="waves-effect waves-light btn modal-trigger right btn-ico"  style="padding: 0 10px; position: relative; top: -21px;">
 			      <i class="material-icons">keyboard_arrow_right</i>
 		        </a>
             </div>

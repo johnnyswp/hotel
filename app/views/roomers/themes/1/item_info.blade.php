@@ -1,6 +1,6 @@
 <?php $template = $hotel->theme; ?>
 
-@extends("roomers.themes.$template.master_roomers")
+@extends("roomers.themes.$template.master_services")
 
 @section('title', trans('main.catalog'))
 
@@ -51,12 +51,11 @@
 			</a>
 
 			<a style="margin-bottom: 30px;"  class="col s12 m12 waves-effect waves-white textP">
-				<i class="fa fa-list-alt" aria-hidden="true" style="color:black; font-size: 20px;"></i>  
 				<span>{{InfoPlaceLang::where('info_place_id',$business->id)->where('language_id',$lang->id)->first()->description}}</span>
 			</a>
 			<a href="{{$business->link}}" style="margin-bottom: 30px;"  class="col s12 m12 waves-effect waves-white textP">
-				<i class="fa fa-link" aria-hidden="true" style="color:black; font-size: 20px;"></i> 
-				<span>{{InfoPlaceLang::where('info_place_id',$business->id)->where('language_id',$lang->id)->first()->link}}</span>
+				<i class="fa fa-link" aria-hidden="true" style="color:black; font-size: 14px;"></i> 
+				<span style="font-size: 14px;"></>{{InfoPlaceLang::where('info_place_id',$business->id)->where('language_id',$lang->id)->first()->link}}</span>
 			</a>
 		 
 		</div>	

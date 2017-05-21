@@ -1,5 +1,5 @@
 <?php $template = $hotel->theme; ?>
-@extends("roomers.themes.$template.master_roomers")
+@extends("roomers.themes.$template.master_services")
 
 @section('title',$item->item_name)
 

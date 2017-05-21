@@ -1,6 +1,6 @@
 <?php $template = $hotel->theme; ?>
 
-@extends("roomers.themes.$template.master_roomers")
+@extends("roomers.themes.$template.master_services")
 
 @section('title', trans('main.catalog'))
 
@@ -55,27 +55,22 @@
 					<img src="{{$business->picture}}">
 				</div>
 			</a>
+			<a style="margin-bottom: 10px;"  class="col s12 m12 waves-effect waves-white textP">
+				<p style="line-height: 1;">
+					<img src="{{asset('assets/ico/reloj.png')}}" class="img-responsive" style="width: 15px;"> 
+				    <span style="margin-left: 10px; font-size: 14px;"> {{BusinessLang::where('business_id',$business->id)->first()->horario}}</span>
+				</p style="line-height: 1;">
+				<p>
+					<i class="fa fa-phone" aria-hidden="true" style="color:black; font-size: 15px;"></i> 
+				     <span style="font-size: 14px;">  {{$business->phone}}</span>
+				</p>
+			</a>
             @if($pro)
-			<a href="/roomer/categoria-producto-item/{{$business->id}}" style="margin-bottom: 30px; font-size:14px;"  class="col s6 m6 btn waves-effect waves-white">
-				<span>{{$lang->txt_ver_productos}}</span>
+			<a href="/roomer/categoria-producto-item/{{$business->id}}" style="margin-bottom: 30px; font-size:12px; padding: 0; width: 114px;"  class="btn waves-effect waves-white">
+				<span style="color:white;">{{$lang->txt_ver_productos}}</span>
 			</a>
             @endif
-
-			
-			
-			<a style="margin-bottom: 10px;"  class="col s12 m12 waves-effect waves-white textP">
-				<p>
-					<img src="{{asset('assets/ico/reloj.png')}}" class="img-responsive" style="width: 20px;"> 
-				    <span style="margin-left: 10px;"> {{BusinessLang::where('business_id',$business->id)->first()->horario}}</span>
-				</p>
-				<p>
-					<i class="fa fa-phone" aria-hidden="true" style="color:black; font-size: 20px;"></i> 
-				     <span> {{$business->phone}}</span>
-				</p>
-			</a>
-
 			<a style="margin-bottom: 15px;"  class="col s12 m12 waves-effect waves-white textP">
-				<i class="fa fa-list-alt" aria-hidden="true" style="color:black; font-size: 20px;"></i>  
 				<span>{{BusinessLang::where('business_id',$business->id)->first()->description}}</span>
 			</a>
 		</div>	

@@ -31,11 +31,17 @@
 			<h5 style="padding: 0;margin: 0 0 20px;" class="center"> {{$lang->txt_catalogo}}</h5>
 		</div>
 
-
+<?php
+		$orders = Order::where('stay_id',$stay->id)->whereIn('state',array('programmed','just_now','ready','delivered','finalized'))->get();
+		$countOrder = $orders->count();
+		$a = 0;
+		$llang=$lang;
+?>
 		<div class="row">
  
 			 <button id="bt_pi" class="btn card   waves-effect waves-white flow-text col s12">{{$lang->txt_pedido_inmediato}}</button>
 			 <button id="bt_pg" class="btn card   waves-effect waves-white flow-text col s12">{{$lang->txt_pedido_programado}}</button>
+			 <a id="bt_pg" class="btn card   waves-effect waves-white flow-text col s12">{{$lang->txt_pedido_realizados}} ({{$countOrder}})</a>
 			 
 		</div>	
 		<div id="entregaInmediata">
@@ -44,9 +50,9 @@
 		</div>
 	
 		<div id="box_w" style=" display:none; position: relative; top: 45px;">
-				<span class="white-text">{{$lang->txt_date}}:</span>				
+				<span class="azul-text">{{$lang->txt_date}}:</span>				
 	        	<input type='text' id='asd' />
-				<span class="white-text">{{$lang->txt_time}}:</span>				
+				<span class="azul-text">{{$lang->txt_time}}:</span>				
 	        	<input type='text' id='qwe' />
 	        	<a id="okC" date="0" time="0" href="#" class="btn btn-primary">
 	        		{{$lang->txt_aceptar}}

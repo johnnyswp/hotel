@@ -4,9 +4,9 @@
 </div>
 <div class="col s8 m8" style="   margin-top: 20px;
   padding-top: 0px;">
-	<h4 class=" white-text flow-text" style="    margin: 5px 0;
+	<h4 class=" azul-text flow-text" style="    margin: 5px 0;
      font-size: .9rem;"> <b>{{$hotel->name}} </h4>
-	<h4 class=" white-text flow-text" style="    margin: 5px 0;
+	<h4 class=" azul-text flow-text" style="    margin: 5px 0;
      font-size: .9rem;"> <b>{{$lang->txt_direccion}}:</b> {{$hotel->address}} </h4>
 </div>
 <div class="divider"></div>

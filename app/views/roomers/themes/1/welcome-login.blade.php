@@ -44,7 +44,7 @@
 							@endif
 						</li>
 					</ul> 
-					<label class="white-text">* {{$lang->txt_message_ingresar_contrasena}}</label>
+					<label class="azul-text">* {{$lang->txt_message_ingresar_contrasena}}</label>
 
 					<div class="input-field col s12">
 						<button class="waves-effect waves-light btn red darken-4">{{$lang->txt_enviar}}</button>

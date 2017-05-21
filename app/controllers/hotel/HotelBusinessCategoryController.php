@@ -35,7 +35,7 @@ class HotelBusinessCategoryController extends \BaseController {
                 $first_business ='';
         }
         
-        $categories = Category::where('business_id', $first_business)->orderBy('categoryOrder', 'ASC')->get();
+        $categories = Category::where('business_id', $first_business)->where('hotel_id', $hotel->id)->orderBy('categoryOrder', 'ASC')->get();
         return View::make('hotel.pages.business_category')->with(array('categories'=>$categories, 'lang'=>$lang, 'business'=>$business, 'first_business'=>$first_business));
     }
 

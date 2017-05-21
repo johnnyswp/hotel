@@ -19,7 +19,7 @@
 				<div class="row" >
 
 					<div class="input-field col s12" style="margin-left: 0; padding-left: 0;">
-						<input id="token" name="token" type="text" class="validate" style="height: 53px; font-size: 45px; font-weight: 800;border-bottom: 1px solid #FFFFFF;">
+						<input id="token" name="token" type="text" class="validate" style="height: 53px; font-size: 45px; font-weight: 800;border-bottom: 1px solid #7c8dca; color:#7c8dca; ">
 						<input value="{{Input::get('lang')}}" id="lang" name="lang"  type="hidden">
 						<input value="{{$stay->id}}" id="stay_id" name="stay_id"  type="hidden">
 						<label for="token" style="left:0; color:white">{{$lang->txt_pass}}</label>
@@ -32,7 +32,7 @@
 								@endif
 							</li>
 						</ul> 
-					<label class="white-text">* {{$lang->txt_message_ingresar_contrasena}}</label>
+					<label class="azul-text">* {{$lang->txt_message_ingresar_contrasena}}</label>
 
 					<div class="input-field col s12">
 						<button class="waves-effect waves-light btn red darken-4">{{$lang->txt_enviar}}</button>

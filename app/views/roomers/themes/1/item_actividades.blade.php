@@ -1,6 +1,6 @@
 <?php $template = $hotel->theme; ?>
 
-@extends("roomers.themes.$template.master_roomers")
+@extends("roomers.themes.$template.master_services")
 
 @section('title', trans('main.catalog'))
 
@@ -58,21 +58,20 @@
 				</div>
 			</a>
 
-            <a style="margin: 10px 0; padding-left: 0;"  class="col s12 m12 waves-effect waves-white textP">
-				<img src="{{asset('assets/ico/reloj.png')}}" class="img-responsive" style="width: 20px;"> 
-				<span> {{$cat->since}}  - {{$cat->until}}</span>
+            <a style="margin: 1px 0; padding-left: 0;"  class="col s12 m12 waves-effect waves-white textP">
+				<img src="{{asset('assets/ico/reloj.png')}}" class="img-responsive" style="width: 15px;"> 
+				<span style="font-size: 14px;"> {{$cat->since}}  - {{$cat->until}}</span>
 			</a>            
-            <a style="margin: 10px 0; padding-left: 0;"  class="waves-effect waves-white textP">
-				<img src="{{asset('assets/ico/publico.png')}}" class="img-responsive" style="width: 20px;"> 
-				<span> {{ActivityLang::where('activity_id',$cat->id)->where('language_id',$lang->id)->first()->public}}</span>
+            <a style="margin: 1px 0; padding-left: 0;"  class="waves-effect waves-white textP">
+				<img src="{{asset('assets/ico/publico.png')}}" class="img-responsive" style="width: 15px;"> 
+				<span style="font-size: 14px;"> {{ActivityLang::where('activity_id',$cat->id)->where('language_id',$lang->id)->first()->public}}</span>
 			</a>
 <br>
-            <a style="margin: 10px 0; padding-left: 0;"  class="waves-effect waves-white textP">
-				<img src="{{asset('assets/ico/lugar.png')}}" class="img-responsive" style="width: 20px;"> 
-				<span> {{ActivityLang::where('activity_id',$cat->id)->where('language_id',$lang->id)->first()->zone}}</span>
+            <a style="margin: 1px 0; padding-left: 0;"  class="waves-effect waves-white textP">
+				<img src="{{asset('assets/ico/lugar.png')}}" class="img-responsive" style="width: 15px;"> 
+				<span style="font-size: 14px;"> {{ActivityLang::where('activity_id',$cat->id)->where('language_id',$lang->id)->first()->zone}}</span>
 			</a>
-			<a style="margin: 10px 0; padding-left: 0;"  class="col s12 m12 waves-effect waves-white textP">
-				<i class="fa fa-info" aria-hidden="true" style="color:black; font-size: 20px;"></i>
+			<a style="margin: 5px 0; padding-left: 0;"  class="col s12 m12 waves-effect waves-white textP">
 				<span> {{ActivityLang::where('activity_id',$cat->id)->where('language_id',$lang->id)->first()->description}}</span>
 			</a>
 
